@@ -1,0 +1,46 @@
+Guide: How to Order from QuickByte
+
+Step 1: Visit QuickByte Website
+Go to the QuickByte website by entering the following URL in your web browser:
+
+http://127.0.0.1:5000/
+
+Step 2: User Registration
+Click on the "Sign Up" or "Register" button on the website.
+Fill in the required information, including your name, email address, and password.
+Click on the "Register" button to create your account.
+
+Step 3: Fill Up Address Details
+Log in to your QuickByte account.
+Navigate to the "Profile" or "Account" section.
+Fill in your address details, including your delivery address and contact information.
+Save the changes.
+
+Step 4: Search for Restaurants
+Go to the "Menu" or "Explore" section of the website.
+Use the search bar to find restaurants in your area.
+Browse through the list of restaurants and their menus.
+
+Step 5: Select Food Items
+Click on a restaurant to view its menu.
+Browse through the menu items and select the dishes you want to order.
+Add the selected items to your cart.
+
+Step 6: Place Your Order
+Go to your shopping cart to review your selected items.
+Confirm your order and proceed to checkout.
+
+Step 7: Make Payment
+Choose your preferred payment method (credit card, debit card, etc.).
+Enter your payment details securely.
+Review your order and click on the "Place Order" button.
+
+Step 8: Confirmation
+You will receive an order confirmation with details such as expected delivery time.
+
+Step 9: Track Your Order
+Some food delivery services provide a tracking feature. You can use it to track the status of your order.
+Step 10: Enjoy Your Meal!
+
+Wait for your delicious food to be delivered to your doorstep.
+Once delivered, enjoy your meal!

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/QBlogo.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Login.css') }}">
+    <script src="{{ url_for('static', filename='js/UserLogin.js') }}"></script>
+    <title>Login Form</title>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='Images/signin.png') }}" alt="Background Image">
+        </div>
+        <div class="form-container">
+            <form method="POST" action="{{ url_for('login') }}">
+                <h2>Login</h2>
+                {{ form.hidden_tag() }}
+                <div class="input-container">
+                    <label for="{{ form.username.id }}"></label>
+                    {{ form.username(placeholder="Username") }}
+                </div>
+                <div class="input-container">
+                    <label for="{{ form.password.id }}"></label>
+                    {{ form.password(placeholder="Password") }}
+                </div>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

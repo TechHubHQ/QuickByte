@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/Profile.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/QBlogo.ico') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="sidebar">
+    <ul>
+      <li><a href="{{ url_for('orders') }}">My Orders</a></li>
+      <li><a href="{{ url_for('favorites') }}">Favorites</a></li>
+      <li><a href="{{ url_for('settings') }}">Settings</a></li>
+    </ul>
+  </div>
+  
+  <div class="content">
+  
+    <div class="profile-card">
+      <img src="{{ url_for('static', filename='Images/profile_pic.png') }}" alt="Profile Picture" class="profile-pic">
+      <p class="user-name">John Doe</p>
+    </div>
+  
+  </div>
+
+</div>
+
+</body>
+</html>

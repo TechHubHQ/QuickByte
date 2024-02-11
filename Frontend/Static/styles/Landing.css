@@ -1,0 +1,276 @@
+/* Frontend/Static/Styles/MainHome.css */
+
+/* Google font */
+body {
+  font-family: 'Poppins', sans-serif; 
+  margin: 0 !important; 
+}
+
+/* Layout */
+section {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* Header */
+header {
+  width: 100%;
+}
+
+.hdr-card {
+  background-color: rgb(240, 240, 240);
+  color: #090101;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hdr-lft {
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* Navbar */
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1rem;
+  padding: 0.5rem 2rem;
+  background: #e31837;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+nav a img {
+  margin-right: 0.5rem;
+}
+
+.nav-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-icon div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2em;
+}
+
+/* Search bar */
+.search-form {
+  display: inline;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-form input[type="text"] {
+  padding: 10px;
+  border: none;
+  border-radius: 5px 5px 5px 5px;
+}
+
+@media (max-width: 1000px) {
+  nav a {
+    font-size: 0;
+  }
+  
+  nav a:hover {
+    font-size: 60%;
+  }
+
+}
+
+
+/* Dish Swiper */
+.dish-swiper {
+  max-width: 1300px;
+  height: 200px;
+  background-color: #F4F3F1;
+  margin: auto;
+  margin-top: 4em;
+  margin-bottom: 4em;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dish-swiper .swiper-container {
+  width: 100%;
+}
+
+.dish-swiper .swiper-slide {
+  width: 15%;
+}
+
+.dish-swiper .slide-container {
+  display: flex;
+}
+
+.dish-swiper img {
+  width: 100px;
+  height: 130px;
+  margin-left: 8%;
+}
+
+@media (max-width: 1200px) {
+  .dish-swiper img {
+    margin-left: 5%;
+  }
+}
+
+/* Hero */
+.hero {
+  background-color: #F4F3F1;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 500px;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+/* Highlights */
+.highlights {
+  text-align: center;
+}
+
+.highlights .container {
+  display: flex;
+  justify-content: space-between;  
+}
+
+.highlights .box {
+  padding: 20px;
+  background-color: #F4F3F1;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Menu Gallery */
+.menu-gallery h2 {
+  margin-bottom: 40px;
+  text-align: center;  
+}
+
+.food-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.food {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);  
+  text-align: center;
+  background-color: #F4F3F1;
+} 
+
+.food img {
+  width: 80%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Glassmorphism */
+.hero,
+.food {
+  background-color: #F4F3F1;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card {
+  background-color: #F4F3F1;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  background-color: rgb(240, 240, 240);
+  color: rgb(10, 10, 10);
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-left {
+  flex: 1;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.footer-left h3 {
+  margin-bottom: 10px;
+}
+
+.footer-left p {
+  margin: 0;
+  font-size: 70%;
+}
+
+.footer-left p + p {
+  margin-top: 0.5em;
+}
+
+
+.footer-right {
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 70%;
+}
+
+.footer-right a {
+  color: rgb(6, 6, 6);
+  text-decoration: none;
+}

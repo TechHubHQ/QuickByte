@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>QuickByte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/QBlogo.ico') }}">
+  <script src="../Static/js/Swiper.js"></script>
+  <script src="../Static/js/ImageGetter.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/Landing.css') }}">
+</head>
+
+<body>
+
+  <header>
+    <div class="hdr-card">
+      <div class="hdr-lft">
+        <div class="logo">
+          <img src="{{ url_for('static', filename='Images/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
+        </div>
+        <form class="search-form"> 
+          <input type="text" placeholder="Search...">
+        </form>
+      </div>
+
+      <div class="hdr-rght">
+        <nav>
+          <a href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
+            Home
+          </a>
+          <a href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+            Menu
+          </a>
+          <a href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+            My Orders
+          </a>
+          <a href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/Profile.svg')}}" alt="Orders" height="20px" width="20px">
+            Profile
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="dish-swiper">
+  
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+      
+        <!-- Slides -->
+        {% for i in range(0, images|length, 6) %}
+            <div class="swiper-slide">
+                <!-- Container for multiple images in a single slide -->
+                <div class="image-container">
+                    {% for j in range(i, i+6) %}
+                        {% if j < images|length %}
+                            <img src="{{ url_for('static', filename=images[j]) }}" alt="Dish Image">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+  
+      </div>
+    </div>
+  
+  </div>
+
+  <main>
+
+    <section class="hero">
+      <h1>What are you craving today?</h1>
+      <p>Get your favorite meals delivered fast & fresh!</p>
+      <a href="{{ url_for('menu') }}" class="btn">View Menu</a>
+    </section>
+
+    <section class="highlights">
+      
+      <div class="container">
+
+        <div class="box">
+          <h2>⭐⭐⭐⭐⭐</h2>
+          <p>Highest rated food app of 2020!</p> 
+        </div>
+
+        <div class="box">
+          <h2>35 min</h2>
+          <p>Average delivery time</p>
+        </div>
+
+        <div class="box">
+          <h2>500+</h2>
+          <p>Menu items to choose from</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="menu-gallery">
+      
+      <h2>Trending Now</h2>
+
+      <div class="food-container">
+        
+        <div class="food pizza">
+          <img src="{{ url_for('static', filename='Images/pizza.png') }}" alt="Pizza">
+          <div class="details">
+            <h3>Pepperoni Pizza</h3>
+            <p>Pepperoni, mozzarella cheese, pizza sauce</p>
+            <p class="price">₹300</p>
+          </div>
+        </div>
+
+        <div class="food burger">
+          <img src="{{ url_for('static', filename='Images/burger.png') }}" alt="Burger">
+          <div class="details">
+            <h3>Classic Burger</h3>
+            <p>Beef patty, cheese, lettuce, tomato, onion</p>
+            <p class="price">₹200</p>  
+          </div>
+        </div>
+
+        <div class="food pasta">
+          <img src="{{ url_for('static', filename='Images/pasta.png') }}" alt="pasta">
+          <div class="details">
+            <h3>Creamy Shrimp Alfredo</h3>
+            <p>Fettuccine, shrimp, garlic, cream sauce</p>
+            <p class="price">₹130</p>
+          </div>
+        </div>
+        
+      </div>
+      
+    </section>
+
+  </main>
+  
+  <footer>
+    <div class="footer-left">
+      <h3>About QuickByte</h3>
+      <p>Fast, Convenient and Delicious food</p>
+      <p>Delivered to your doorstep!</p>
+      <p>&copy; QuickByte 2024</p>
+    </div>
+    <div class="footer-right">
+      <b><a href="#">> Help Center</a></b>
+      <b><a href="#">> How to Order</a></b>
+      <b><a href="#">> Become an Associate</a></b>
+    </div>
+  </footer>
+
+</body>
+</html>

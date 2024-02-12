@@ -1,5 +1,5 @@
 import requests
-from Backend.app import app
+from app import app
 from Backend.Models.QBmLoadRestaurantsByID import CreateRestaurant, RestaurantsByLoc
 from Backend.Models.QBmLoadLocationID import CityLocation
 from Backend.Connections.QBcDBConnector import db

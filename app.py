@@ -7,7 +7,7 @@ from Backend.Models.QBmLoadAddress import CreateAddress
 from Backend.Connections.QBcDBConnector import init_db
 from Config.AppConfig import Config
 
-app = Flask(__name__, template_folder='../Frontend/Templates', static_folder='../Frontend/Static')
+app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
 app.config.from_object(Config)
 init_db(app)
 

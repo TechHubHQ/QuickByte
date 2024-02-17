@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add the image to the current image container
                 const currentSlide = swiperContainer.lastChild;
                 const imageContainer = currentSlide.querySelector('.image-container');
-                const imageUrl = '../Static/Images/' + image;
+                const imageUrl = '../Static/Images/lib/' + image;
                 const imageElement = document.createElement('img');
                 imageElement.src = imageUrl;
                 imageElement.alt = 'Dish Image';

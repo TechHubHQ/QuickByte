@@ -13,7 +13,7 @@
   <header>
     <div class="hdr-card">
       <div class="logo">
-        <img src="{{ url_for('static', filename='Images/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
+        <img src="{{ url_for('static', filename='Images/common/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
       </div>
 
       <nav>
@@ -23,15 +23,15 @@
           <div class="bar"></div>
         </div>
 
-        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='Images/Home.svg')}}" alt="HomeIcon">
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon">
           Home
         </a>
 
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='Images/UserLogin.svg')}}" alt="LoginIcon">
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='Images/svg/UserLogin.svg')}}" alt="LoginIcon">
           Login
         </a>
 
-        <a href="{{ url_for('signup') }}"><img src="{{ url_for('static', filename='Images/UserSignUp.svg')}}" alt="SignUpIcon">
+        <a href="{{ url_for('signup') }}"><img src="{{ url_for('static', filename='Images/svg/UserSignUp.svg')}}" alt="SignUpIcon">
           Sign Up
         </a>
       </nav>
@@ -53,19 +53,19 @@
 
       <div class="cards">
         <div class="card">
-          <img src="{{ url_for('static', filename='Images/fast.png') }}" alt="">
+          <img src="{{ url_for('static', filename='Images/common/fast.png') }}" alt="">
           <h3>Fast Delivery</h3>
           <p>Your order delivered in 30 mins or less!</p>
         </div>
 
         <div class="card">
-          <img src="{{ url_for('static', filename='Images/chef.png') }}" alt="">
+          <img src="{{ url_for('static', filename='Images/common/chef.png') }}" alt="">
           <h3>Top Chefs</h3>
           <p>Meals prepared by our talented chefs.</p>
         </div>
 
         <div class="card">
-          <img src="{{ url_for('static', filename='Images/stars.png') }}" alt="">
+          <img src="{{ url_for('static', filename='Images/common/stars.png') }}" alt="">
           <h3>Outstanding Reviews</h3>
           <p>Rated 5 stars by thousands of customers.</p>
         </div>
@@ -77,7 +77,7 @@
       
       <div class="dishes">
         <div class="dish">
-          <img src="{{ url_for('static', filename='Images/pizza.png') }}" alt="">
+          <img src="{{ url_for('static', filename='Images/lib/pizza.png') }}" alt="">
           <h3>Pepperoni Pizza</h3>
           <p>Our famous pepperoni pizza, delivered hot and fresh.</p>
           <p class="price">₹500</p>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="dish">
-          <img src="{{ url_for('static', filename='Images/pasta.png') }}" alt="">
+          <img src="{{ url_for('static', filename='Images/lib/pasta.png') }}" alt="">
           <h3>Shrimp Alfredo</h3>
           <p>Fettuccine pasta in a creamy sauce with shrimp.</p>
           <p class="price">₹130</p>

@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add the image to the current image container
                 const currentSlide = swiperContainer.lastChild;
                 const imageContainer = currentSlide.querySelector('.image-container');
-                const imageUrl = '../Static/Images/lib/' + image;
+                const imageUrl = '../Static/Images/Img/' + image;
                 const imageElement = document.createElement('img');
                 imageElement.src = imageUrl;
                 imageElement.alt = 'Dish Image';
@@ -31,4 +31,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         })
         .catch(error => console.error('Error fetching images:', error));
-});
+    });

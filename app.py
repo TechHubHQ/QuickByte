@@ -215,5 +215,23 @@ def get_profile_image(username):
     return image_path if os.path.exists(image_path) else None
 
 
+@app.route('/update_profile')
+def update_profile():
+    # TODO: Write Logic
+    return render_template('Profile.html')
+
+
+@app.route('/update_preferences')
+def update_preferences():
+    # TODO: Write Logic
+    return render_template('Profile.html')
+
+
+@app.route('/update_delv')
+def update_delv():
+    #  TODO: Write Logic
+    return render_template('Profile.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

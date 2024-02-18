@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/QBlogo.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/AddressDetails.css') }}">
+    <script src="../Static/js/StatesDropdownGetter.js"></script>
     <title>Address Details</title>
 </head>
 
@@ -20,27 +21,32 @@
       <form method="POST" action="{{ url_for('address') }}">
         {{ form.csrf_token }}
         <input type="hidden" name="csrf_token" value="tokenvalue123">
+
         <div class="input-container">
           <input type="text" name="line1" placeholder="Line 1">
         </div>
-        
+
         <div class="input-container">
           <input type="text" name="landmark" placeholder="Land Mark">
         </div>
 
         <div class="input-container">
-          <input type="text"  name="city" placeholder="City">
+          <select id="stateDropdown" name="state" onchange="updateDistricts()">
+            <option value="">Select State</option>
+          </select>
         </div>
 
         <div class="input-container">
-          <input type="text" name="state" placeholder="State">
+          <select name="district" id="districtDropdown">
+            <option value="">Select District</option>
+          </select>
         </div>
-        
+
         <div class="input-container">
           <input type="text" name="zip_code" placeholder="Zip Code">
         </div>
 
-        <button>Save</button>       
+        <button>Save</button>
       </form>
     </div>
   </div>

@@ -14,7 +14,7 @@ headers = {
     "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com"
 }
 
-cities_list = Address.query.with_entities(Address.city).distinct().all()
+cities_list = Address.query.with_entities(Address.district).distinct().all()
 cities = [city[0] for city in cities_list]
 
 for city in cities:

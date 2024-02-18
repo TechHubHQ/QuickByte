@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
-from werkzeug.utils import secure_filename
 from datetime import datetime
 from Backend.Connections.QBcDBConnector import init_db
 from Backend.Models.QBmLoadAddress import CreateAddress
@@ -122,13 +121,13 @@ def address():
         user_email = email
         line1 = request.form['line1']
         land_mark = request.form['landmark']
-        city = request.form['city']
         state = request.form['state']
+        district = request.form['district']
         zip_code = request.form['zip_code']
-        CreateAddress(user_email, line1, land_mark, city, state, zip_code)
+        CreateAddress(user_email, line1, land_mark, district, state, zip_code)
         flash('Address saved successfully!', 'success')
-        print("redirecting to landing page..")
-        return redirect(url_for('landing'))
+        print("redirecting to login page..")
+        return redirect(url_for('login'))
 
     return render_template('AddressDetails.html', form=form)
 
@@ -213,7 +212,6 @@ def upload_image():
 def get_profile_image(username):
     username_with_extension = f"{username}.jpg"
     image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
-    print(f"{image_path}")
     return image_path if os.path.exists(image_path) else None
 
 

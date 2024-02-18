@@ -79,7 +79,7 @@
             <form id="profile-image-form" enctype="multipart/form-data">
                 <div class="profile-image-container">
                     <label for="profile-image-upload" class="profile-image-label">
-                      {% if user.username %}
+                      {% if profile_image_url %}
                         <img src="{{ url_for('static', filename='Images/Users/' + user.username.replace(' ', '_') + '.jpg') }}" alt="Profile Image" class="profile-image">
                       {% else %}
                         <img src="{{ url_for('static', filename='Images/Users/default_profile_pic.png') }}" alt="Default Profile Image" class="profile-image">

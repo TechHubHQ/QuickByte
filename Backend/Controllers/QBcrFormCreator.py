@@ -23,8 +23,8 @@ class SignupForm(FlaskForm):
 class AddressDetailsForm(FlaskForm):
     line1 = StringField('Address Line 1', validators=[DataRequired()])
     land_mark = StringField('Land Mark')
-    city = StringField('City', validators=[DataRequired()])
     state = StringField('State', validators=[DataRequired()])
+    district = StringField('District', validators=[DataRequired()])
     zip_code = StringField('Zip Code', validators=[DataRequired()])
     submit = SubmitField('Save Address')
 

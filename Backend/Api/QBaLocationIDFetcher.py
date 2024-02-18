@@ -1,7 +1,7 @@
 import requests
 from app import app
 from Backend.Models.QBmLoadLocationID import CityLocation, CreateLocationID
-from Backend.Models.QBmLoadAddress import Address
+from Backend.Models.QBmAddressModel import Address
 from Backend.Connections.QBcDBConnector import db
 
 app.app_context().push()

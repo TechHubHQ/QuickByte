@@ -10,6 +10,8 @@ class Address(db.Model):
     district = db.Column(db.String)
     state = db.Column(db.String)
     zip_code = db.Column(db.String)
+    preferred_delv_start_time = db.Column(db.String, default='00:00')
+    preferred_delv_end_time = db.Column(db.String, default='00:00')
 
 
 def CreateAddress(user_email, addr_line1, land_mark, district, state, zip_code):

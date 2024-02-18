@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>User Settings</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+  <link rel="stylesheet" href="{{url_for('static', filename='styles/Settings.css')}}">
+  <script src="{{url_for('static', filename='js/StatesDropDownGetter.js')}}"></script>
+</head>
+
+<body>
+  <header>
+    <div class="header-card">
+      <div class="header-left">
+        <div class="logo">
+          <img src="{{ url_for('static', filename='Images/common/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <nav class="navbar">
+          <a class="navbar-link" href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
+            Home
+          </a>
+          <a class="navbar-link" href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+            Menu
+          </a>
+          <a class="navbar-link" href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+            My Orders
+          </a>
+          <a class="navbar-link" href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
+            Profile
+          </a>
+          <a href="{{ url_for('logout') }}" class="logout-btn"><img src="{{ url_for('static', filename='Images/svg/logout.svg')}}" alt="Orders" height="20px" width="20px">
+            Logout
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <!-- sidebar.html -->
+
+  <div class="sidebar-container">
+    <div>
+      <nav class="side-nav">
+        <a class="sidebar-link" href="{{ url_for('orders') }}">
+          <img src="{{ url_for('static', filename='Images/svg/shopping-cart.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px" >
+          My Orders
+        </a>
+
+        <a class="sidebar-link" href="#">
+          <img src="{{ url_for('static', filename='Images/svg/credit-card.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+          My Payments
+        </a>
+
+        <a class="sidebar-link" href="#">
+          <img src="{{ url_for('static', filename='Images/svg/address-location.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+          My Address
+        </a>
+
+        <a class="sidebar-link" href="{{ url_for('settings') }}">
+          <img src="{{ url_for('static', filename='Images/svg/settings.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+          Settings
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Account Settings</h2>
+    
+    <form action="{{url_for('update_profile')}}" method="POST">
+      <div class="form-group">
+        <label for="username">Change Username:</label>
+        <input type="text" name="username" id="username"> 
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Change Password:</label>    
+        <input type="password" name="password" id="password">
+      </div>
+      
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Preferences</h2>
+    
+    <form action="{{url_for('update_preferences')}}" method="POST">
+      <div class="form-group">
+        <input type="checkbox" name="email_notifications" id="email_notifications">
+        <label for="email_notifications">Email Notifications</label>
+      </div>
+      
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Delivery Settings</h2>
+    
+    <form action={{url_for('update_delv')}} method="POST">
+      <div class="form-group">
+        <label for="line1">Address Line 1:</label>
+        <input type="text" name="line1" id="line1">
+      </div>
+
+      <div class="form-group">
+        <label for="landmark">Landmark:</label>
+        <input type="text" name="landmark" id="landmark">
+      </div>
+
+      <div class="form-group">
+        <label for="state">State:</label>
+        <select id="stateDropdown" name="state" onchange="updateDistricts()">
+          <option value="">Select State</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="city">City:</label>
+        <select name="district" id="districtDropdown">
+          <option value="">Select District</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="delivery_time">Preferred Delivery Time:</label>
+
+        <input type="time" name="delv_start_time" id="delv_start_time"> to 
+        <input type="time" name="delv_end_time" id="delv_end_time">
+      </div>
+      
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <h3>About QuickByte</h3>
+      <p>Fast, Convenient and Delicious food</p>
+      <p>Delivered to your doorstep!</p>
+      <p>&copy; QuickByte 2024</p>
+    </div>
+    <div class="footer-right">
+      <b><a href="#">> Help Center</a></b>
+      <b><a href="#">> How to Order</a></b>
+      <b><a href="#">> Become an Associate</a></b>
+    </div>
+  </footer>
+
+</body>
+</html>

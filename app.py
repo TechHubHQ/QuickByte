@@ -3,8 +3,8 @@ from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
 from datetime import datetime
 from Backend.Connections.QBcDBConnector import init_db
-from Backend.Models.QBmLoadAddress import CreateAddress
-from Backend.Models.QBmLoadUsers import QBUser, ValidateUser, CreateUser, CheckUser
+from Backend.Models.QBmAddressModel import CreateAddress
+from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
 from Config.AppConfig import Config
@@ -61,7 +61,7 @@ def profile():
         formatted_username = user.username.replace(' ', '_') if user else None
         profile_image_url = get_profile_image(formatted_username) if formatted_username else None
         print(f"url: {profile_image_url}")
-        return render_template('Profile.html', user=user,  profile_image_url=profile_image_url)
+        return render_template('Profile.html', user=user, profile_image_url=profile_image_url)
     else:
         return redirect(url_for('login'))
 
@@ -215,22 +215,70 @@ def get_profile_image(username):
     return image_path if os.path.exists(image_path) else None
 
 
-@app.route('/update_profile')
+@app.route('/update_profile', methods=['POST'])
 def update_profile():
-    # TODO: Write Logic
-    return render_template('Profile.html')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if username:
+        old_pass = QBUser.query.filter_by(username=username).first().password
+        if old_pass == password:
+            flash('New password cannot be same as old password', 'danger')
+            return redirect(url_for('settings'))
+        else:
+            UserController.UpdateUser(username, password)
+            flash('User details updated Successfully', 'success')
+            print(f"user details updated with data --> username: {username}, key: {password}")
+            return redirect(url_for('settings'))
+    elif 'username' in session:
+        username = session['username']
+
+        if CheckUser(username, password):
+            flash('New password cannot be same as old password', 'danger')
+            return redirect(url_for('settings'))
+        else:
+            UserController.UpdateUser(username, password)
+            flash('User details updated Successfully', 'success')
+            print(f"user details updated with data --> username: {username}, key: {password}")
+            return redirect(url_for('settings'))
+    else:
+        flash('User not logged in', 'danger')
+        return redirect(url_for('login'))
 
 
-@app.route('/update_preferences')
+@app.route('/update_preferences', methods=['POST'])
 def update_preferences():
-    # TODO: Write Logic
-    return render_template('Profile.html')
+    if 'username' in session:
+        username = session['username']
+        preferences = request.form.get('email_notifications')
+        preferences = True if preferences == 'on' else False
+        UserController.UpdatePreferences(username, preferences)
+        return redirect(url_for('settings'))
+    else:
+        return redirect(url_for('login'))
 
 
-@app.route('/update_delv')
+@app.route('/update_delv', methods=['POST'])
 def update_delv():
-    #  TODO: Write Logic
-    return render_template('Profile.html')
+    line1 = request.form.get('line1')
+    landmark = request.form.get('landmark')
+    state = request.form.get('state')
+    district = request.form.get('district')
+    preferred_delv_start_time = request.form.get('delv_start_time')
+    preferred_delv_end_time = request.form.get('delv_end_time')
+    if 'username' in session:
+        username = session['username']
+        user = QBUser.query.filter_by(username=username).first()
+        email = user.email
+        UserController.UpdateDelivery(
+            email,
+            line1,
+            landmark,
+            state,
+            district,
+            preferred_delv_start_time,
+            preferred_delv_end_time
+        )
+    return redirect(url_for('settings'))
 
 
 if __name__ == '__main__':

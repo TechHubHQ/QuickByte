@@ -1,4 +1,4 @@
-# QBmLoadUsers.py
+# QBmUserModel.py
 
 from Backend.Connections.QBcDBConnector import db, bcrypt
 

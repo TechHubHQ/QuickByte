@@ -1,33 +1,115 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My Profile</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/Profile.css') }}">
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/QBlogo.ico') }}">
-</head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Profile Page</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Profile.css') }}">
+    <script src='../Static/js/ProfileUploader.js'></script>
+  </head>
 
-<body>
+  <body class="body-bg">
+    <header>
+      <div class="header-card">
+        <div class="header-left">
+          <div class="logo">
+            <img src="{{ url_for('static', filename='Images/common/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
+          </div>
+        </div>
 
-<div class="container">
+        <div class="header-right">
+          <nav class="navbar">
+            <a class="navbar-link" href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
+              Home
+            </a>
+            <a class="navbar-link" href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+              Menu
+            </a>
+            <a class="navbar-link" href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+              My Orders
+            </a>
+            <a class="navbar-link" href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
+              Profile
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
 
-  <div class="sidebar">
-    <ul>
-      <li><a href="{{ url_for('orders') }}">My Orders</a></li>
-      <li><a href="{{ url_for('favorites') }}">Favorites</a></li>
-      <li><a href="{{ url_for('settings') }}">Settings</a></li>
-    </ul>
-  </div>
-  
-  <div class="content">
-  
-    <div class="profile-card">
-      <img src="{{ url_for('static', filename='Images/profile_pic.png') }}" alt="Profile Picture" class="profile-pic">
-      <p class="user-name">John Doe</p>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar-container">
+        <div class="sidebar-padding">
+          <nav>
+            <a class="sidebar-link" href="{{ url_for('orders') }}">
+              <img src="{{ url_for('static', filename='Images/svg/shopping-cart.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px" >
+              My Orders
+            </a>
+
+            <a class="sidebar-link" href="#">
+              <img src="{{ url_for('static', filename='Images/svg/credit-card.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+              My Payments
+            </a>
+
+            <a class="sidebar-link" href="#">
+              <img src="{{ url_for('static', filename='Images/svg/address-location.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+              My Address
+            </a>
+
+            <a class="sidebar-link" href="#">
+              <img src="{{ url_for('static', filename='Images/svg/settings.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+              Settings
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <h2 class="profile-heading">My Profile</h2>
+        <p class="profile-description">Welcome back! Manage your account here.</p>
+        <div class="profile-grid">
+            <!-- User Details -->
+            <div>
+                <label class="profile-label">Name</label>
+                <p>{{ user.username }}</p>
+                <label class="profile-label">Email</label>
+                <p>{{ user.email }}</p>
+            </div>
+            <form id="profile-image-form" enctype="multipart/form-data">
+                <div class="profile-image-container">
+                    <label for="profile-image-upload" class="profile-image-label">
+                      {% if user.username %}
+                        <img src="{{ url_for('static', filename='Images/Users/' + user.username.replace(' ', '_') + '.jpg') }}" alt="Profile Image" class="profile-image">
+                      {% else %}
+                        <img src="{{ url_for('static', filename='Images/Users/default_profile_pic.png') }}" alt="Default Profile Image" class="profile-image">
+                      {% endif %}
+                        <input type="file" name="profile_image" id="profile-image-upload">
+                    </label>
+                </div>
+                <div class="upload-btn">
+                    <button type="button" onclick="uploadImage()">Upload Image</button>
+                </div>
+            </form>
+            <div id="upload-message"></div>
+        </div>
     </div>
-  
-  </div>
+    
+    </div>
 
-</div>
+    <footer>
+      <div class="footer-left">
+        <h3>About QuickByte</h3>
+        <p>Fast, Convenient and Delicious food</p>
+        <p>Delivered to your doorstep!</p>
+        <p>&copy; QuickByte 2024</p>
+      </div>
+      <div class="footer-right">
+        <b><a href="#">> Help Center</a></b>
+        <b><a href="#">> How to Order</a></b>
+        <b><a href="#">> Become an Associate</a></b>
+      </div>
+    </footer>
 
-</body>
-</html>
+  </body>
+</html> 

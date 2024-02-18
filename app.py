@@ -1,17 +1,23 @@
+import os
 from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
+from werkzeug.utils import secure_filename
 from datetime import datetime
-from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
-from Backend.Models.QBmLoadUsers import ValidateUser, CreateUser, CheckUser
-from Backend.Models.QBmLoadAddress import CreateAddress
 from Backend.Connections.QBcDBConnector import init_db
+from Backend.Models.QBmLoadAddress import CreateAddress
+from Backend.Models.QBmLoadUsers import QBUser, ValidateUser, CreateUser, CheckUser
+from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
+from Backend.Controllers.QBcrUserController import UserController
 from Config.AppConfig import Config
 
 app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
 app.config.from_object(Config)
+base_dir = os.path.abspath(os.path.dirname(__file__))
+app.config['UPLOAD_FOLDER'] = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'])
 init_db(app)
 
 
+# Page Routes
 @app.route('/')
 def home():
     return render_template('Home.html')
@@ -50,9 +56,13 @@ def orders():
 
 @app.route('/profile')
 def profile():
-    print(session)
     if 'username' in session:
-        return render_template('Profile.html')
+        user_name = session['username']
+        user = QBUser.query.filter_by(username=user_name).first()
+        formatted_username = user.username.replace(' ', '_') if user else None
+        profile_image_url = get_profile_image(formatted_username) if formatted_username else None
+        print(f"url: {profile_image_url}")
+        return render_template('Profile.html', user=user,  profile_image_url=profile_image_url)
     else:
         return redirect(url_for('login'))
 
@@ -123,11 +133,6 @@ def address():
     return render_template('AddressDetails.html', form=form)
 
 
-@app.route('/favorites')
-def favorites():
-    return render_template('Favorites.html')
-
-
 @app.route('/settings')
 def settings():
     return render_template('Settings.html')
@@ -150,6 +155,7 @@ def admin():
         return redirect(url_for('login'))
 
 
+# API Module
 @app.route('/api/images')
 def GetImages():
     morning_images = [
@@ -187,6 +193,28 @@ def GetImages():
         images = night_images
 
     return jsonify(images)
+
+
+@app.route('/upload_image', methods=['POST'])
+def upload_image():
+    if 'username' in session:
+        profile_img = request.files['profile_image']
+
+        if profile_img:
+            UserController.SaveImage(session['username'], profile_img)
+            return jsonify({'message': 'Image uploaded successfully'})
+        else:
+            print("No image selected")
+            return jsonify({'message': 'No image selected'})
+    else:
+        return jsonify({'message': 'User not logged in'})
+
+
+def get_profile_image(username):
+    username_with_extension = f"{username}.jpg"
+    image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
+    print(f"{image_path}")
+    return image_path if os.path.exists(image_path) else None
 
 
 if __name__ == '__main__':

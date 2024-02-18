@@ -77,7 +77,7 @@ nav a img {
 /* Hero board */
 
 .hero {
-  background-image: url('../Images/home.png');
+  background-image: url('../Images/common/home.png');
   height: 500px;
   display: flex;
   align-items: center;

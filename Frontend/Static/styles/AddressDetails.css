@@ -35,6 +35,56 @@ body {
 .image-container img {
   margin-left: 2em;
 }
+/* Form container */
+.form-container {
+  border: 1px solid #ccc;
+  border-radius: 0 20px 20px 0;
+}
+
+/* Inputs */
+.input-container {
+  border-radius: 4px;
+  margin: 10px 0;  
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: #e6e6e6;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+  background-position: calc(100% - 20px) center;
+}
+
+/* Button */
+button {
+  border: 1px solid #3b56d8; 
+}
+
+button:hover {
+  background: #3b56d8;
+}
+
+/* Image */
+.image-container {
+  border: 1px solid #ddd;
+  border-radius: 20px 0 0 20px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .form-container {
+    border-radius: 0 0 20px 20px;  
+  }
+  
+  .image-container {
+    border-radius: 20px 20px 0 0;
+  }
+
+}
 
 /* Form */
 
@@ -62,18 +112,18 @@ body {
 .input-container {
   position: relative;
   margin: 10px 0;
-  width: 100%;
+  
 }
 
-input {
-  width: 100%;
+input{
+  width: 90%;
   padding: 10px;
   border: none;
   outline: none;
   border-radius: 8px;
   background: #e6e6e6;
   box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
-} 
+}
 
 
 /* Button */
@@ -97,7 +147,7 @@ button {
   .container {
     flex-direction: column;
   }
-  
+
   .image-container {
     height: 200px;
     border-radius: 20px 20px 0 0; 

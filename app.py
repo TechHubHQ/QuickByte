@@ -66,6 +66,15 @@ def profile():
         return redirect(url_for('login'))
 
 
+@app.route("/help")
+def help():
+    print(session)
+    if 'username' in session:
+        return render_template('Help_Center.html')
+    else:
+        redirect(url_for('login'))
+
+
 # QBUser Module
 @app.route('/login', methods=['GET', 'POST'])
 def login():

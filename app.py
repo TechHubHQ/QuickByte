@@ -153,6 +153,14 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/associate")
+def associate():
+    if 'username' in session:
+        return render_template("Associate.html")
+    else:
+        redirect(url_for('login'))
+
+
 # Admin Module
 @app.route('/admin')
 def admin():

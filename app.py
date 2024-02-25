@@ -66,6 +66,15 @@ def profile():
         return redirect(url_for('login'))
 
 
+@app.route("/help")
+def help():
+    print(session)
+    if 'username' in session:
+        return render_template('Help_Center.html')
+    else:
+        redirect(url_for('login'))
+
+
 # QBUser Module
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -142,6 +151,14 @@ def logout():
     # Remove the email from the session
     session.pop('username', None)
     return redirect(url_for('home'))
+
+
+@app.route("/associate")
+def associate():
+    if 'username' in session:
+        return render_template("Associate.html")
+    else:
+        redirect(url_for('login'))
 
 
 # Admin Module

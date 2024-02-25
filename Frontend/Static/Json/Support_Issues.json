@@ -1,0 +1,38 @@
+{
+  "categories": [
+    {
+      "name": "Technical",
+      "subcategories": [
+        "Login Issues",
+        "Connection Problems",
+        "Software Bugs",
+        "Website Errors"
+      ]
+    },
+    {
+      "name": "Account",
+      "subcategories": [
+        "Account Creation",
+        "Password Reset",
+        "Subscription Management",
+        "Billing Questions"
+      ]
+    },
+    {
+      "name": "Payment",
+      "subcategories": [
+        "Payment Failure",
+        "Refund Request",
+        "Transaction Issues"
+      ]
+    },
+    {
+      "name": "Other",
+      "subcategories": [
+        "General Inquiry",
+        "Feedback",
+        "Report Abuse"
+      ]
+    }
+  ]
+}

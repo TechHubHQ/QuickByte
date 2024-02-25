@@ -44,109 +44,100 @@
     </div>
   </header>
 
-  <div class="restaurant-list">
-    <!-- Restaurant 1 -->
-    <div class="restaurant-card">
-      <img src="restaurant1.jpg" alt="Restaurant 1" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Delicious Bites</div>
-        <div class="restaurant-description">A taste of perfection in every bite.</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
+  <div class="dish-swiper">
+  
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+      
+        <!-- Slides -->
+        {% for i in range(0, images|length, 6) %}
+            <div class="swiper-slide">
+                <!-- Container for multiple images in a single slide -->
+                <div class="image-container">
+                    {% for j in range(i, i+6) %}
+                        {% if j < images|length %}
+                            <img src="{{ url_for('static', filename=images[j]) }}" alt="Dish Image">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+  
       </div>
     </div>
-
-    <!-- Restaurant 2 -->
-    <div class="restaurant-card">
-      <img src="restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-
-    <!-- Restaurant 3 -->
-    <div class="restaurant-card">
-      <img src="restaurant3.jpg" alt="Restaurant 3" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-
-    <!-- Restaurant 4 -->
-    <div class="restaurant-card">
-      <img src="restaurant4.jpg" alt="Restaurant 4" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-    <!-- Restaurant 5 -->
-    <div class="restaurant-card">
-      <img src="restaurant5.jpg" alt="Restaurant 5" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-    <!-- Restaurant 6 -->
-    <div class="restaurant-card">
-      <img src="restaurant6.jpg" alt="Restaurant 6" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-    <!-- Add more restaurant cards as needed -->
-
+  
   </div>
+
+  <main>
+
+    <section class="hero">
+      <h1>What are you craving today?</h1>
+      <p>Get your favorite meals delivered fast & fresh!</p>
+      <a href="{{ url_for('menu') }}" class="btn">View Menu</a>
+    </section>
+
+    <section class="highlights">
+      
+      <div class="container">
+
+        <div class="box">
+          <h2>⭐⭐⭐⭐⭐</h2>
+          <p>Highest rated food app of 2020!</p> 
+        </div>
+
+        <div class="box">
+          <h2>35 min</h2>
+          <p>Average delivery time</p>
+        </div>
+
+        <div class="box">
+          <h2>500+</h2>
+          <p>Menu items to choose from</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="menu-gallery">
+      
+      <h2>Trending Now</h2>
+
+      <div class="food-container">
+        
+        <div class="food pizza">
+          <img src="{{ url_for('static', filename='Images/IMGLib/pizza.png') }}" alt="Pizza">
+          <div class="details">
+            <h3>Pepperoni Pizza</h3>
+            <p>Pepperoni, mozzarella cheese, pizza sauce</p>
+            <p class="price">₹300</p>
+          </div>
+        </div>
+
+        <div class="food burger">
+          <img src="{{ url_for('static', filename='Images/IMGLib/burger.png') }}" alt="Burger">
+          <div class="details">
+            <h3>Classic Burger</h3>
+            <p>Beef patty, cheese, lettuce, tomato, onion</p>
+            <p class="price">₹200</p>  
+          </div>
+        </div>
+
+        <div class="food pasta">
+          <img src="{{ url_for('static', filename='Images/IMGLib/pasta.png') }}" alt="pasta">
+          <div class="details">
+            <h3>Creamy Shrimp Alfredo</h3>
+            <p>Fettuccine, shrimp, garlic, cream sauce</p>
+            <p class="price">₹130</p>
+          </div>
+        </div>
+        
+      </div>
+      
+    </section>
+
+  </main>
+  
   <footer>
     <div class="footer-left">
       <h3>About QuickByte</h3>

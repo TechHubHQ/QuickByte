@@ -5,37 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Restaurant List</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/Restaurants.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
 </head>
 <body>
   <header>
-    <div class="hdr-card">
-      <div class="hdr-lft">
+    <div class="header-card">
+      <div class="header-left">
         <div class="logo">
           <img src="{{ url_for('static', filename='Images/common/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
         </div>
-        <form class="search-form"> 
-          <input type="text" placeholder="Search...">
-        </form>
       </div>
 
-      <div class="hdr-rght">
-        <nav>
-          <a href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
+      <div class="header-right">
+        <nav class="navbar">
+          <a class="navbar-link" href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
             Home
           </a>
-          <a href="{{ url_for('restaurants') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
-            Restaurants
+          <a class="navbar-link" href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+            Menu
           </a>
-          <a href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+          <a class="navbar-link" href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
             My Orders
           </a>
-          <a href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
+          <a class="navbar-link" href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
             Profile
           </a>
         </nav>
       </div>
     </div>
   </header>
+
+  <div class="main-hdr-card">
 
   <div class="restaurant-list">
     <!-- Restaurant 1 -->
@@ -137,6 +137,7 @@
         <button class="view-menu-btn">View Menu</button>
       </div>
     </div>
+  </div>
     <!-- Add more restaurant cards as needed -->
 
   </div>

@@ -1,6 +1,11 @@
 body {
     font-family: 'Poppins', sans-serif; 
     margin: 0 !important; 
+  
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;    
   }
   
   /* Layout */
@@ -15,6 +20,40 @@ body {
     width: 100%;
   }
   
+  .header-card {
+    background-color: rgb(240, 240, 240);
+    color: #090101;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+
+  .main-hdr-card {
+    background-color: #F4F3F1;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 1%;
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 40px;
+  }
+
   .hdr-card {
     background-color: rgb(240, 240, 240);
     color: #090101;
@@ -37,55 +76,47 @@ body {
   
   
   /* Navbar */
-  nav {
-    display: flex;
-    align-items: center;
-  }
-  
-  nav ul {
-    list-style: none;
-    display: flex;
-  }
-  
-  nav li {
-    margin-right: 20px;
-  }
-  
-  nav a {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 1rem;
-    padding: 0.5rem 2rem;
-    background: #e31837;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-  
-  nav a img {
-    margin-right: 0.5rem;
-  }
-  
-  .nav-icon {
-    display: none;
-    cursor: pointer;
-  }
-  
-  .nav-icon div {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    margin: 5px 0;
-  }
-  
-  .logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 2em;
-  }
-  
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navbar a {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1rem;
+  padding: 0.5rem 2rem;
+  background: #e31837;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+nav a img {
+  margin-right: 0.5rem;
+}
+
+.nav-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-icon div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2em;
+}
+
   /* Search bar */
   .search-form {
     display: inline;
@@ -108,19 +139,6 @@ body {
       font-size: 60%;
     }
   
-  }
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-  }
-  
-  header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
   }
   
   .restaurant-list {
@@ -234,4 +252,44 @@ body {
     color: rgb(6, 6, 6);
     text-decoration: none;
   }
+  /* Mobile */
+
+@media (max-width: 1000px)  {
+
+  body{
+    width: fit-content;
+  }
+
+  header {
+      width: 100%;
+  }
+
+  .sidebar-container {
+    position: static;
+    width: 100%; 
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-content{
+    padding :13rem 2rem;
+  }
+
+
+  .side-nav {
+      display: flex;
+  }
+
+}
+
+@media (max-width: 1000px) {
+  nav a {
+    font-size: 0;
+  }
   
+  nav a:hover {
+    font-size: 60%;
+  }
+
+}

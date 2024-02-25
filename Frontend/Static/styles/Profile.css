@@ -12,7 +12,7 @@ header {
 .header-card {
   background-color: rgb(240, 240, 240);
   color: #090101;
-  padding: 1rem 2rem;
+  padding: 1rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,9 +32,10 @@ header {
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
-.navbar-link {
+.navbar a {
   display: inline-flex;
   align-items: center;
   margin-right: 1rem;
@@ -46,50 +47,93 @@ header {
   flex-shrink: 0;
 }
 
-.navbar-link img {
+nav a img {
   margin-right: 0.5rem;
 }
 
-.container {
+.nav-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-icon div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+}
+
+.logo {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2em;
 }
 
 /* Sidebar */
+
 .sidebar-container {
+  position: absolute;
+  left: 0;
+  top: 20%; 
+  height: calc(100% - 80px);
   width: 200px;
-  background-color: #ffffff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-right: 20px; /* Added margin for spacing */
-  margin-bottom: 20px; /* Add margin-bottom to prevent overlapping with footer */
-}
+  height: 56%;
+} 
 
 .sidebar-padding {
   padding: 20px;
 }
 
+
 .sidebar-link {
   display: flex;
-  align-items: center;
+  align-items: center; 
   padding: 10px;
-  color: #4a5568;
+  margin-bottom: 15px;
+}
+
+.sidebar-link {
+  color: #333;
   text-decoration: none;
-  border-radius: 5px;
-  margin-bottom: 10px;
 }
 
 .sidebar-link:hover {
-  background-color: #edf2f7;
+  background-color: #e9ecef;
 }
 
-.sidebar-icon {
-  margin-right: 10px;
+.sidebar-link img {
+  margin-right: 15px;
 }
+
+.side-nav {
+  margin-top: 1em;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 5% auto;
+  max-width: 60%;
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
 
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 40px;
+  padding: 1rem 20rem;
   margin-bottom: 2%;
   margin-top: 2%; 
   margin-right: 2%;
@@ -193,99 +237,89 @@ header {
   background-color: #2d3748;
 }
 
-/*footer*/
-
+/* Footer */
 footer {
-  background: #333;
-  color: #fff;
+  background-color: rgb(240, 240, 240);
+  color: rgb(10, 10, 10);
+  text-align: center;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
-  position: relative;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .footer-left {
-  width: 80%;
+  flex: 1;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .footer-left h3 {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  margin-left: 0.5em;
+  margin-bottom: 10px;
 }
 
 .footer-left p {
-  margin-bottom: 0.5rem;
-  margin-left: 0.5em;
+  margin: 0;
+  font-size: 70%;
+}
+
+.footer-left p + p {
+  margin-top: 0.5em;
+}
+
+
+.footer-right {
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 70%;
 }
 
 .footer-right a {
-  display: block; 
-  color: #fff;
-  margin-top: 1em;
-} 
-
-.footer-right a:hover {
-  text-decoration: underline;
+  color: rgb(6, 6, 6);
+  text-decoration: none;
 }
 
-@media (max-width: 600px) {
 
-  footer {
+/* Mobile */
+
+@media (max-width: 1000px)  {
+
+  body{
+    width: fit-content;
+  }
+
+  header {
+      width: 100%;
+  }
+
+  .sidebar-container {
+    position: static;
+    width: 100%; 
+    height: auto;
+    display: flex;
     flex-direction: column;
   }
-  
-  .footer-left,
-  .footer-right {
-    text-align: center;
-    margin-bottom: 1rem;
+
+  .main-content{
+    padding :13rem 2rem;
+  }
+
+
+  .side-nav {
+      display: flex;
   }
 
 }
 
 @media (max-width: 1000px) {
-  .navbar a{
+  nav a {
     font-size: 0;
   }
   
-  .navbar a:hover {
+  nav a:hover {
     font-size: 60%;
   }
 
-}
-
-@media (max-width: 575px) {
-  .header-card {
-    width: 100%; /* Adjusted padding for smaller screens */
-  }
-  
-  footer {
-    width: 100%; /* Adjusted padding for smaller screens */
-  }
-
-  .sidebar-link:hover {
-    background-color: #ffffff; /* Change background color on hover */
-  }
-
-  .sidebar-container {
-    margin: 0; /* Remove margin */
-    margin-bottom: 20px; /* Add margin-bottom for spacing */
-  }
-
-  .main-content {
-    padding: 20px; /* Adjusted padding for smaller screens */
-  }
-
-  .profile-image-label {
-    width: 80px;
-    height: 80px; 
-    top: 0; 
-    right: 0; 
-    margin-top: 20px;
-    margin-right: 20px; 
-  }
 }

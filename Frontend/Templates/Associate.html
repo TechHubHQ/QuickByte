@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Your Restaurant on QuickByte</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Associate.css') }}">
+    <script src="../Static/js/StatesDropdownGetter.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Register Your Restaurant on QuickByte</h1>
+        <ol>
+            <li>Visit the <strong>QuickByte Partner page</strong> at <a href="https://www.quickbyte.com/partner-with-us">this link</a>.</li>
+            <li>Fill out the <strong>simple registration form</strong> with details such as your restaurant name, phone number, and city.</li>
+            <li>Make sure you have the following documents ready for a smooth signup:
+                <ul>
+                    <li><strong>FSSAI license copy</strong> (you can apply for it if you don't have one yet).</li>
+                    <li><strong>PAN card copy</strong>.</li>
+                    <li><strong>Regular GSTIN</strong> (apply if needed).</li>
+                    <li><strong>Bank account details</strong>.</li>
+                    <li>Images of your restaurant menu and top 5 dishes. You can attach them below.</li>
+                </ul>
+            </li>
+            <li>Why should you partner with QuickByte?
+                <ul>
+                    <li><strong>Increased revenue:</strong> QuickByte enables you to get <strong>60% more revenue</strong>.</li>
+                    <li><strong>New customers:</strong> Attract <strong>10 times more new customers</strong>.</li>
+                    <li><strong>Brand visibility:</strong> Boost your brand visibility with insights to improve your business.</li>
+                </ul>
+            </li>
+            <li>QuickByte operates in <strong>1000+ cities</strong>, with over <strong>3 lakh restaurant listings</strong> and <strong>5.0 crore monthly orders</strong>.</li>
+        </ol>
+        <p>If you already have your restaurant listed, you can search for it and claim ownership on the QuickByte platform. Happy listing! 🍽️📈</p>
+
+        <form action="/submit_associate_form" method="POST" enctype="multipart/form-data">
+            <label for="restaurant_name">Restaurant Name:</label><br>
+            <input type="text" id="restaurant_name" name="restaurant_name" required><br><br>
+
+            <label for="restaurant_type">Restaurant Type:</label><br>
+            <input type="text" id="restaurant_type" name="restaurant_type" required><br><br>
+
+            <label for="contact_name">Contact Person Name:</label><br>
+            <input type="text" id="contact_name" name="contact_name" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Phone Number:</label><br>
+            <input type="tel" id="phone" name="phone" required><br><br>
+            <div class="form-group">
+              <label for="state">State:</label>
+              <select id="stateDropdown" name="state" onchange="updateDistricts()">
+                <option value="">Select State</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="city">City:</label>
+              <select name="district" id="districtDropdown">
+                <option value="">Select District</option>
+              </select>
+            </div>
+
+            <label for="zipcode">Zip Code:</label><br>
+            <input type="text" id="zipcode" name="zipcode" required><br><br>
+
+            <label for="menu_images">Attach Images of Menu and Top 5 Dishes:</label><br>
+            <input type="file" id="menu_images" name="menu_images[]" multiple accept="image/*"><br><br>
+
+            <label for="documents">Attach Documents:</label><br>
+            <input type="file" id="documents" name="documents[]" multiple><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

@@ -7,6 +7,12 @@ node_modules/
 # hitrc 
 .hintrc
 
+# Database
+DataBase/
+DataBase/QB.db
+a/DataBase/QB.db
+b/DataBase/QB.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -17,7 +23,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/

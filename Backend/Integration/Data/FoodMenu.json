@@ -1,0 +1,944 @@
+{
+  "menu": [
+      {
+        "cuisine": "Indian",
+          "categories": [
+              {
+                  "name": "Starters",
+                  "items": [
+                      {
+                          "name": "Samosa",
+                          "type": "Vegetarian",
+                          "price": 50,
+                          "description": "Crispy fried pastry with potato filling",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Pakora",
+                          "type": "Vegetarian",
+                          "price": 60,
+                          "description": "Gram flour fritters with onion, spinach etc",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Chaat",
+                          "type": "Vegetarian",
+                          "price": 60,
+                          "description": "Spicy snack with chickpeas, chutneys",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Veg Cutlet",
+                          "type": "Vegetarian",
+                          "price": 70,
+                          "description": "Vegetable patties breaded and fried",
+                          "rating": 3.9
+                      },
+                      {
+                          "name": "Baby Corn Fritters",
+                          "type": "Vegetarian",
+                          "price": 90,
+                          "description": "Crispy baby corn fritters",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Paneer Tikka",
+                          "type": "Vegetarian",
+                          "price": 120,
+                          "description": "Grilled cottage cheese with veggies",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Aloo Tikki",
+                          "type": "Vegetarian",
+                          "price": 50,
+                          "description": "Spicy potato patties",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Veg Manchurian",
+                          "type": "Vegetarian",
+                          "price": 110,
+                          "description": "Fried veggie balls in manchurian sauce",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Aloo Tikki",
+                          "type": "Vegetarian",
+                          "price": 50,
+                          "description": "Spicy potato patties",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Veg Spring Roll",
+                          "type": "Vegetarian",
+                          "price": 80,
+                          "description": "Crispy fried spring rolls with veggies",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Tikki",
+                          "type": "Vegetarian",
+                          "price": 80,
+                          "description": "Potato cutlets stuffed with veggies",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Aloo Tikki",
+                          "type": "Vegetarian",
+                          "price": 50,
+                          "description": "Spicy potato patties",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Aloo Tikki",
+                          "type": "Vegetarian",
+                          "price": 50,
+                          "description": "Spicy potato patties",
+                          "rating": 4.0
+                      }
+                  ]
+              },
+              {
+                  "name": "Main Course",
+                  "items": [
+                      {
+                          "name": "Palak Paneer",
+                          "type": "Vegetarian",
+                          "price": 200,
+                          "description": "Cottage cheese in spinach gravy",
+                          "rating": 4.8
+                      },
+                      {
+                          "name": "Dal Makhani",
+                          "type": "Vegetarian",
+                          "price": 180,
+                          "description": "Black lentils and kidney beans stew",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Chana Masala",
+                          "type": "Vegetarian",
+                          "price": 150,
+                          "description": "Chickpeas in tomato onion gravy",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Navratan Korma",
+                          "type": "Vegetarian",
+                          "price": 210,
+                          "description": "Mixed veggies in cashew gravy",
+                          "rating": 4.6
+                      },
+                      {
+                          "name": "Malai Kofta",
+                          "type": "Vegetarian",
+                          "price": 190,
+                          "description": "Fried potato and paneer balls in creamy gravy",
+                          "rating": 4.7
+                      },
+                      {
+                          "name": "Kadai Paneer",
+                          "type": "Vegetarian",
+                          "price": 230,
+                          "description": "Cottage cheese in spiced tomato gravy",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Aloo Gobi",
+                          "type": "Vegetarian",
+                          "price": 170,
+                          "description": "Potato and cauliflower dish",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Matar Mushroom",
+                          "type": "Vegetarian",
+                          "price": 180,
+                          "description": "Peas and mushrooms in onion tomato gravy",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Pav Bhaji",
+                          "type": "Vegetarian",
+                          "price": 150,
+                          "description": "Spiced veggie mash with bread rolls",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Mix Veg",
+                          "type": "Vegetarian",
+                          "price": 140,
+                          "description": "Assorted mixed vegetables in gravy",
+                          "rating": 3.9
+                      },
+                      {
+                        "name": "Chicken Biryani",
+                        "type": "Non-vegetarian",
+                        "price": 200,
+                        "description": "Fragrant basmati rice cooked with chicken, spices, and saffron",
+                        "rating": 4.7
+                      },
+                      {
+                        "name": "Mutton Biryani",
+                        "type": "Non-vegetarian",
+                        "price": 220,
+                        "description": "Aromatic basmati rice cooked with tender mutton and spices",
+                        "rating": 4.8
+                      },
+                      {
+                        "name": "Veg Biryani",
+                        "type": "Vegetarian",
+                        "price": 180,
+                        "description": "Fragrant basmati rice cooked with assorted vegetables and spices",
+                        "rating": 4.5
+                      },
+                      {
+                        "name": "Chicken Fried Rice",
+                        "type": "Non-vegetarian",
+                        "price": 150,
+                        "description": "Stir-fried rice with chicken, vegetables, and eggs",
+                        "rating": 4.4
+                      },
+                      {
+                        "name": "Egg Fried Rice",
+                        "type": "Non-vegetarian",
+                        "price": 130,
+                        "description": "Stir-fried rice with eggs, vegetables, and spices",
+                        "rating": 4.3
+                      },
+                      {
+                        "name": "Veg Fried Rice",
+                        "type": "Vegetarian",
+                        "price": 120,
+                        "description": "Stir-fried rice with assorted vegetables and spices",
+                        "rating": 4.2
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+        "cuisine": "Chinese",
+          "categories": [
+              {
+                  "name": "Soups",
+                  "items": [
+                      {
+                          "name": "Hot and Sour Soup",
+                          "type": "Vegetarian",
+                          "price": 100,
+                          "description": "Spicy vinegar soup with tofu",
+                          "rating": 4.6
+                      },
+                      {
+                          "name": "Veg Sweet Corn Soup",
+                          "type": "Vegetarian",
+                          "price": 90,
+                          "description": "Sweet corn soup with veggies",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Veg Wanton Soup",
+                          "type": "Vegetarian",
+                          "price": 110,
+                          "description": "Chinese dumplings in flavored broth",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Manchow Soup",
+                          "type": "Vegetarian",
+                          "price": 90,
+                          "description": "Spicy soup with veggies and noodles",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Lemon Coriander Soup",
+                          "type": "Vegetarian",
+                          "price": 80,
+                          "description": "Tangy lemon coriander flavored soup",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Sweet Corn Vegetable Soup",
+                          "type": "Vegetarian",
+                          "price": 70,
+                          "description": "Corn soup with mixed veggies",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Veg Cantonese Soup",
+                          "type": "Vegetarian",
+                          "price": 110,
+                          "description": "Chinese soup with assorted veggies",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Tomato Soup",
+                          "type": "Vegetarian",
+                          "price": 70,
+                          "description": "Spicy tomato soup with herbs",
+                          "rating": 3.9
+                      },
+                      {
+                          "name": "Veg Noodle Soup",
+                          "type": "Vegetarian",
+                          "price": 80,
+                          "description": "Noodle soup with mixed veggies",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Veg Clear Soup",
+                          "type": "Vegetarian",
+                          "price": 60,
+                          "description": "Light veggie broth soup",
+                          "rating": 3.8
+                      }
+                  ]
+              },
+              {
+                  "name": "Main Course",
+                  "items": [
+                      {
+                          "name": "Chilli Chicken",
+                          "type": "Non-vegetarian",
+                          "price": 180,
+                          "description": "Wok tossed chicken with chilli sauce",
+                          "rating": 4.7
+                      },
+                      {
+                          "name": "Kung Pao Chicken",
+                          "type": "Non-vegetarian",
+                          "price": 210,
+                          "description": "Chicken with cashews and peppers",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Sesame Chicken",
+                          "type": "Non-vegetarian",
+                          "price": 230,
+                          "description": "Crispy sesame chicken in chinese sauce",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Chicken in Hot Garlic Sauce",
+                          "type": "Non-vegetarian",
+                          "price": 200,
+                          "description": "Wok tossed chicken in garlic sauce",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Chilli Paneer",
+                          "type": "Vegetarian",
+                          "price": 190,
+                          "description": "Cottage cheese in spicy chilli sauce",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Gobi Manchurian",
+                          "type": "Vegetarian",
+                          "price": 160,
+                          "description": "Fried cauliflower in manchurian sauce",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Veg Fried Rice",
+                          "type": "Vegetarian",
+                          "price": 120,
+                          "description": "Rice fried with veggies and soy sauce",
+                          "rating": 3.9
+                      },
+                      {
+                          "name": "Veg Hakka Noodles",
+                          "type": "Vegetarian",
+                          "price": 150,
+                          "description": "Noodles wok tossed with veggies",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Burnt Chilli Garlic Fried Rice",
+                          "type": "Vegetarian",
+                          "price": 140,
+                          "description": "Burnt garlic rice with hint of spice",
+                          "rating": 4.0
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+        "cuisine": "Continental",
+          "categories": [
+              {
+                  "name": "Salads",
+                  "items": [
+                      {
+                          "name": "Caesar Salad",
+                          "type": "Non-vegetarian",
+                          "price": 150,
+                          "description": "Romaine lettuce, chicken, Parmesan",
+                          "rating": 4.6
+                      },
+                      {
+                          "name": "Chicken Salad",
+                          "type": "Non-vegetarian",
+                          "price": 160,
+                          "description": "Chicken, veggies in creamy dressing",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Tuna Salad",
+                          "type": "Non-vegetarian",
+                          "price": 170,
+                          "description": "Tuna, onions, tomatoes in tangy dressing",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Greek Salad",
+                          "type": "Vegetarian",
+                          "price": 130,
+                          "description": "Feta, olives, tomatoes, cucumber",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Waldorf Salad",
+                          "type": "Vegetarian",
+                          "price": 110,
+                          "description": "Apple, celery, walnuts, grapes",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Caprese Salad",
+                          "type": "Vegetarian",
+                          "price": 100,
+                          "description": "Tomato, mozzarella, basil, balsamic",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Avocado Salad",
+                          "type": "Vegetarian",
+                          "price": 120,
+                          "description": "Avocado, mixed greens, lemon",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Cobb Salad",
+                          "type": "Non-vegetarian",
+                          "price": 160,
+                          "description": "Chicken, bacon, egg, avocado",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Nicoise Salad",
+                          "type": "Non-vegetarian",
+                          "price": 170,
+                          "description": "Tuna, green beans, olives, eggs",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Panzanella Salad",
+                          "type": "Vegetarian",
+                          "price": 140,
+                          "description": "Tomato, bread, basil, olive oil",
+                          "rating": 4.0
+                      }
+                  ]
+              },
+              {
+                  "name": "Main Course",
+                  "items": [
+                      {
+                          "name": "Lasagna",
+                          "type": "Non-vegetarian",
+                          "price": 240,
+                          "description": "Pasta, meat, tomato sauce, cheese",
+                          "rating": 4.9
+                      },
+                      {
+                          "name": "Spaghetti Carbonara",
+                          "type": "Non-vegetarian",
+                          "price": 220,
+                          "description": "Pasta, bacon, egg, cheese, pepper",
+                          "rating": 4.6
+                      },
+                      {
+                          "name": "Beef Stroganoff",
+                          "type": "Non-vegetarian",
+                          "price": 250,
+                          "description": "Beef, mushrooms, cream sauce",
+                          "rating": 4.7
+                      },
+                      {
+                          "name": "Chicken Alfredo",
+                          "type": "Non-vegetarian",
+                          "price": 230,
+                          "description": "Chicken, pasta, Alfredo sauce",
+                          "rating": 4.8
+                      },
+                      {
+                          "name": "Risotto",
+                          "type": "Vegetarian",
+                          "price": 210,
+                          "description": "Arborio rice, mushrooms, cheese",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Vegetable Au Gratin",
+                          "type": "Vegetarian",
+                          "price": 200,
+                          "description": "Assorted veggies, cheese, cream",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Mushroom Risotto",
+                          "type": "Vegetarian",
+                          "price": 190,
+                          "description": "Arborio rice, mushrooms, cheese",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Eggplant Parmesan",
+                          "type": "Vegetarian",
+                          "price": 180,
+                          "description": "Breaded eggplant, tomato sauce, cheese",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Vegetable Lasagna",
+                          "type": "Vegetarian",
+                          "price": 220,
+                          "description": "Pasta, assorted veggies, cheese",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Pasta Primavera",
+                          "type": "Vegetarian",
+                          "price": 190,
+                          "description": "Pasta, mixed veggies, cream sauce",
+                          "rating": 4.0
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+        "cuisine": "Italian",
+          "categories": [
+              {
+                  "name": "Antipasti",
+                  "items": [
+                      {
+                          "name": "Bruschetta",
+                          "type": "Vegetarian",
+                          "price": 90,
+                          "description": "Toasted bread, tomatoes, basil",
+                          "rating": 4.6
+                      },
+                      {
+                          "name": "Caprese Salad",
+                          "type": "Vegetarian",
+                          "price": 100,
+                          "description": "Tomato, mozzarella, basil, balsamic",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Calamari Fritti",
+                          "type": "Non-vegetarian",
+                          "price": 160,
+                          "description": "Fried squid rings, marinara sauce",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Prosciutto e Melone",
+                          "type": "Non-vegetarian",
+                          "price": 170,
+                          "description": "Prosciutto, melon slices",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Carpaccio",
+                          "type": "Non-vegetarian",
+                          "price": 180,
+                          "description": "Thinly sliced raw beef, lemon, olive oil",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Arancini",
+                          "type": "Vegetarian",
+                          "price": 140,
+                          "description": "Fried rice balls, cheese, peas",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Panzenella",
+                          "type": "Vegetarian",
+                          "price": 130,
+                          "description": "Bread salad with tomatoes, onions",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Caprese Salad",
+                          "type": "Vegetarian",
+                          "price": 100,
+                          "description": "Tomato, mozzarella, basil, balsamic",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Calamari Fritti",
+                          "type": "Non-vegetarian",
+                          "price": 160,
+                          "description": "Fried squid rings, marinara sauce",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Prosciutto e Melone",
+                          "type": "Non-vegetarian",
+                          "price": 170,
+                          "description": "Prosciutto, melon slices",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Carpaccio",
+                          "type": "Non-vegetarian",
+                          "price": 180,
+                          "description": "Thinly sliced raw beef, lemon, olive oil",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Arancini",
+                          "type": "Vegetarian",
+                          "price": 140,
+                          "description": "Fried rice balls, cheese, peas",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Panzenella",
+                          "type": "Vegetarian",
+                          "price": 130,
+                          "description": "Bread salad with tomatoes, onions",
+                          "rating": 4.0
+                      }
+                  ]
+              },
+              {
+                  "name": "Primi Piatti",
+                  "items": [
+                      {
+                          "name": "Lasagna",
+                          "type": "Non-vegetarian",
+                          "price": 240,
+                          "description": "Pasta, meat, tomato sauce, cheese",
+                          "rating": 4.9
+                      },
+                      {
+                          "name": "Spaghetti Carbonara",
+                          "type": "Non-vegetarian",
+                          "price": 220,
+                          "description": "Pasta, bacon, egg, cheese, pepper",
+                          "rating": 4.6
+                      },
+                      {
+                          "name": "Fettuccine Alfredo",
+                          "type": "Non-vegetarian",
+                          "price": 250,
+                          "description": "Pasta, cream sauce, cheese",
+                          "rating": 4.7
+                      },
+                      {
+                          "name": "Risotto",
+                          "type": "Vegetarian",
+                          "price": 210,
+                          "description": "Arborio rice, mushrooms, cheese",
+                          "rating": 4.5
+                      },
+                      {
+                          "name": "Gnocchi",
+                          "type": "Vegetarian",
+                          "price": 200,
+                          "description": "Potato dumplings, tomato sauce, cheese",
+                          "rating": 4.3
+                      },
+                      {
+                          "name": "Penne alla Vodka",
+                          "type": "Vegetarian",
+                          "price": 230,
+                          "description": "Pasta, vodka sauce, cheese",
+                          "rating": 4.4
+                      },
+                      {
+                          "name": "Ravioli",
+                          "type": "Vegetarian",
+                          "price": 220,
+                          "description": "Pasta, cheese, spinach filling",
+                          "rating": 4.2
+                      },
+                      {
+                          "name": "Pasta Primavera",
+                          "type": "Vegetarian",
+                          "price": 190,
+                          "description": "Pasta, mixed veggies, cream sauce",
+                          "rating": 4.0
+                      },
+                      {
+                          "name": "Tortellini",
+                          "type": "Vegetarian",
+                          "price": 210,
+                          "description": "Pasta, cheese, meat filling",
+                          "rating": 4.1
+                      },
+                      {
+                          "name": "Pasta Puttanesca",
+                          "type": "Vegetarian",
+                          "price": 180,
+                          "description": "Pasta, tomato sauce, olives, capers",
+                          "rating": 3.9
+                      }
+                  ]
+              },
+              {
+                "name": "Pizzas",
+                "items": [
+                  {
+                    "name": "Margherita Pizza",
+                    "type": "Vegetarian",
+                    "price": 150,
+                    "description": "Cheese and tomato pizza",
+                    "rating": 4.2
+                  },
+                  {
+                    "name": "Veggie Supreme Pizza",
+                    "type": "Vegetarian",
+                    "price": 200,
+                    "description": "Pizza with assorted veggies",
+                    "rating": 4.4
+                  },
+                  {
+                    "name": "Chicken Tikka Pizza",
+                    "type": "Non-vegetarian",
+                    "price": 250,
+                    "description": "Pizza with chicken tikka chunks",
+                    "rating": 4.6
+                  },
+                  {
+                    "name": "Pepperoni Pizza",
+                    "type": "Non-vegetarian",
+                    "price": 230,
+                    "description": "Pizza with pepperoni slices",
+                    "rating": 4.3
+                  }
+                ]
+              },
+              {
+                "name": "Burgers",
+                "items": [
+                  {
+                    "name": "Veggie Burger",
+                    "type": "Vegetarian",
+                    "price": 80,
+                    "description": "Burger with veggie patty",
+                    "rating": 4.0
+                  },
+                  {
+                    "name": "Chicken Burger",
+                    "type": "Non-vegetarian",
+                    "price": 100,
+                    "description": "Burger with chicken patty",
+                    "rating": 4.1
+                  },
+                  {
+                    "name": "Vegan Burger",
+                    "type": "Vegetarian",
+                    "price": 90,
+                    "description": "Burger with vegan patty",
+                    "rating": 4.2
+                  },
+                  {
+                    "name": "Double Cheeseburger",
+                    "type": "Non-vegetarian",
+                    "price": 150,
+                    "description": "Burger with double cheese slices",
+                    "rating": 4.4
+                  },
+                  {
+                    "name": "Mushroom Burger",
+                    "type": "Vegetarian",
+                    "price": 110,
+                    "description": "Burger with grilled mushrooms",
+                    "rating": 4.3
+                  }
+                ]
+              },
+              {
+                "name": "Desserts",
+                "items": [
+                  {
+                    "name": "Tiramisu",
+                    "type": "Vegetarian",
+                    "price": 180,
+                    "description": "Italian coffee-flavored dessert",
+                    "rating": 4.7
+                  },
+                  {
+                    "name": "Panna Cotta",
+                    "type": "Vegetarian",
+                    "price": 160,
+                    "description": "Creamy Italian dessert",
+                    "rating": 4.6
+                  },
+                  {
+                    "name": "Cannoli",
+                    "type": "Vegetarian",
+                    "price": 190,
+                    "description": "Italian pastry dessert",
+                    "rating": 4.5
+                  },
+                  {
+                    "name": "Gelato",
+                    "type": "Vegetarian",
+                    "price": 170,
+                    "description": "Italian ice cream",
+                    "rating": 4.4
+                  }
+                ]
+              },
+              {
+                "name": "Beverages",
+                "items": [
+                  {
+                    "name": "Espresso",
+                    "type": "Vegetarian",
+                    "price": 120,
+                    "description": "Strong coffee",
+                    "rating": 4.4
+                  },
+                  {
+                    "name": "Cappuccino",
+                    "type": "Vegetarian",
+                    "price": 150,
+                    "description": "Coffee with frothy milk",
+                    "rating": 4.5
+                  },
+                  {
+                    "name": "Latte",
+                    "type": "Vegetarian",
+                    "price": 140,
+                    "description": "Coffee with steamed milk",
+                    "rating": 4.3
+                  },
+                  {
+                    "name": "Iced Coffee",
+                    "type": "Vegetarian",
+                    "price": 160,
+                    "description": "Chilled coffee",
+                    "rating": 4.2
+                  }
+                ]
+              }
+          ]
+      },
+      {
+        "cuisine": "American",
+        "categories": [
+          {
+            "name": "Burgers",
+            "items": [
+              {
+                "name": "Classic Burger",
+                "type": "Non-vegetarian",
+                "price": 180,
+                "description": "Beef patty, lettuce, tomato, onion",
+                "rating": 4.7
+              },
+              {
+                "name": "Veggie Burger",
+                "type": "Vegetarian",
+                "price": 150,
+                "description": "Veggie patty, lettuce, tomato, onion",
+                "rating": 4.5
+              },
+              {
+                "name": "Chicken Burger",
+                "type": "Non-vegetarian",
+                "price": 200,
+                "description": "Grilled chicken breast, lettuce, tomato",
+                "rating": 4.6
+              },
+              {
+                "name": "BBQ Burger",
+                "type": "Non-vegetarian",
+                "price": 220,
+                "description": "Beef patty, BBQ sauce, lettuce, tomato",
+                "rating": 4.6
+              }
+            ]
+          },
+          {
+            "name": "Desserts",
+            "items": [
+              {
+                "name": "Chocolate Cake",
+                "type": "Vegetarian",
+                "price": 180,
+                "description": "Rich chocolate cake",
+                "rating": 4.7
+              },
+              {
+                "name": "Cheesecake",
+                "type": "Vegetarian",
+                "price": 160,
+                "description": "Creamy cheesecake",
+                "rating": 4.6
+              },
+              {
+                "name": "Apple Pie",
+                "type": "Vegetarian",
+                "price": 190,
+                "description": "Classic American pie",
+                "rating": 4.5
+              },
+              {
+                "name": "Brownie Sundae",
+                "type": "Vegetarian",
+                "price": 170,
+                "description": "Brownie with ice cream and toppings",
+                "rating": 4.4
+              }
+            ]
+          },
+          {
+            "name": "Drinks",
+            "items": [
+              {
+                "name": "Strawberry Smoothie",
+                "type": "Vegetarian",
+                "price": 150,
+                "description": "Fresh strawberry smoothie",
+                "rating": 4.2
+              },
+              {
+                "name": "Blueberry Smoothie",
+                "type": "Vegetarian",
+                "price": 160,
+                "description": "Fresh blueberry smoothie",
+                "rating": 4.3
+              },
+              {
+                "name": "Chocolate Milkshake",
+                "type": "Vegetarian",
+                "price": 160,
+                "description": "Rich chocolate milkshake",
+                "rating": 4.4
+              },
+              {
+                "name": "Vanilla Milkshake",
+                "type": "Vegetarian",
+                "price": 150,
+                "description": "Classic vanilla milkshake",
+                "rating": 4.5
+              }
+            ]
+          }
+        ]
+      }
+  ]
+}

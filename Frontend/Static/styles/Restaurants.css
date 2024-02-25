@@ -1,0 +1,237 @@
+body {
+    font-family: 'Poppins', sans-serif; 
+    margin: 0 !important; 
+  }
+  
+  /* Layout */
+  section {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  /* Header */
+  header {
+    width: 100%;
+  }
+  
+  .hdr-card {
+    background-color: rgb(240, 240, 240);
+    color: #090101;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .hdr-lft {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  
+  /* Navbar */
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  nav li {
+    margin-right: 20px;
+  }
+  
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+    padding: 0.5rem 2rem;
+    background: #e31837;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  
+  nav a img {
+    margin-right: 0.5rem;
+  }
+  
+  .nav-icon {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .nav-icon div {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2em;
+  }
+  
+  /* Search bar */
+  .search-form {
+    display: inline;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .search-form input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+  }
+  
+  @media (max-width: 1000px) {
+    nav a {
+      font-size: 0;
+    }
+  
+    nav a:hover {
+      font-size: 60%;
+    }
+  
+  }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .restaurant-card {
+    position: relative;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .restaurant-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .restaurant-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .restaurant-details {
+    padding: 15px;
+  }
+  
+  .restaurant-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .restaurant-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .restaurant-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .star {
+    color: #ffc107;
+    margin-right: 4px;
+  }
+  
+  .view-menu-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: #e31837;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* Footer */
+  footer {
+    background-color: rgb(240, 240, 240);
+    color: rgb(10, 10, 10);
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-left {
+    flex: 1;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  .footer-left h3 {
+    margin-bottom: 10px;
+  }
+  
+  .footer-left p {
+    margin: 0;
+    font-size: 70%;
+  }
+  
+  .footer-left p + p {
+    margin-top: 0.5em;
+  }
+  
+  
+  .footer-right {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 70%;
+  }
+  
+  .footer-right a {
+    color: rgb(6, 6, 6);
+    text-decoration: none;
+  }
+  

@@ -35,6 +35,15 @@ def landing():
         return redirect(url_for('login'))
 
 
+
+@app.route('/restaurants')
+def restaurants():
+    if 'username' in session:
+        return render_template('Restaurants.html')
+    else:
+        return redirect(url_for('login'))
+
+
 @app.route('/menu')
 def menu():
     print(session)

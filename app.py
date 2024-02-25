@@ -1,10 +1,12 @@
 import os
 from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
+from sqlalchemy import func
 from datetime import datetime
 from Backend.Connections.QBcDBConnector import init_db
-from Backend.Models.QBmAddressModel import CreateAddress
+from Backend.Models.QBmAddressModel import Address, CreateAddress
 from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
+from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
 from Config.AppConfig import Config
@@ -225,6 +227,33 @@ def GetImages():
         images = night_images
 
     return jsonify(images)
+
+
+@app.route('/api/restaurants')
+def GetRestaurants():
+    username = session['username']
+    user = QBUser.query.filter_by(username=username).first()
+    email = user.email
+    district = Address.query.filter_by(email=email).first().district
+    restaurants = RestaurantsByLoc.query.filter(func.lower(RestaurantsByLoc.address).
+                                                like(func.lower(f'%{district}%'))).all()
+
+    # Create a list to store the restaurant information
+    restaurant_info = []
+
+    # Loop through the restaurants and create a dictionary containing all the required information
+    for restaurant in restaurants:
+        restaurant_dict = {
+            'restaurant_name': restaurant.restaurant_name,
+            'number_of_reviews': restaurant.num_reviews,
+            'rating': restaurant.rating,
+            'ranking': restaurant.ranking,
+            'web_url': restaurant.web_url
+        }
+        restaurant_info.append(restaurant_dict)
+
+    # Return the list of restaurant information as JSON
+    return jsonify(restaurant_info)
 
 
 @app.route('/upload_image', methods=['POST'])

@@ -6,28 +6,29 @@
   <title>Restaurant List</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/Restaurants.css') }}">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+  <script src="{{ url_for('static', filename='js/RestaurantGetter.js') }}"></script>
 </head>
 <body>
   <header>
-    <div class="header-card">
-      <div class="header-left">
+    <div class="hdr-card">
+      <div class="hdr-lft">
         <div class="logo">
           <img src="{{ url_for('static', filename='Images/common/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
         </div>
       </div>
 
-      <div class="header-right">
-        <nav class="navbar">
-          <a class="navbar-link" href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
+      <div class="hdr-rght">
+        <nav>
+          <a href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
             Home
           </a>
-          <a class="navbar-link" href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
-            Menu
+          <a href="{{ url_for('restaurants') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+            Restaurants
           </a>
-          <a class="navbar-link" href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+          <a href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
             My Orders
           </a>
-          <a class="navbar-link" href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
+          <a href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
             Profile
           </a>
         </nav>
@@ -35,110 +36,11 @@
     </div>
   </header>
 
-  <div class="main-hdr-card">
+  <div class="main-card">
 
-  <div class="restaurant-list">
-    <!-- Restaurant 1 -->
-    <div class="restaurant-card">
-      <img src="restaurant1.jpg" alt="Restaurant 1" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Delicious Bites</div>
-        <div class="restaurant-description">A taste of perfection in every bite.</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-
-    <!-- Restaurant 2 -->
-    <div class="restaurant-card">
-      <img src="restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-
-    <!-- Restaurant 3 -->
-    <div class="restaurant-card">
-      <img src="restaurant3.jpg" alt="Restaurant 3" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-
-    <!-- Restaurant 4 -->
-    <div class="restaurant-card">
-      <img src="restaurant4.jpg" alt="Restaurant 4" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-    <!-- Restaurant 5 -->
-    <div class="restaurant-card">
-      <img src="restaurant5.jpg" alt="Restaurant 5" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
-    <!-- Restaurant 6 -->
-    <div class="restaurant-card">
-      <img src="restaurant6.jpg" alt="Restaurant 6" class="restaurant-image">
-      <div class="restaurant-details">
-        <div class="restaurant-name">Spice Haven</div>
-        <div class="restaurant-description">Where flavors come alive!</div>
-        <div class="restaurant-rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9734;</span>
-        </div>
-        <button class="view-menu-btn">View Menu</button>
-      </div>
-    </div>
+  <div class="restaurant-list" id="restaurant-container">
+    <!-- Restaurant cards will be dynamically added here -->
   </div>
-    <!-- Add more restaurant cards as needed -->
 
   </div>
   <footer>

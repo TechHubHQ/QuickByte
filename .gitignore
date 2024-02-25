@@ -7,6 +7,9 @@ node_modules/
 # hitrc 
 .hintrc
 
+# Database
+DataBase/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

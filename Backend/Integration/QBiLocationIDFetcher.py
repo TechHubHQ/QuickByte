@@ -4,8 +4,6 @@ import sys
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-print(f"Root directory added to Python path: {root_dir}")
-
 from app import app
 from dotenv import load_dotenv
 from Backend.Models.QBmLoadLocationID import CityLocation, CreateLocationID
@@ -37,9 +35,6 @@ for city in cities:
     tmpArr = response.json()
     tmpLocArr = tmpArr.get('data', [])
     CityLoc = CityLocation.query.filter_by(city=city).first()
-    # location_id = CityLoc.loc_id
-    # print(f"City: {city} loc_id: {location_id}")
-    # loc_flag = CityLoc.loc_flag
     loc_flag = None
     for loc in tmpLocArr:
         loc_id = loc.get('result_object', {}).get('location_id')
@@ -51,7 +46,9 @@ for city in cities:
             if not existing_loc and not loc_flag:
                 loc_flag = True
                 CreateLocationID(city=city, loc_id=loc_id, loc_flag=loc_flag)
+                print("\n---------------------------------------------------------")
                 print(f"New Location committed to DB --> ID: {loc_id} City: {city}")
+                print("---------------------------------------------------------\n")
 
         else:
             print(f"Location already exists")

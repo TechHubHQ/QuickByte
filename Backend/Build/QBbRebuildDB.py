@@ -7,7 +7,6 @@ from subprocess import Popen
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-print(f"Root directory added to Python path: {root_dir}")
 from app import app
 from Backend.Connections.QBcDBConnector import db
 from Backend.Models.QBmLoadLocationID import CityLocation
@@ -31,10 +30,9 @@ def empty_table(model):
     print(f"Table {model.__tablename__} emptied.")
 
 
-
 def run_script(script_path, script_name):
     print(f"Running {script_name}...")
-    
+
     if script_name == 'QBiLocationIDFetcher.py':
         empty_table(CityLocation)
         start_time = time.time()

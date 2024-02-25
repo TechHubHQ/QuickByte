@@ -31,9 +31,10 @@ def landing():
         else:
             return redirect(url_for('login'))
     except Exception as e:
-        print(e)
+        print("\n----------------------------------------------------------------------------")
+        print(f"Exception while accessing landing page for user {session['username']}: \n{e}")
+        print("-----------------------------------------------------------------------------\n")
         return redirect(url_for('login'))
-
 
 
 @app.route('/restaurants')
@@ -46,7 +47,9 @@ def restaurants():
 
 @app.route('/menu')
 def menu():
+    print("\n------------------------------------------------------------------")
     print(session)
+    print("------------------------------------------------------------------\n")
     if 'username' in session:
         return render_template('Menu.html')
     else:
@@ -77,11 +80,13 @@ def profile():
 
 @app.route("/help")
 def help():
+    print("\n------------------------------------------------------------------")
     print(session)
+    print("------------------------------------------------------------------\n")
     if 'username' in session:
-        return render_template('Help_Center.html')
+        return render_template('Help.html')
     else:
-        redirect(url_for('login'))
+        return redirect(url_for('login'))
 
 
 # QBUser Module
@@ -134,7 +139,9 @@ def signup():
 def address():
     email = session['email']
     form = AddressDetailsForm()
+    print("\n---------------------------------------------------------------------------------------------------")
     print(f"received a {request.method} request {form.validate_on_submit()} and {form.errors} and {request.form}")
+    print("---------------------------------------------------------------------------------------------------\n")
     if request.method == 'POST' and form.validate_on_submit():
         user_email = email
         line1 = request.form['line1']
@@ -253,7 +260,9 @@ def update_profile():
         else:
             UserController.UpdateUser(username, password)
             flash('User details updated Successfully', 'success')
+            print("\n------------------------------------------------------------------------")
             print(f"user details updated with data --> username: {username}, key: {password}")
+            print("------------------------------------------------------------------------\n")
             return redirect(url_for('settings'))
     elif 'username' in session:
         username = session['username']
@@ -264,7 +273,9 @@ def update_profile():
         else:
             UserController.UpdateUser(username, password)
             flash('User details updated Successfully', 'success')
+            print("\n------------------------------------------------------------------------")
             print(f"user details updated with data --> username: {username}, key: {password}")
+            print("------------------------------------------------------------------------\n")
             return redirect(url_for('settings'))
     else:
         flash('User not logged in', 'danger')

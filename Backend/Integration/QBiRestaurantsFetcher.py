@@ -4,7 +4,6 @@ import requests
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-print(f"Root directory added to Python path: {root_dir}")
 from app import app
 from dotenv import load_dotenv
 from Backend.Models.QBmLoadRestaurantsByID import CreateRestaurant, RestaurantsByLoc
@@ -17,7 +16,6 @@ env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
 load_dotenv(env_path)
 app.app_context().push()
 db.create_all()
-
 
 url = os.environ.get('REST_API')
 
@@ -36,7 +34,6 @@ for loc_id in loc_ids:
     response = requests.get(url, headers=headers, params=querystring)
     tmpResArr = response.json().get('data', [])
 
-
     for res in tmpResArr:
         # Check if the restaurant already exists in the database
         existing_restaurant = RestaurantsByLoc.query.filter_by(location_id=loc_id).first()
@@ -54,7 +51,9 @@ for loc_id in loc_ids:
                 print(f"Skipping this restaurant {res.get('location_id')} or {res.get('name')} field is None")
                 continue  # Skip this restaurant if any required field is None
 
-            print("\nNew Restaurant -- registration: ")
+            print("\n----------------------------------------------------------")
+            print("New Restaurant -- registration: ")
+            print("----------------------------------------------------------\n")
             print(res.get('location_id'))
             print(res.get('name'))
             print(res.get('num_reviews'))

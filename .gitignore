@@ -9,6 +9,9 @@ node_modules/
 
 # Database
 DataBase/
+DataBase/QB.db
+a/DataBase/QB.db
+b/DataBase/QB.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

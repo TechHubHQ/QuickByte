@@ -53,7 +53,7 @@ def CreateFoodMenu():
                 item_description = item["description"]
                 item_reviews = item["rating"]
 
-                # Check if item with same name already exists in database
+                # Check if item with same name already exists in the database
                 existing_item = MenuDetails.query.filter_by(item_name=item_name).first()
                 if existing_item is None:
                     CreateMenu(

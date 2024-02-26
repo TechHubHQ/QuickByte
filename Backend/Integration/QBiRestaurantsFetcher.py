@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
@@ -75,6 +76,14 @@ for loc_id in loc_ids:
                 full_address = 'Unknown Address'
             print(full_address)
 
+            # Get the small photo URL
+            photo = res.get('photo')
+            if photo:
+                image_url = photo.get('images', {}).get('original', {}).get('url')
+                print(image_url)
+            else:
+                image_url = 'None'
+
             location_id = res.get('location_id')
             restaurant_name = res.get('name')
             num_reviews = res.get('num_reviews')
@@ -86,4 +95,4 @@ for loc_id in loc_ids:
             email = res.get('email')
             res_flag = True
             CreateRestaurant(location_id, restaurant_name, num_reviews, time_zone, rating, ranking, web_url, phone,
-                             email, full_address, res_flag)
+                             email, full_address, image_url, res_flag)

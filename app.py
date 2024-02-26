@@ -73,7 +73,7 @@ def profile():
         user_name = session['username']
         user = QBUser.query.filter_by(username=user_name).first()
         formatted_username = user.username.replace(' ', '_') if user else None
-        profile_image_url = get_profile_image(formatted_username) if formatted_username else None
+        profile_image_url = GetProfileImage(formatted_username) if formatted_username else None
         print(f"url: {profile_image_url}")
         return render_template('Profile.html', user=user, profile_image_url=profile_image_url)
     else:
@@ -229,6 +229,7 @@ def GetImages():
     return jsonify(images)
 
 
+# noinspection PyShadowingNames
 @app.route('/api/restaurants')
 def GetRestaurants():
     username = session['username']
@@ -248,7 +249,8 @@ def GetRestaurants():
             'number_of_reviews': restaurant.num_reviews,
             'rating': restaurant.rating,
             'ranking': restaurant.ranking,
-            'web_url': restaurant.web_url
+            'web_url': restaurant.web_url,
+            'image_url': restaurant.image_url
         }
         restaurant_info.append(restaurant_dict)
 
@@ -271,7 +273,7 @@ def upload_image():
         return jsonify({'message': 'User not logged in'})
 
 
-def get_profile_image(username):
+def GetProfileImage(username):
     username_with_extension = f"{username}.jpg"
     image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
     return image_path if os.path.exists(image_path) else None

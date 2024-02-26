@@ -8,7 +8,14 @@ fetch('/api/restaurants')
       card.classList.add('restaurant-card');
 
       const image = document.createElement('img');
-      image.src = restaurant.imageURL;
+      if (restaurant.image_url && restaurant.image_url !== 'None') {
+        // If image_url is not None, set the src to the image_url
+        image.src = restaurant.image_url;
+      } else {
+        // If image_url is None, set the src to the default image
+        image.src = '../Static/Images/IMGLib/default_restaurant.png';
+      }
+
       image.alt = restaurant.restaurant_name;
       image.classList.add('restaurant-image');
 

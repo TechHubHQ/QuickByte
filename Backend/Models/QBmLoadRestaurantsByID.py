@@ -14,11 +14,12 @@ class RestaurantsByLoc(db.Model):
     phone = db.Column(db.String(20), nullable=True)  # Accepts NULL values
     email = db.Column(db.String(50), nullable=True)  # Accepts NULL values
     address = db.Column(db.String(200), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)  # Accepts NULL values
     res_flag = db.Column(db.Boolean, nullable=False)
 
 
 def CreateRestaurant(location_id, restaurant_name, num_reviews, time_zone, rating, ranking, web_url, phone, email,
-                     address, res_flag):
+                     address, image_url, res_flag):
     new_restaurant = RestaurantsByLoc(
         location_id=location_id,
         restaurant_name=restaurant_name,
@@ -30,6 +31,7 @@ def CreateRestaurant(location_id, restaurant_name, num_reviews, time_zone, ratin
         phone=phone,
         email=email,
         address=address,
+        image_url=image_url,  # Set the image URL to None for now
         res_flag=res_flag
     )
     db.session.add(new_restaurant)

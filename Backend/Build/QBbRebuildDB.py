@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import schedule
+from dotenv import load_dotenv
 from datetime import datetime
 from subprocess import Popen
 # Add the root directory to the Python path
@@ -13,6 +14,8 @@ from Backend.Models.QBmLoadLocationID import CityLocation
 from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmLoadMenu import MenuDetails
 
+env_path = os.path.join(root_dir, 'config', '.env')
+load_dotenv(env_path)
 app.app_context().push()
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -83,10 +86,11 @@ while True:
     # Print the PID and "Script is alive" if the script is running
     print(f"PID: {os.getpid()} - QBbRebuildDB is alive")
 
-    # If the process is invoked by a rebuild, print the process
-    if len(sys.argv) > 1 and sys.argv[1] == "--rebuild":
+    # for Manual rebuild
+    CORE_DEV = os.getenv("CORE_DEV")
+    if len(sys.argv) > 1 and sys.argv[1] == "--rebuild" and sys.argv[2] in CORE_DEV:
         print("\n--------------------------------------------")
-        print("Rebuild process invoked")
+        print("Manual Rebuild process invoked")
         print("---------------------------------------------\n")
         run_script(loc_fetch_script, "QBiLocationIDFetcher.py")
         run_script(res_fetch_script, "QBiRestaurantsFetcher.py")

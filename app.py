@@ -4,9 +4,10 @@ from flask import request, session
 from sqlalchemy import func
 from datetime import datetime
 from Backend.Connections.QBcDBConnector import init_db
-from Backend.Models.QBmAddressModel import Address, CreateAddress
-from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
 from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
+from Backend.Models.QBmAddressModel import Address, CreateAddress
+from Backend.Models.QBmLoadMenu import MenuDetails
+from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
 from Config.AppConfig import Config
@@ -78,6 +79,12 @@ def profile():
         return render_template('Profile.html', user=user, profile_image_url=profile_image_url)
     else:
         return redirect(url_for('login'))
+
+
+def GetProfileImage(username):
+    username_with_extension = f"{username}.jpg"
+    image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
+    return image_path if os.path.exists(image_path) else None
 
 
 @app.route("/help")
@@ -198,7 +205,7 @@ def GetImages():
         'upma.png', 'utappam.png', 'coffee.png', 'tea.png'
     ]
     afternoon_images = [
-        'biryani.png', 'south-indian.png', 'north-indian.png', 'chinese.png', 'shawarma.png',
+        'veg_biryani.png', 'south-indian.png', 'north-indian.png', 'chinese.png', 'shawarma.png',
         'salad.png', 'burger.png', 'pizza.png', 'cake.png', 'paratha.png', 'rolls.png', 'pasta.png',
         'dosa.png', 'ice-cream.png', 'baath.png', 'khichidi.png', 'noodles.png', 'shakes.png'
     ]
@@ -210,8 +217,8 @@ def GetImages():
     ]
     night_images = [
         'biryani.png', 'chicken-manchuria.png', 'butternut-squash.png', 'panner-pasanda.png', 'tofu-curry.png',
-        'baked-feta.png', 'chicken-pot.png', 'sphagetti-carbonara.png', 'khichidi.png', 'dal-makkhani.png',
-        'baath.png', 'chicken-florentine.png', 'burger.png', 'pizza.png', 'cake.png', 'noodles.png',
+        'baked-feta.png', 'chicken-pot.png', 'spaghetti-carbonara.png', 'khichidi.png', 'dal-makkhani.png',
+        'baath.png', 'chicken-florentine.png', 'burger.png', 'margarita_pizza.png', 'cake.png', 'noodles.png',
         'shakes.png', 'beverages.png'
     ]
 
@@ -232,30 +239,54 @@ def GetImages():
 # noinspection PyShadowingNames
 @app.route('/api/restaurants')
 def GetRestaurants():
-    username = session['username']
-    user = QBUser.query.filter_by(username=username).first()
-    email = user.email
-    district = Address.query.filter_by(email=email).first().district
-    restaurants = RestaurantsByLoc.query.filter(func.lower(RestaurantsByLoc.address).
-                                                like(func.lower(f'%{district}%'))).all()
+    if 'username' in session:
+        username = session['username']
+        user = QBUser.query.filter_by(username=username).first()
+        email = user.email
+        district = Address.query.filter_by(email=email).first().district
+        restaurants = RestaurantsByLoc.query.filter(func.lower(RestaurantsByLoc.address).
+                                                    like(func.lower(f'%{district}%'))).all()
 
-    # Create a list to store the restaurant information
-    restaurant_info = []
+        # Create a list to store the restaurant information
+        restaurant_info = []
 
-    # Loop through the restaurants and create a dictionary containing all the required information
-    for restaurant in restaurants:
-        restaurant_dict = {
-            'restaurant_name': restaurant.restaurant_name,
-            'number_of_reviews': restaurant.num_reviews,
-            'rating': restaurant.rating,
-            'ranking': restaurant.ranking,
-            'web_url': restaurant.web_url,
-            'image_url': restaurant.image_url
-        }
-        restaurant_info.append(restaurant_dict)
+        # Loop through the restaurants and create a dictionary containing all the required information
+        for restaurant in restaurants:
+            restaurant_dict = {
+                'restaurant_name': restaurant.restaurant_name,
+                'number_of_reviews': restaurant.num_reviews,
+                'rating': restaurant.rating,
+                'ranking': restaurant.ranking,
+                'web_url': restaurant.web_url,
+                'image_url': restaurant.image_url
+            }
+            restaurant_info.append(restaurant_dict)
 
-    # Return the list of restaurant information as JSON
-    return jsonify(restaurant_info)
+        # Return the list of restaurant information as JSON
+        return jsonify(restaurant_info)
+
+
+# noinspection PyShadowingNames
+@app.route('/api/menu')
+def GetMenu():
+    if 'username' in session:
+        menu_items = MenuDetails.query.all()
+        # Create a list to store the menu information
+        menu_info = []
+        # Loop through the menu items and create a dictionary containing all the required information
+        for menu in menu_items:
+            menu_dict = {
+                'cuisine': menu.cuisine_name,
+                'item_category': menu.item_category,
+                'item_name': menu.item_name,
+                'item_type': menu.item_type,
+                'item_price': menu.item_price,
+                'item_description': menu.item_description,
+                'item_rating': menu.item_reviews
+            }
+            menu_info.append(menu_dict)
+        # Return the list of menu information as JSON
+        return jsonify(menu_info)
 
 
 @app.route('/upload_image', methods=['POST'])
@@ -271,12 +302,6 @@ def upload_image():
             return jsonify({'message': 'No image selected'})
     else:
         return jsonify({'message': 'User not logged in'})
-
-
-def GetProfileImage(username):
-    username_with_extension = f"{username}.jpg"
-    image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
-    return image_path if os.path.exists(image_path) else None
 
 
 @app.route('/update_profile', methods=['POST'])

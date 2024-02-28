@@ -21,7 +21,7 @@
                           "rating": 4.3
                       },
                       {
-                          "name": "Chaat",
+                          "name": "Gol Gappa",
                           "type": "Vegetarian",
                           "price": 60,
                           "description": "Spicy snack with chickpeas, chutneys",
@@ -699,7 +699,7 @@
                 "name": "Pizzas",
                 "items": [
                   {
-                    "name": "Margherita Pizza",
+                    "name": "Margarita Pizza",
                     "type": "Vegetarian",
                     "price": 150,
                     "description": "Cheese and tomato pizza",

@@ -39,6 +39,9 @@ fetch('/api/restaurants')
       const viewMenuBtn = document.createElement('button');
       viewMenuBtn.classList.add('view-menu-btn');
       viewMenuBtn.textContent = 'View Menu';
+      viewMenuBtn.addEventListener('click', () => {
+        window.location.href = '/menu';
+      });
 
       const numberOfReviews = document.createElement('div');
       numberOfReviews.classList.add('num-reviews');

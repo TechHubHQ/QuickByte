@@ -206,7 +206,7 @@ def GetImages():
     ]
     afternoon_images = [
         'veg_biryani.png', 'south-indian.png', 'north-indian.png', 'chinese.png', 'shawarma.png',
-        'salad.png', 'burger.png', 'pizza.png', 'cake.png', 'paratha.png', 'rolls.png', 'pasta.png',
+        'salad.png', 'burger.png', 'margarita_pizza.png', 'cake.png', 'paratha.png', 'rolls.png', 'pasta.png',
         'dosa.png', 'ice-cream.png', 'baath.png', 'khichidi.png', 'noodles.png', 'shakes.png'
     ]
     evening_images = [
@@ -216,8 +216,8 @@ def GetImages():
         'bread-halwa.png'
     ]
     night_images = [
-        'biryani.png', 'chicken-manchuria.png', 'butternut-squash.png', 'panner-pasanda.png', 'tofu-curry.png',
-        'baked-feta.png', 'chicken-pot.png', 'spaghetti-carbonara.png', 'khichidi.png', 'dal-makkhani.png',
+        'veg_biryani.png', 'chicken-manchuria.png', 'butternut-squash.png', 'panner-pasanda.png', 'tofu-curry.png',
+        'baked-feta.png', 'chicken-pot.png', 'spaghetti_carbonara.png', 'khichidi.png', 'dal_makhani.png',
         'baath.png', 'chicken-florentine.png', 'burger.png', 'margarita_pizza.png', 'cake.png', 'noodles.png',
         'shakes.png', 'beverages.png'
     ]

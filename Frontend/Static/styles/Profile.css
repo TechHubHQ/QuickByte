@@ -74,12 +74,11 @@ nav a img {
 
 .sidebar-container {
   position: absolute;
-  left: 0;
-  top: 20%; 
-  height: calc(100% - 80px);
+  left: 13px;
+  top: 161px; 
   width: 200px;
+  bottom:120px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  height: 56%;
 } 
 
 .sidebar-padding {
@@ -133,10 +132,12 @@ nav a img {
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 1rem 20rem;
+  padding: 1rem 5rem;
   margin-bottom: 2%;
   margin-top: 2%; 
   margin-right: 2%;
+  margin-left: 17%;
+  width:70%;
   border-radius: 10px; 
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -303,7 +304,7 @@ footer {
   }
 
   .main-content{
-    padding :8rem;
+    padding :13rem 2rem;
   }
 
 
@@ -317,7 +318,7 @@ footer {
   nav a {
     font-size: 0;
   }
-  
+
   nav a:hover {
     font-size: 60%;
   }

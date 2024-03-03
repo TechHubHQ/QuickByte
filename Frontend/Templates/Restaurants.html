@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant List</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/Restaurants.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+  <script src="{{ url_for('static', filename='js/RestaurantGetter.js') }}"></script>
+</head>
+<body>
+  <header>
+    <div class="hdr-card">
+      <div class="hdr-lft">
+        <div class="logo">
+          <img src="{{ url_for('static', filename='Images/common/QBlogo.png') }}" alt="QuickByte" height="100px" width="100px">
+        </div>
+      </div>
+
+      <div class="hdr-rght">
+        <nav>
+          <a href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
+            Home
+          </a>
+          <a href="{{ url_for('restaurants') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+            Restaurants
+          </a>
+          <a href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+            My Orders
+          </a>
+          <a href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
+            Profile
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-card">
+
+    <div class="restaurant-list" id="restaurant-container">
+      <!-- Restaurant cards will be dynamically added here -->
+    </div>
+
+  </div>
+  <footer>
+    <div class="footer-left">
+      <h3>About QuickByte</h3>
+      <p>Fast, Convenient and Delicious food</p>
+      <p>Delivered to your doorstep!</p>
+      <p>&copy; QuickByte 2024</p>
+    </div>
+    <div class="footer-right">
+      <b><a href="#">> Help Center</a></b>
+      <b><a href="#">> How to Order</a></b>
+      <b><a href="#">> Become an Associate</a></b>
+    </div>
+  </footer>
+</body>
+</html>

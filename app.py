@@ -1,9 +1,12 @@
 import os
 from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
+from sqlalchemy import func
 from datetime import datetime
 from Backend.Connections.QBcDBConnector import init_db
-from Backend.Models.QBmAddressModel import CreateAddress
+from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
+from Backend.Models.QBmAddressModel import Address, CreateAddress
+from Backend.Models.QBmLoadMenu import MenuDetails
 from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
@@ -31,13 +34,25 @@ def landing():
         else:
             return redirect(url_for('login'))
     except Exception as e:
-        print(e)
+        print("\n----------------------------------------------------------------------------")
+        print(f"Exception while accessing landing page for user {session['username']}: \n{e}")
+        print("-----------------------------------------------------------------------------\n")
+        return redirect(url_for('login'))
+
+
+@app.route('/restaurants')
+def restaurants():
+    if 'username' in session:
+        return render_template('Restaurants.html')
+    else:
         return redirect(url_for('login'))
 
 
 @app.route('/menu')
 def menu():
+    print("\n------------------------------------------------------------------")
     print(session)
+    print("------------------------------------------------------------------\n")
     if 'username' in session:
         return render_template('Menu.html')
     else:
@@ -59,20 +74,28 @@ def profile():
         user_name = session['username']
         user = QBUser.query.filter_by(username=user_name).first()
         formatted_username = user.username.replace(' ', '_') if user else None
-        profile_image_url = get_profile_image(formatted_username) if formatted_username else None
+        profile_image_url = GetProfileImage(formatted_username) if formatted_username else None
         print(f"url: {profile_image_url}")
         return render_template('Profile.html', user=user, profile_image_url=profile_image_url)
     else:
         return redirect(url_for('login'))
 
 
+def GetProfileImage(username):
+    username_with_extension = f"{username}.jpg"
+    image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
+    return image_path if os.path.exists(image_path) else None
+
+
 @app.route("/help")
 def help():
+    print("\n------------------------------------------------------------------")
     print(session)
+    print("------------------------------------------------------------------\n")
     if 'username' in session:
-        return render_template('Help_Center.html')
+        return render_template('Help.html')
     else:
-        redirect(url_for('login'))
+        return redirect(url_for('login'))
 
 
 # QBUser Module
@@ -125,7 +148,9 @@ def signup():
 def address():
     email = session['email']
     form = AddressDetailsForm()
+    print("\n---------------------------------------------------------------------------------------------------")
     print(f"received a {request.method} request {form.validate_on_submit()} and {form.errors} and {request.form}")
+    print("---------------------------------------------------------------------------------------------------\n")
     if request.method == 'POST' and form.validate_on_submit():
         user_email = email
         line1 = request.form['line1']
@@ -180,8 +205,8 @@ def GetImages():
         'upma.png', 'utappam.png', 'coffee.png', 'tea.png'
     ]
     afternoon_images = [
-        'biryani.png', 'south-indian.png', 'north-indian.png', 'chinese.png', 'shawarma.png',
-        'salad.png', 'burger.png', 'pizza.png', 'cake.png', 'paratha.png', 'rolls.png', 'pasta.png',
+        'veg_biryani.png', 'south-indian.png', 'north-indian.png', 'chinese.png', 'shawarma.png',
+        'salad.png', 'burger.png', 'margarita_pizza.png', 'cake.png', 'paratha.png', 'rolls.png', 'pasta.png',
         'dosa.png', 'ice-cream.png', 'baath.png', 'khichidi.png', 'noodles.png', 'shakes.png'
     ]
     evening_images = [
@@ -191,9 +216,9 @@ def GetImages():
         'bread-halwa.png'
     ]
     night_images = [
-        'biryani.png', 'chicken-manchuria.png', 'butternut-squash.png', 'panner-pasanda.png', 'tofu-curry.png',
-        'baked-feta.png', 'chicken-pot.png', 'sphagetti-carbonara.png', 'khichidi.png', 'dal-makkhani.png',
-        'baath.png', 'chicken-florentine.png', 'burger.png', 'pizza.png', 'cake.png', 'noodles.png',
+        'veg_biryani.png', 'chicken-manchuria.png', 'butternut-squash.png', 'panner-pasanda.png', 'tofu-curry.png',
+        'baked-feta.png', 'chicken-pot.png', 'spaghetti_carbonara.png', 'khichidi.png', 'dal_makhani.png',
+        'baath.png', 'chicken-florentine.png', 'burger.png', 'margarita_pizza.png', 'cake.png', 'noodles.png',
         'shakes.png', 'beverages.png'
     ]
 
@@ -211,6 +236,59 @@ def GetImages():
     return jsonify(images)
 
 
+# noinspection PyShadowingNames
+@app.route('/api/restaurants')
+def GetRestaurants():
+    if 'username' in session:
+        username = session['username']
+        user = QBUser.query.filter_by(username=username).first()
+        email = user.email
+        district = Address.query.filter_by(email=email).first().district
+        restaurants = RestaurantsByLoc.query.filter(func.lower(RestaurantsByLoc.address).
+                                                    like(func.lower(f'%{district}%'))).all()
+
+        # Create a list to store the restaurant information
+        restaurant_info = []
+
+        # Loop through the restaurants and create a dictionary containing all the required information
+        for restaurant in restaurants:
+            restaurant_dict = {
+                'restaurant_name': restaurant.restaurant_name,
+                'number_of_reviews': restaurant.num_reviews,
+                'rating': restaurant.rating,
+                'ranking': restaurant.ranking,
+                'web_url': restaurant.web_url,
+                'image_url': restaurant.image_url
+            }
+            restaurant_info.append(restaurant_dict)
+
+        # Return the list of restaurant information as JSON
+        return jsonify(restaurant_info)
+
+
+# noinspection PyShadowingNames
+@app.route('/api/menu')
+def GetMenu():
+    if 'username' in session:
+        menu_items = MenuDetails.query.all()
+        # Create a list to store the menu information
+        menu_info = []
+        # Loop through the menu items and create a dictionary containing all the required information
+        for menu in menu_items:
+            menu_dict = {
+                'cuisine': menu.cuisine_name,
+                'item_category': menu.item_category,
+                'item_name': menu.item_name,
+                'item_type': menu.item_type,
+                'item_price': menu.item_price,
+                'item_description': menu.item_description,
+                'item_rating': menu.item_reviews
+            }
+            menu_info.append(menu_dict)
+        # Return the list of menu information as JSON
+        return jsonify(menu_info)
+
+
 @app.route('/upload_image', methods=['POST'])
 def upload_image():
     if 'username' in session:
@@ -226,12 +304,6 @@ def upload_image():
         return jsonify({'message': 'User not logged in'})
 
 
-def get_profile_image(username):
-    username_with_extension = f"{username}.jpg"
-    image_path = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'], username_with_extension)
-    return image_path if os.path.exists(image_path) else None
-
-
 @app.route('/update_profile', methods=['POST'])
 def update_profile():
     username = request.form.get('username')
@@ -244,7 +316,9 @@ def update_profile():
         else:
             UserController.UpdateUser(username, password)
             flash('User details updated Successfully', 'success')
+            print("\n------------------------------------------------------------------------")
             print(f"user details updated with data --> username: {username}, key: {password}")
+            print("------------------------------------------------------------------------\n")
             return redirect(url_for('settings'))
     elif 'username' in session:
         username = session['username']
@@ -255,7 +329,9 @@ def update_profile():
         else:
             UserController.UpdateUser(username, password)
             flash('User details updated Successfully', 'success')
+            print("\n------------------------------------------------------------------------")
             print(f"user details updated with data --> username: {username}, key: {password}")
+            print("------------------------------------------------------------------------\n")
             return redirect(url_for('settings'))
     else:
         flash('User not logged in', 'danger')

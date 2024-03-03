@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
   <title>QuickByte</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/QBlogo.ico') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
   <script src="../Static/js/Swiper.js"></script>
   <script src="../Static/js/ImageGetter.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/Landing.css') }}">
 </head>
 
@@ -30,8 +31,8 @@
           <a href="{{ url_for('landing') }}"><img src="{{ url_for('static', filename='Images/svg/Home.svg')}}" alt="HomeIcon" height="20px" width="20px">
             Home
           </a>
-          <a href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
-            Menu
+          <a href="{{ url_for('restaurants') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
+            Restaurants
           </a>
           <a href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
             My Orders
@@ -106,7 +107,7 @@
       <div class="food-container">
         
         <div class="food pizza">
-          <img src="{{ url_for('static', filename='Images/IMGLib/pizza.png') }}" alt="Pizza">
+          <img src="{{ url_for('static', filename='Images/IMGLib/margarita_pizza.png') }}" alt="Pizza">
           <div class="details">
             <h3>Pepperoni Pizza</h3>
             <p>Pepperoni, mozzarella cheese, pizza sauce</p>

@@ -59,11 +59,21 @@ def menu():
         return redirect(url_for('login'))
 
 
-@app.route('/orders')
+@app.route('/cart')
+def cart():
+    print(session)
+    if 'username' in session:
+        return render_template('Cart.html')
+
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/payment')
 def orders():
     print(session)
     if 'username' in session:
-        return render_template('Orders.html')
+        return render_template('Payment.html')
     else:
         return redirect(url_for('login'))
 

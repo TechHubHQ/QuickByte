@@ -2,10 +2,10 @@ body {
     font-family: 'Poppins', sans-serif; 
     margin: 0 !important; 
   
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f8f8;    
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;    
   }
 
 /* Header */
@@ -86,19 +86,6 @@ nav a img {
   margin-left: 1em;
 }
 
-/* Search bar */
-.search-form {
-  display: inline;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-form input[type="text"] {
-  padding: 10px;
-  border: none;
-  border-radius: 5px 5px 5px 5px;
-}
-
 
 @media (max-width: 1000px) {
     nav a {
@@ -150,32 +137,45 @@ nav a img {
       border-bottom: 2px solid #e31837; /* Change border color to match the active tab */
     }
   
-    /* Filter and Sort */
-    .filter-and-sort {
-      display: flex;
-      align-items: center;
-      padding: 5px;
-      background-color: #f8f8f8; /* Background color for filter and sort */
-      border-radius: 5px;
-    }
+  /* Filter and Sort */
+  .filter-and-sort {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+    background-color: #f8f8f8; /* Background color for filter and sort */
+    border-radius: 5px;
+  }
+
+  .filter-and-sort select {
+    margin-right: 10px; /* Add margin-right to create space between select elements */
+    padding: 5px;
+    border: 1px solid #ccc; /* Border color for select elements */
+    border-radius: 5px;
+    background-color: #fff; /* Background color for select elements */
+  }
+
+  .filter-and-sort select:focus {
+    outline: none; /* Remove focus outline */
+  }
+
+  .filter-and-sort select:hover {
+    border-color: #999; /* Change border color on hover */
+  }
   
-    .filter-and-sort select {
-      margin-right: 10px; /* Add margin-right to create space between select elements */
-      padding: 5px;
-      border: 1px solid #ccc; /* Border color for select elements */
-      border-radius: 5px;
-      background-color: #fff; /* Background color for select elements */
-    }
+  .item-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5em;
+  }
   
-    .filter-and-sort select:focus {
-      outline: none; /* Remove focus outline */
-    }
-  
-    .filter-and-sort select:hover {
-      border-color: #999; /* Change border color on hover */
-    }
+  .star {
+    color: #ffc107;
     
-  
+  }
+
+
   .menu-items {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Original */
@@ -251,46 +251,83 @@ nav a img {
     cursor: pointer;
   }
 
-    /* Footer */
-    footer {
-        background-color: rgb(240, 240, 240);
-        color: rgb(10, 10, 10);
-        text-align: center;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-      
-    .footer-left {
-        flex: 1;
-        text-align: left;
-        margin-bottom: 10px;
-    }
-      
-    .footer-left h3 {
-        margin-bottom: 10px;
-    }
-      
-    .footer-left p {
-        margin: 0;
-        font-size: 70%;
-    }
-      
-    .footer-left p + p {
-        margin-top: 0.5em;
-    }
-      
-      
-    .footer-right {
-        margin-top: 3%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        font-size: 70%;
-    }
-      
-    .footer-right a {
-        color: rgb(6, 6, 6);
-        text-decoration: none;
-    }
+  /* CSS for the "Go to Cart" floating box */
+  .go-to-cart-box {
+    position: fixed;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  .go-to-cart-btn {
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    padding: 10px 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  .cart-counter {
+    background-color: white;
+    color: green;
+    padding: 3px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Add shadow to the counter */
+  }
+
+  /* Footer */
+  footer {
+      background-color: rgb(240, 240, 240);
+      color: rgb(10, 10, 10);
+      text-align: center;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+  }
+    
+  .footer-left {
+      flex: 1;
+      text-align: left;
+      margin-bottom: 10px;
+  }
+    
+  .footer-left h3 {
+      margin-bottom: 10px;
+  }
+    
+  .footer-left p {
+      margin: 0;
+      font-size: 70%;
+  }
+    
+  .footer-left p + p {
+      margin-top: 0.5em;
+  }
+    
+    
+  .footer-right {
+      margin-top: 3%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 70%;
+  }
+    
+  .footer-right a {
+      color: rgb(6, 6, 6);
+      text-decoration: none;
+  }

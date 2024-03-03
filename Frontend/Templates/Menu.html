@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Food Delivery App Menu</title>
+  <title>QuickByte Menu</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/Menu.css') }}">
-  <script src="../Static/js/MenuGetter.js"></script>
+  <script src="../Static/js/MenuDetails.js"></script>
 </head>
 
 <body>
@@ -48,7 +48,7 @@
             <!-- Menu cards added dynamically with JS -->
         </div>
     </div>
-
+  
     <footer>
         <div class="footer-left">
             <h3>About QuickByte</h3>
@@ -63,5 +63,12 @@
         </div>
     </footer>
 
+    <!-- Add to cart floating box -->
+    <div class="go-to-cart-box">
+        <button class="go-to-cart-btn">Go to Cart</button>
+        <span class="cart-counter">0</span>
+    </div>
+  
+      
 </body>
 </html>

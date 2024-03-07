@@ -77,6 +77,23 @@ function displayTickAnimation() {
     }, 2000); // Adjust the delay as needed
 }
 
+function displayCrossAnimation() {
+    // Clear all contents in the payment details container
+    clearPaymentDetails();
+
+    // Create a div element for the cross symbol
+    const crossDiv = document.createElement('div');
+    crossDiv.classList.add('cross-animation');
+
+    // Append the cross symbol div to the document body
+    document.body.appendChild(crossDiv);
+
+    // After a delay, remove the cross symbol from the document
+    setTimeout(() => {
+        document.body.removeChild(crossDiv);
+    }, 2000); // Adjust the delay as needed
+}
+
 // Function to handle UPI payment form submission
 function payViaUPI(event) {
     event.preventDefault(); // Prevent the default form submission behavior
@@ -106,12 +123,12 @@ function payViaUPI(event) {
             // Optionally, display a success message or perform other actions
         } else {
             console.error('UPI payment failed');
-            // Optionally, display an error message or perform other actions
+            displayCrossAnimation()
         }
     })
     .catch(error => {
         console.error('Error processing UPI payment:', error);
-        // Optionally, display an error message or perform other actions
+        displayCrossAnimation()
     });
 }
 
@@ -146,14 +163,13 @@ function payViaCard(event) {
         if (response.ok) {
             console.log('Card payment successful');
             displayTickAnimation(); // Display tick symbol animation on success
-            // Optionally, display a success message or perform other actions
         } else {
             console.error('Card payment failed');
-            // Optionally, display an error message or perform other actions
+            displayCrossAnimation()
         }
     })
     .catch(error => {
         console.error('Error processing card payment:', error);
-        // Optionally, display an error message or perform other actions
+        displayCrossAnimation()
     });
 }

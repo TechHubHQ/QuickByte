@@ -13,6 +13,9 @@ DataBase/QB.db
 a/DataBase/QB.db
 b/DataBase/QB.db
 
+# IMG
+Frontend/Static/Images/Users
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

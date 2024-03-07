@@ -10,12 +10,14 @@ from Backend.Models.QBmLoadMenu import MenuDetails
 from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
+from Backend.Logic.QBlPaymentHandler import HandlePayment
 from Config.AppConfig import Config
 
 app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
 app.config.from_object(Config)
 base_dir = os.path.abspath(os.path.dirname(__file__))
 app.config['UPLOAD_FOLDER'] = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'])
+app.config['QR_CODE_FOLDER'] = os.path.join(base_dir, app.config['QR_FOLDER_RELATIVE'])
 init_db(app)
 
 
@@ -70,10 +72,64 @@ def cart():
 
 
 @app.route('/payment')
-def orders():
-    print(session)
+def payment():
     if 'username' in session:
         return render_template('Payment.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/pay_via_upi', methods=['POST'])
+def pay_via_upi():
+    # Extract UPI ID from the request JSON data
+    username = session.get('username')
+    data = request.json
+    upi_id = data.get('upi_id')
+    paid_amount = data.get('paid_amount')
+    payment_type = data.get('payment_type')
+    print(f"UPI ID: {upi_id}, username: {username}, paid amount: {paid_amount}, payment type: {payment_type}")
+
+    result = HandlePayment(payment_type=payment_type, last_paid_amount=paid_amount, username=username, upi_id=upi_id)
+
+    if result:
+        return jsonify({'message': 'Payment successful'})
+    else:
+        return jsonify({'message': 'Payment failed'})
+
+
+@app.route('/pay_via_card', methods=['POST'])
+def pay_via_card():
+    # Extract card details from the request
+    username = session.get('username')
+    data = request.json
+    card_number = data.get('card_number')
+    cardholder_name = data.get('cardholder_name')
+    expiry_date = data.get('expiration_date')
+    cvv = data.get('cvv')
+    payment_type = data.get('payment_type')
+    paid_amount = data.get('paid_amount')
+
+    result = HandlePayment(
+        username=username,
+        payment_type=payment_type,
+        card_number=card_number,
+        cardholder_name=cardholder_name,
+        expiry_date=expiry_date,
+        cvv=cvv,
+        last_paid_amount=paid_amount
+    )
+
+    if result:
+        return jsonify({'message': 'Payment successful'})
+    else:
+        return jsonify({'message': 'Payment failed'})
+
+
+@app.route('/orders')
+def orders():
+    if 'username' in session:
+        return render_template('Orders.html')
+
     else:
         return redirect(url_for('login'))
 

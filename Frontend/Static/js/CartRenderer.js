@@ -103,14 +103,24 @@ const renderItemsInCart = () => {
         proceedToPaymentButton.classList.add('checkout-button');
         proceedToPaymentButton.textContent = 'Proceed to Payment';
         proceedToPaymentButton.addEventListener('click', () => {
-            // Redirect to payment page
-            window.location.href = '/payment';
+            // Redirect to payment page with total payment amount as query parameter
+            const totalPrice = getTotalPrice(cartItems);
+            window.location.href = `/payment?total=${totalPrice}`;
         });
-
-        // Append proceed to payment button to cart container
+        
         cartContainer.appendChild(proceedToPaymentButton);
     }
 };
+
+const getTotalPrice = (cartItems) => {
+    let totalPrice = 0;
+    cartItems.forEach(item => {
+        const itemPrice = item.price.replace(/\D/g, '') * item.quantity;
+        totalPrice += itemPrice;
+    });
+    return totalPrice;
+};
+
 
 // Call the function to render items in the cart when the page loads
 window.addEventListener('load', renderItemsInCart);

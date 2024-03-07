@@ -10,3 +10,4 @@ class Config:
     DB = os.environ.get('DB')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOAD_FOLDER_RELATIVE = os.environ.get('UPLOAD_FOLDER_RELATIVE')
+    QR_FOLDER_RELATIVE = os.environ.get('QRCODE_FOLDER_RELATIVE')

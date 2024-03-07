@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickByte Payment</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Payment.css') }}">
+    <script src="{{ url_for('static', filename='js/PaymentProcessor.js') }}"></script>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="card">
+            <h1>Payment Details</h1>
+            <div class="payment-details" id="paymentDetails">
+                <!-- Payment details will be populated dynamically here -->
+            </div>
+            <!-- Payment options tabs and content -->
+            <div class="payment-options">
+                <button class="tab" onclick="openTab('upi')">Pay via UPI</button>
+                <button class="tab" onclick="openTab('card')">Pay via Card</button>
+            </div>        
+            <div id="upi" class="tab-content">
+                <!-- UPI payment form -->
+                <form id="upi-form" class="payment-form" onsubmit="payViaUPI(event)">
+                    <input type="text"  id="upi-id" name="upi-id" placeholder="Enter UPI ID" required>
+                    <input type="submit" value="Pay Now">
+                </form>
+            </div>
+            <div id="card" class="tab-content">
+                <!-- Card payment form -->
+                <form id="card-form" class="payment-form" onsubmit="payViaCard(event)">
+                    <input type="text" name="card-number" id="card-number" placeholder="Card Number" required>
+                    <input type="text" name="cardholder-name" id="cardholder-name" placeholder="Cardholder Name" required>
+                    <input type="text" name="expiration-date" id="expiration-date" placeholder="Expiration Date (MM/YYYY)" required>
+                    <input type="text" name="cvv" id="cvv" placeholder="CVV" required>
+                    <input type="submit" value="Pay Now">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

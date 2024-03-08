@@ -65,21 +65,29 @@ function openTab(tabName) {
 }
 
 function displayTickAnimation() {
+    // Remove all child elements of the document body
+    while (document.body.firstChild) {
+        document.body.removeChild(document.body.firstChild);
+    }
 
-    // Create a div element for the tick symbol
     const tickDiv = document.createElement('div');
     tickDiv.classList.add('tick-animation');
-
     document.body.appendChild(tickDiv);
 
+    const successMessage = document.createElement('div');
+    successMessage.textContent = 'Order Placed Successfully';
+    successMessage.classList.add('success-message');
+    document.body.appendChild(successMessage);
+
+    document.body.classList.add('success-background');
+
+    // Redirect to the order tracker page after 1 second
     setTimeout(() => {
-        document.body.removeChild(tickDiv);
-    }, 2000); // Adjust the delay as needed
+        window.location.href = '/order_tracker';
+    }, 1000);
 }
 
 function displayCrossAnimation() {
-    // Clear all contents in the payment details container
-    clearPaymentDetails();
 
     // Create a div element for the cross symbol
     const crossDiv = document.createElement('div');

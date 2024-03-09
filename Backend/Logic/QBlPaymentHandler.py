@@ -23,16 +23,12 @@ def HandlePayment(payment_type, **kwargs):
             payment_mode="Card"
         )
         print(f"card payment {payment_details}")
-        # Example: return some success message or status code
         return {"message": "Card payment details recorded successfully"}
 
     elif payment_type == "UPI":
-        # Populate details for UPI payment
         user_name = kwargs.get('username')
         upi_id = kwargs.get('upi_id')
-        expiry_date = kwargs.get('expiry_date')
         paid_amount = kwargs.get('last_paid_amount')
-        print(paid_amount)
         payment_details = CreatePaymentDetails(
             user_name=user_name,
             card_number=None,
@@ -46,9 +42,7 @@ def HandlePayment(payment_type, **kwargs):
             last_paid_on=datetime.now()
         )
         print(f"upi payment {payment_details}")
-        # Example: return some success message or status code
         return {"message": "UPI payment details recorded successfully"}
 
     else:
-        # Handle unsupported payment types
         return {"error": "Unsupported payment type"}

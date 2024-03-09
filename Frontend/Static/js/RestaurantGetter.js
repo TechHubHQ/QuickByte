@@ -7,6 +7,11 @@ fetch('/api/restaurants')
       const card = document.createElement('div');
       card.classList.add('restaurant-card');
 
+      card.addEventListener('click', () => {
+        sessionStorage.setItem('restaurant_name', JSON.stringify(restaurant.restaurant_name));
+        window.location.href = '/menu';
+      });
+
       const image = document.createElement('img');
       if (restaurant.image_url && restaurant.image_url !== 'None') {
         // If image_url is not None, set the src to the image_url

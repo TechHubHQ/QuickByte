@@ -1,118 +1,94 @@
 let total;
 
 window.addEventListener('DOMContentLoaded', () => {
-    const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
-    const paymentDetailsContainer = document.getElementById('paymentDetails');
-    paymentDetailsContainer.innerHTML = '';
+    const paymentMade = sessionStorage.getItem('paymentMade');
 
-    let subtotal = 0;
+    if (paymentMade === 'true') {
+        disablePaymentOptions();
+    } else {
+        const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+        const paymentDetailsContainer = document.getElementById('paymentDetails');
+        paymentDetailsContainer.innerHTML = '';
 
-    cartItems.forEach(item => {
-        const itemTotalPrice = parseFloat(item.price.replace(/[^\d.]/g, '')) * item.quantity;
-        subtotal += itemTotalPrice;
+        let subtotal = 0;
 
-        const paymentItem = document.createElement('div');
-        paymentItem.classList.add('payment-item');
+        cartItems.forEach(item => {
+            const itemTotalPrice = parseFloat(item.price.replace(/[^\d.]/g, '')) * item.quantity;
+            subtotal += itemTotalPrice;
 
-        const itemName = document.createElement('span');
-        itemName.textContent = item.name;
+            const paymentItem = document.createElement('div');
+            paymentItem.classList.add('payment-item');
 
-        const itemPrice = document.createElement('span');
-        itemPrice.textContent = `Price: ₹${itemTotalPrice.toFixed(2)}`;
+            const itemName = document.createElement('span');
+            itemName.textContent = item.name;
 
-        const itemQuantity = document.createElement('span');
-        itemQuantity.textContent = `Quantity: ${item.quantity}`;
+            const itemPrice = document.createElement('span');
+            itemPrice.textContent = `Price: ₹${itemTotalPrice.toFixed(2)}`;
 
-        paymentItem.appendChild(itemName);
-        paymentItem.appendChild(itemPrice);
-        paymentItem.appendChild(itemQuantity);
+            const itemQuantity = document.createElement('span');
+            itemQuantity.textContent = `Quantity: ${item.quantity}`;
 
-        paymentDetailsContainer.appendChild(paymentItem);
-    });
+            paymentItem.appendChild(itemName);
+            paymentItem.appendChild(itemPrice);
+            paymentItem.appendChild(itemQuantity);
 
-    // Calculate total and display
-    const tax = subtotal * 0.01;
-    total = subtotal + tax; // Assign total a value here
+            paymentDetailsContainer.appendChild(paymentItem);
+        });
 
-    const paymentTotal = document.createElement('div');
-    paymentTotal.classList.add('payment-total');
+        const tax = subtotal * 0.01;
+        const total = subtotal + tax;
 
-    const subtotalSpan = document.createElement('span');
-    subtotalSpan.textContent = `Subtotal: ₹${subtotal.toFixed(2)}`;
+        const paymentTotal = document.createElement('div');
+        paymentTotal.classList.add('payment-total');
 
-    const taxSpan = document.createElement('span');
-    taxSpan.textContent = `Tax: ₹${tax.toFixed(2)}`;
+        const subtotalSpan = document.createElement('span');
+        subtotalSpan.textContent = `Subtotal: ₹${subtotal.toFixed(2)}`;
 
-    const totalSpan = document.createElement('span');
-    totalSpan.classList.add('total-payment')
-    totalSpan.textContent = `Total: ₹${total.toFixed(2)}`;
+        const taxSpan = document.createElement('span');
+        taxSpan.textContent = `Tax: ₹${tax.toFixed(2)}`;
 
-    paymentTotal.appendChild(subtotalSpan);
-    paymentTotal.appendChild(taxSpan);
-    paymentTotal.appendChild(totalSpan);
+        const totalSpan = document.createElement('span');
+        totalSpan.classList.add('total-payment');
+        totalSpan.textContent = `Total: ₹${total.toFixed(2)}`;
 
-    paymentDetailsContainer.appendChild(paymentTotal);
+        paymentTotal.appendChild(subtotalSpan);
+        paymentTotal.appendChild(taxSpan);
+        paymentTotal.appendChild(totalSpan);
+
+        paymentDetailsContainer.appendChild(paymentTotal);
+
+        const priceDetails = {
+            subtotal: subtotal.toFixed(2),
+            tax: tax.toFixed(2),
+            total: total.toFixed(2)
+        };
+
+        sessionStorage.setItem('priceDetails', JSON.stringify(priceDetails));
+    }
 });
 
+function disablePaymentOptions() {
+    document.getElementById('upi-form').style.display = 'none';
+    document.getElementById('card-form').style.display = 'none';
 
-function openTab(tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    document.getElementById(tabName).style.display = "block";
+    const paymentMessage = document.createElement('div');
+    paymentMessage.textContent = 'Payment has already been made for this order.';
+    document.getElementById('payment-container').appendChild(paymentMessage);
 }
 
-function displayTickAnimation() {
-    // Remove all child elements of the document body
-    while (document.body.firstChild) {
-        document.body.removeChild(document.body.firstChild);
-    }
-
-    const tickDiv = document.createElement('div');
-    tickDiv.classList.add('tick-animation');
-    document.body.appendChild(tickDiv);
-
-    const successMessage = document.createElement('div');
-    successMessage.textContent = 'Order Placed Successfully';
-    successMessage.classList.add('success-message');
-    document.body.appendChild(successMessage);
-
-    document.body.classList.add('success-background');
-
-    // Redirect to the order tracker page after 1 second
-    setTimeout(() => {
-        window.location.href = '/order_tracker';
-    }, 1000);
-}
-
-function displayCrossAnimation() {
-
-    // Create a div element for the cross symbol
-    const crossDiv = document.createElement('div');
-    crossDiv.classList.add('cross-animation');
-
-    // Append the cross symbol div to the document body
-    document.body.appendChild(crossDiv);
-
-    // After a delay, remove the cross symbol from the document
-    setTimeout(() => {
-        document.body.removeChild(crossDiv);
-    }, 2000); // Adjust the delay as needed
-}
-
-// Function to handle UPI payment form submission
 function payViaUPI(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    // Get the UPI ID entered by the user
+    event.preventDefault(); 
+    const paymentMade = sessionStorage.getItem('paymentMade');
+    if (paymentMade === 'true') {
+        console.log('Payment has already been made for this order.');
+        return;
+    }
+    
     const upiId = document.getElementById('upi-id').value;
-    const paidAmount = total; // Access total value
+    const paidAmount = parseFloat(sessionStorage.getItem('priceDetails').total);
     console.log('UPI ID:', upiId);
     console.log('paid amount:', paidAmount);
 
-    // Send the UPI ID to the backend API
     fetch("/pay_via_upi", {
         method: 'POST',
         headers: {
@@ -127,8 +103,7 @@ function payViaUPI(event) {
     .then(response => {
         if (response.ok) {
             console.log('UPI payment successful');
-            displayTickAnimation(); // Display tick symbol animation on success
-            // Optionally, display a success message or perform other actions
+            displayTickAnimation();
         } else {
             console.error('UPI payment failed');
             displayCrossAnimation()
@@ -140,19 +115,23 @@ function payViaUPI(event) {
     });
 }
 
-// Function to handle card payment form submission
 function payViaCard(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault(); 
 
-    // Get the card details entered by the user
+    const paymentMade = sessionStorage.getItem('paymentMade');
+    if (paymentMade === 'true') {
+        console.log('Payment has already been made for this order.');
+        return;
+    }
+
     const cardNumber = document.getElementById('card-number').value;
     const cardholderName = document.getElementById('cardholder-name').value;
     const expirationDate = document.getElementById('expiration-date').value;
     const cvv = document.getElementById('cvv').value;
-    const paidAmount = total; // Access total value
+    const paidAmount = parseFloat(sessionStorage.getItem('priceDetails').total);
     console.log('paid amount:', paidAmount);
 
-    // Send the card details to the backend API
+ 
     fetch('/pay_via_card', {
         method: 'POST',
         headers: {
@@ -170,7 +149,7 @@ function payViaCard(event) {
     .then(response => {
         if (response.ok) {
             console.log('Card payment successful');
-            displayTickAnimation(); // Display tick symbol animation on success
+            displayTickAnimation();
         } else {
             console.error('Card payment failed');
             displayCrossAnimation()
@@ -180,4 +159,51 @@ function payViaCard(event) {
         console.error('Error processing card payment:', error);
         displayCrossAnimation()
     });
+}
+
+
+function openTab(tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    document.getElementById(tabName).style.display = "block";
+}
+
+function displayTickAnimation() {
+
+    while (document.body.firstChild) {
+        document.body.removeChild(document.body.firstChild);
+    }
+
+    const tickDiv = document.createElement('div');
+    tickDiv.classList.add('tick-animation');
+    document.body.appendChild(tickDiv);
+
+    const successMessage = document.createElement('div');
+    successMessage.textContent = 'Order Placed Successfully';
+    successMessage.classList.add('success-message');
+    document.body.appendChild(successMessage);
+    document.body.classList.add('success-background');
+    sessionStorage.setItem('paymentMade', true)
+
+    setTimeout(() => {
+        window.location.href = '/order_tracker';
+    }, 1000);
+}
+
+function displayCrossAnimation() {
+
+    const crossDiv = document.createElement('div');
+    crossDiv.classList.add('cross-animation');
+
+    document.body.appendChild(crossDiv);
+    setTimeout(() => {
+        document.body.removeChild(crossDiv);
+    }, 1000);
+
+    setTimeout(() => {
+        window.location.href = '/landing';
+    }, 1000);
 }

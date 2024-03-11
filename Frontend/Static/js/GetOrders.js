@@ -3,9 +3,6 @@ fetch('/my_orders_data')
     .then(data => {
         const orderContainer = document.getElementById('order-container');
         const orderDetailsWidget = document.getElementById('order-details-widget');
-        const orderDetailsHeader = document.getElementById('order-details-header');
-        const orderDetailsTable = document.getElementById('order-details-table');
-        const orderItemsTable = document.getElementById('order-items-table');
 
         data.forEach(order => {
             const orderBox = document.createElement('div');
@@ -32,13 +29,17 @@ fetch('/my_orders_data')
             orderBox.addEventListener('click', () => {
                 showOrderDetails(order);
                 orderDetailsWidget.style.display = 'block';
-                orderContainer.style.display = 'none'; // Hide order boxes
+                orderContainer.style.display = 'none';
             });
 
             orderContainer.appendChild(orderBox);
         });
 
         function showOrderDetails(order) {
+            orderDetailsWidget.innerHTML = '';
+
+            const orderDetailsHeader = document.createElement('div');
+            orderDetailsHeader.className = 'order-details-header';
             orderDetailsHeader.innerHTML = `
                 <h2>Order Details</h2>
                 <p>Order ID: ${order.order_id}</p>
@@ -46,7 +47,10 @@ fetch('/my_orders_data')
                 <p>Order Status: ${order.order_status}</p>
                 <p>Order Type: ${order.order_type}</p>
             `;
+            orderDetailsWidget.appendChild(orderDetailsHeader);
 
+            const orderDetailsTable = document.createElement('table');
+            orderDetailsTable.className = 'order-details-table';
             orderDetailsTable.innerHTML = `
                 <tr>
                     <th>Detail</th>
@@ -73,7 +77,10 @@ fetch('/my_orders_data')
                     <td>${order.delivery_addr}</td>
                 </tr>
             `;
+            orderDetailsWidget.appendChild(orderDetailsTable);
 
+            const orderItemsTable = document.createElement('table');
+            orderItemsTable.className = 'order-items-table';
             orderItemsTable.innerHTML = `
                 <tr>
                     <th>Item No.</th>
@@ -82,7 +89,6 @@ fetch('/my_orders_data')
                     <th>Quantity</th>
                 </tr>
             `;
-
             order.items.forEach(item => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -93,6 +99,16 @@ fetch('/my_orders_data')
                 `;
                 orderItemsTable.appendChild(row);
             });
+            orderDetailsWidget.appendChild(orderItemsTable);
+
+            const backButton = document.createElement('button');
+            backButton.classList.add('back-button')
+            backButton.textContent = 'Back';
+            backButton.addEventListener('click', () => {
+                orderDetailsWidget.style.display = 'none';
+                orderContainer.style.display = 'flex';
+            });
+            orderDetailsWidget.appendChild(backButton);
         }
     })
     .catch(error => console.error('Error:', error));

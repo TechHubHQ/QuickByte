@@ -262,10 +262,10 @@ def cancel_order():
             return jsonify({'message': 'Order cancelled successfully'})
 
 
-@app.route('/orders')
-def orders():
+@app.route('/my_orders')
+def my_orders():
     if 'username' in session:
-        return render_template('Orders.html')
+        return render_template('MyOrders.html')
     else:
         return redirect(url_for('login'))
 

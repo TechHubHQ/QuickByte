@@ -25,7 +25,7 @@
           <a class="navbar-link" href="{{ url_for('menu') }}"><img src="{{ url_for('static', filename='Images/svg/FoodMenu.svg')}}" alt="MenuIcon" height="20px" width="20px">
             Menu
           </a>
-          <a class="navbar-link" href="{{ url_for('orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
+          <a class="navbar-link" href="{{ url_for('my_orders') }}"><img src="{{ url_for('static', filename='Images/svg/Orders.svg')}}" alt="Orders" height="20px" width="20px">
             My Orders
           </a>
           <a class="navbar-link" href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='Images/svg/Profile.svg')}}" alt="Orders" height="20px" width="20px">
@@ -44,7 +44,7 @@
   <div class="sidebar-container">
     <div>
       <nav class="side-nav">
-        <a class="sidebar-link" href="{{ url_for('orders') }}">
+        <a class="sidebar-link" href="{{ url_for('my_orders') }}">
           <img src="{{ url_for('static', filename='Images/svg/shopping-cart.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px" >
           My Orders
         </a>

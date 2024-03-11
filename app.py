@@ -8,7 +8,7 @@ from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmAddressModel import Address, CreateAddress
 from Backend.Models.QBmLoadMenu import MenuDetails
 from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
-from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, UpdateOrderStatusTimeStamps
+from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, OrderItemDetails, UpdateOrderStatusTimeStamps
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
 from Backend.Logic.QBlPaymentHandler import HandlePayment
@@ -215,7 +215,6 @@ def place_order():
 
 @app.route('/get_order_details')
 def get_order_details():
-    # Assuming you have a session variable with the username
     if 'username' in session:
         username = session['username']
         order_id = session['order_id']
@@ -268,6 +267,53 @@ def my_orders():
         return render_template('MyOrders.html')
     else:
         return redirect(url_for('login'))
+
+
+@app.route('/my_orders_data')
+def my_orders_data():
+    if 'username' in session:
+        username = session['username']
+        orders = OrderDetailsHeader.query.filter_by(user_name=username).all()
+        data = []
+        for order in orders:
+            order_details = {
+                'order_id': order.order_id,
+                'restaurant_name': order.restaurant_name,
+                'order_status': order.order_status,
+                'order_type': order.order_type,
+                'order_base_price': order.order_base_price,
+                'order_tax': order.order_tax,
+                'order_amount': order.order_amount,
+                'order_rcv_time': order.order_rcv_time.strftime('%Y-%m-%d %H:%M:%S'),
+                'order_accept_time': order.order_accept_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.order_accept_time else None,
+                'order_prep_time': order.order_prep_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.order_prep_time else None,
+                'order_ready_time': order.order_ready_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.order_ready_time else None,
+                'captain_assigned_time': order.captain_assigned_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.captain_assigned_time else None,
+                'out_for_delivery_time': order.out_for_delivery_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.out_for_delivery_time else None,
+                'order_delivered_time': order.order_delivered_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.order_delivered_time else None,
+                'order_cancel_time': order.order_cancel_time.strftime(
+                    '%Y-%m-%d %H:%M:%S') if order.order_cancel_time else None,
+                'delivery_to': order.delivery_to,
+                'delivery_addr': order.delivery_addr,
+                'items': []
+            }
+            items = OrderItemDetails.query.filter_by(order_id=order.order_id).all()
+            for item in items:
+                item_details = {
+                    'item_no': item.item_no,
+                    'item_name': item.item_name,
+                    'item_price': item.item_price,
+                    'item_quantity': item.item_quantity
+                }
+                order_details['items'].append(item_details)
+            data.append(order_details)
+        return jsonify(data)
 
 
 @app.route('/profile')

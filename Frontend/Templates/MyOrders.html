@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <title>My Orders</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/MyOrders.css') }}">
+  <script src="../Static/js/GetOrders.js"></script>
+</head>
+<body>
+    <h1>My Orders</h1>
+    <div id="order-container"></div>
+    <div id="order-details-widget">
+        <div id="order-details-header"></div>
+        <table id="order-details-table"></table>
+        <h3>Order Items</h3>
+        <table id="order-items-table"></table>
+    </div>
+</body>
+</html>

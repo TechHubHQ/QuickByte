@@ -1,6 +1,7 @@
 import os
 import time
 import sys
+
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
@@ -44,9 +45,8 @@ def update_order_status():
                             f"{datetime.now()} - Order {order.order_id} updated from '{current_status}' to '{next_status}'")
             else:
                 print(f"{datetime.now()} - No orders found requiring status update")
-
-            # Print alive ping
-            print(f"{datetime.now()} -- OrderStatusEngine is alive -- Process ID: {os.getpid()}")
+                # Print alive ping
+                print(f"{datetime.now()} -- OrderStatusEngine is alive -- Process ID: {os.getpid()}")
 
             # Sleep for 2 minutes
             time.sleep(120)

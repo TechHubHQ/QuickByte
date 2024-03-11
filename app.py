@@ -8,9 +8,11 @@ from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmAddressModel import Address, CreateAddress
 from Backend.Models.QBmLoadMenu import MenuDetails
 from Backend.Models.QBmUserModel import QBUser, ValidateUser, CreateUser, CheckUser
+from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, UpdateOrderStatusTimeStamps
 from Backend.Controllers.QBcrFormCreator import LoginForm, SignupForm, AddressDetailsForm
 from Backend.Controllers.QBcrUserController import UserController
 from Backend.Logic.QBlPaymentHandler import HandlePayment
+from Backend.Logic.QBlOrderHandler import HandleOrderGeneration, generate_order_id
 from Config.AppConfig import Config
 
 app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
@@ -125,11 +127,145 @@ def pay_via_card():
         return jsonify({'message': 'Payment failed'})
 
 
+@app.route('/order_tracker')
+def order_tracker():
+    if 'username' in session:
+        return render_template('OrderTracker.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/place_order', methods=['POST'])
+def place_order():
+    if 'username' in session:
+        username = session['username']
+        email = QBUser.query.filter_by(username=username).first().email
+        data = request.json
+        order_id = generate_order_id()
+        session['order_id'] = order_id
+        restaurant_name = data.get('restaurantName')
+        order_amount = float(data.get('orderAmount'))
+        order_tax = float(data.get('orderTax'))
+        subtotal = float(data.get('subtotal'))
+        items = data.get('items')
+        order_status = 'Order Placed'
+        order_rcv_time = datetime.now()
+        order_accept_time = None
+        order_prep_time = None
+        order_ready_time = None
+        captain_assigned_time = None
+        out_for_delivery_time = None
+        order_delivered_time = None
+        order_cancel_time = None
+        delivery_to = username
+        delv_addr = Address.query.filter_by(email=email).first()
+        delivery_addr = f"{delv_addr.line1}, {delv_addr.landmark}, {delv_addr.district}, {delv_addr.state}, {delv_addr.zip_code}"
+
+        # Lists to store item details
+        item_names = []
+        item_prices = []
+        item_quantities = []
+
+        # Process each item in the order
+        for item in items:
+            print(f"item: {item}")
+            item_name = item.get('name')
+            item_price = float(item.get('price').split('₹')[1])  # Extract price without 'Price: ₹' prefix
+            item_quantity = int(item.get('quantity'))
+            print(f"data: {item_name}, {item_price}, {item_quantity}")
+            item_names.append(item_name)
+            item_prices.append(item_price)
+            item_quantities.append(item_quantity)
+
+        # Create order header
+        order_header = HandleOrderGeneration.OrderHeaderCreation(
+            username=username,
+            order_id=order_id,
+            restaurant_name=restaurant_name,
+            order_status=order_status,
+            order_type='Home Delivery',
+            order_base_price=subtotal,
+            order_tax=order_tax,
+            order_amount=order_amount,
+            order_rcv_time=order_rcv_time,
+            order_accept_time=order_accept_time,
+            order_prep_time=order_prep_time,
+            order_ready_time=order_ready_time,
+            captain_assigned_time=captain_assigned_time,
+            out_for_delivery_time=out_for_delivery_time,
+            order_delivered_time=order_delivered_time,
+            order_cancel_time=order_cancel_time,
+            delivery_to=delivery_to,
+            delivery_addr=delivery_addr,
+        )
+
+        # Create order items
+        for i in range(len(item_names)):
+            order_item = HandleOrderGeneration.OrderItemCreation(
+                order_id=order_id,
+                item_no=(i + 1) * 10,
+                item_name=item_names[i],
+                item_price=item_prices[i],
+                item_quantity=item_quantities[i]
+            )
+            print(order_item)
+        print(order_header)
+    return jsonify({'message': 'Order placed successfully'})
+
+
+@app.route('/get_order_details')
+def get_order_details():
+    # Assuming you have a session variable with the username
+    if 'username' in session:
+        username = session['username']
+        order_id = session['order_id']
+        order = OrderDetailsHeader.query.filter_by(user_name=username, order_id=order_id).first()
+        if order:
+            order_details = {
+                'order_id': order.order_id,
+                'delivery_address': order.delivery_addr,
+                'order_status': order.order_status,
+                'completed_steps': []  # This will be populated with completed steps based on the status
+            }
+            # Define the steps based on order status
+            steps = ['Order Placed', 'Order Confirmed', 'Preparing Order',
+                     'Order Ready', 'Captain Assigned', 'Out for Delivery', 'Delivered']
+            # Add completed steps based on order status
+            found_current_status = False
+            for step in steps:
+                if step == order.order_status:
+                    found_current_status = True
+                    order_details['completed_steps'].append(step)
+                elif found_current_status:
+                    break
+                else:
+                    order_details['completed_steps'].append(step)
+
+            return jsonify(order_details)
+        else:
+            return jsonify({'error': 'No order found for this user'})
+    else:
+        return jsonify({'error': 'User not logged in'})
+
+
+@app.route('/cancel_order', methods=['POST'])
+def cancel_order():
+    if 'username' in session:
+        username = session['username']
+        order_id = session['order_id']
+        order = OrderDetailsHeader.query.filter_by(user_name=username, order_id=order_id).first()
+        if order:
+            session.pop('order_id', None)  # Remove the order ID from the session
+            order.order_status = 'Order Cancelled'
+            order.order_cancel_time = datetime.now()
+            UpdateOrderStatusTimeStamps(order_id, order.order_status)
+            return jsonify({'message': 'Order cancelled successfully'})
+
+
 @app.route('/orders')
 def orders():
     if 'username' in session:
         return render_template('Orders.html')
-
     else:
         return redirect(url_for('login'))
 

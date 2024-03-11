@@ -1,0 +1,184 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.order-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-info {
+    margin-bottom: 20px;
+}
+
+.order-info p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+#cancel-message {
+    display: none;
+    color: #ff0000;
+    font-weight: bold;
+    
+}
+
+.loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+    z-index: 9999;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }  
+
+.order-progress {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.progress-line {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.progress-line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 9px;
+    height: 100%;
+    width: 4px;
+    background-color: #ccc;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.step-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    z-index: 1;
+    margin-right: 10px;
+}
+
+.step-label {
+    margin-left: 10px;
+}
+
+.completed .step-circle {
+    background-color: #7bed9f;
+}
+
+.active .step-circle {
+    background-color: #3498db;
+}
+
+.active-label {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.active,
+.completed {
+    opacity: 1;
+}
+
+.cancel-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #c0392b;
+}
+
+.order-cancelled-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.order-cancelled-message {
+    color: #ffffff;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+@keyframes x-mark-animation {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.x-mark {
+    width: 100px;
+    height: 100px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: x-mark-animation 1s ease infinite;
+}
+
+.x-mark:before,
+.x-mark:after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 70px;
+    background-color: #ffffff;
+}
+
+.x-mark:before {
+    transform: rotate(45deg);
+}
+
+.x-mark:after {
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+    .order-info {
+        margin-bottom: 10px;
+    }
+
+    .step-label {
+        font-size: 12px;
+    }
+}

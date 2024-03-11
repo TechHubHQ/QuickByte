@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const paymentMade = sessionStorage.getItem('paymentMade');
 
     if (paymentMade === 'true') {
-        disablePaymentOptions();
+        // disablePaymentOptions();
     } else {
         const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
         const paymentDetailsContainer = document.getElementById('paymentDetails');
@@ -70,10 +70,14 @@ window.addEventListener('DOMContentLoaded', () => {
 function disablePaymentOptions() {
     document.getElementById('upi-form').style.display = 'none';
     document.getElementById('card-form').style.display = 'none';
-
+    const paymentOptionsContainer = document.getElementById('payment-options');
+    if (!paymentOptionsContainer) {
+        console.error('Payment options container not found');
+        return;
+    }
     const paymentMessage = document.createElement('div');
     paymentMessage.textContent = 'Payment has already been made for this order.';
-    document.getElementById('payment-container').appendChild(paymentMessage);
+    document.getElementsByClassName('payment-container').appendChild(paymentMessage);
 }
 
 function payViaUPI(event) {
@@ -85,7 +89,10 @@ function payViaUPI(event) {
     }
     
     const upiId = document.getElementById('upi-id').value;
-    const paidAmount = parseFloat(sessionStorage.getItem('priceDetails').total);
+    const priceDetailsString = sessionStorage.getItem('priceDetails');
+    const priceDetails = JSON.parse(priceDetailsString);
+    const paidAmount = parseFloat(priceDetails.total);
+
     console.log('UPI ID:', upiId);
     console.log('paid amount:', paidAmount);
 

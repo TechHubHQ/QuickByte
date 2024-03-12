@@ -7,3 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     spaceBetween: 20,
   });
 });
+
+window.onload = () => {
+  sessionStorage.removeItem('paymentMade')
+}

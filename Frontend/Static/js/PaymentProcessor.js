@@ -4,7 +4,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const paymentMade = sessionStorage.getItem('paymentMade');
 
     if (paymentMade === 'true') {
-        // disablePaymentOptions();
+        disablePaymentOptions();
+        window.location.href = "/landing"
     } else {
         const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
         const paymentDetailsContainer = document.getElementById('paymentDetails');
@@ -68,16 +69,20 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function disablePaymentOptions() {
-    document.getElementById('upi-form').style.display = 'none';
-    document.getElementById('card-form').style.display = 'none';
-    const paymentOptionsContainer = document.getElementById('payment-options');
-    if (!paymentOptionsContainer) {
+    const paymentOptions = document.getElementsByClassName('payment-options');
+    if (!paymentOptions || paymentOptions.length === 0) {
         console.error('Payment options container not found');
         return;
     }
+
+    for (let i = 0; i < paymentOptions.length; i++) {
+        paymentOptions[i].style.display = 'none';
+    }
+
     const paymentMessage = document.createElement('div');
     paymentMessage.textContent = 'Payment has already been made for this order.';
-    document.getElementsByClassName('payment-container').appendChild(paymentMessage);
+    document.getElementsByClassName('payment-details')[0].appendChild(paymentMessage);
+    paymentMessage.style.textAlign = 'center'
 }
 
 function payViaUPI(event) {

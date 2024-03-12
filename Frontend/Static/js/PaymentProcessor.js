@@ -201,7 +201,7 @@ function displayTickAnimation() {
 }
 
 function displayCrossAnimation() {
-
+    sessionStorage.clear()
     const crossDiv = document.createElement('div');
     crossDiv.classList.add('cross-animation');
 

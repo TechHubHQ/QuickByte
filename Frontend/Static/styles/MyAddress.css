@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .address-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .address-details {
+    margin-bottom: 20px;
+  }
+  
+  .address-details p {
+    margin: 5px 0;
+  }
+  
+  .edit-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+  }
+  
+  .edit-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .edit-address-widget {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: none;
+    margin-top: 20px;
+  }
+  
+  .edit-address-widget h2 {
+    margin-bottom: 20px;
+  }
+  
+  .edit-address-widget label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .edit-address-widget input[type="text"],
+  .edit-address-widget input[type="time"] {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .edit-address-widget button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-address-widget button:hover {
+    background-color: #2980b9;
+  }
+  
+  .back-button {
+    background-color: #ccc;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  input[type="time"] {
+    width: 45%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+  }
+
+  input[type="time"]+input[type="time"] {
+    margin-left: 10px;
+  }
+
+  /* Default dropdown styles */
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance:none;
+    -moz-appearance: none;
+  }
+
+  /* Arrow icon */
+  select {
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M8 12l-6-6h12z'/></svg>") no-repeat right 10px center / 16px 16px; 
+  }
+
+  /* Hide default arrow */ 
+  select::-ms-expand {
+    display: none;
+  }
+
+  /* Add this */
+  input:focus, 
+  select:focus {
+    color: #007bff;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
+
+  /* Transition effect */
+  select {
+    transition: border-color 0.3s;
+  }
+
+  /* Change placeholder color */
+  select option {
+    color: #aaa;
+  }

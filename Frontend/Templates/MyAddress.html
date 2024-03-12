@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Address</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/MyAddress.css') }}">
+  <script src='../Static/js/GetAddress.js'></script>
+  <script src="../Static/js/StatesDropdownGetter.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>My Address</h1>
+    <div id="address-box" class="address-box"></div>
+  </div>
+
+  <!-- Edit Address Widget -->
+  <div id="edit-form" class="edit-address-widget" style="display: none;">
+    <h2>Edit Address</h2>
+    <form id="update-form" action={{url_for('update_delv')}} method="POST">
+        <div class="form-group">
+          <label for="line1">Address Line 1:</label>
+          <input type="text" name="line1" id="line1">
+        </div>
+  
+        <div class="form-group">
+          <label for="landmark">Landmark:</label>
+          <input type="text" name="landmark" id="landmark">
+        </div>
+  
+        <div class="form-group">
+          <label for="state">State:</label>
+          <select id="stateDropdown" name="state" onchange="updateDistricts()">
+            <option value="">Select State</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select name="district" id="districtDropdown">
+            <option value="">Select District</option>
+          </select>
+        </div>
+        <button type="submit">Save Changes</button>
+        <button id="back-button" type="button">Back</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <button id="edit-button" class="edit-button">Edit Address</button>
+  </div>
+</body>
+</html>

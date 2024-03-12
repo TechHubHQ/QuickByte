@@ -335,6 +335,36 @@ def GetProfileImage(username):
     return image_path if os.path.exists(image_path) else None
 
 
+@app.route('/my_address')
+def my_address():
+    if 'username' in session:
+        return render_template('MyAddress.html')
+    else:
+        return redirect(url_for('login'))
+
+
+# noinspection PyShadowingNames
+@app.route('/my_address_data')
+def my_address_data():
+    if 'username' in session:
+        username = session['username']
+        email = QBUser.query.filter_by(username=username).first().email
+        addresses = Address.query.filter_by(email=email).all()
+        data = []
+        for address in addresses:
+            address_details = {
+                'address_line1': address.line1,
+                'address_landmark': address.landmark,
+                'district': address.district,
+                'state': address.state,
+                'pincode': address.zip_code,
+            }
+            data.append(address_details)
+        return jsonify(data)
+    else:
+        return jsonify({'error': 'User not logged in'})
+
+
 @app.route("/help")
 def help():
     print("\n------------------------------------------------------------------")

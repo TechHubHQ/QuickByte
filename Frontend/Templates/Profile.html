@@ -44,9 +44,9 @@
             My Orders
           </a>
   
-          <a class="sidebar-link" href="#">
-            <img src="{{ url_for('static', filename='Images/svg/credit-card.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
-            My Payments
+          <a class="sidebar-link" href="{{ url_for('order_status_tracker') }}">
+            <img src="{{ url_for('static', filename='Images/svg/order-tracking.svg')}}" class="sidebar-icon" alt="Orders" height="20px" width="20px">
+            Order Status Tracker
           </a>
   
           <a class="sidebar-link" href="{{ url_for('my_address') }}">

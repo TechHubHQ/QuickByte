@@ -52,7 +52,6 @@ def update_order_status():
             time.sleep(120)
 
         except Exception as e:
-            # Log any errors and continue
             print(f"Error occurred: {e}")
             time.sleep(60)  # Wait for a minute before retrying in case of error
 

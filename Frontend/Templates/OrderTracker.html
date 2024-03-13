@@ -13,9 +13,20 @@
         <h1>Order Tracking</h1>
         <div class="order-card">
             <div class="order-info">
-                <p><strong>Order ID:</strong> <span id="order-id"></span></p>
-                <p><strong>Status:</strong> <span id="order-status"></span></p>
-                <p><strong>Delivery Address:</strong> <span id="delivery-address"></span></p>
+                <table class="order-details-table">
+                    <tr>
+                      <td><strong>Order ID:</strong></td>
+                      <td><span id="order-no"></span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Status:</strong></td>
+                      <td><span id="order-status"></span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Delivery Address:</strong></td>
+                      <td><span id="delivery-address"></span></td>
+                    </tr>
+                </table>
                 <div id="cancel-message"></div>
             </div>
             <div id="loader" class="loader"></div>

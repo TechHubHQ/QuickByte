@@ -118,11 +118,10 @@ function sendOrderDetailsOnPageLoad() {
 }
 
 function cancelOrder() {
-  const orderId = document.getElementById('order-id').textContent;
   const orderStatus = document.getElementById('order-status').textContent;
   const cancelMessage = document.getElementById('cancel-message');
 
-  if (orderStatus === 'Out for delivery' || orderStatus === 'Delivered') {
+  if (orderStatus === 'Out for Delivery' || orderStatus === 'Delivered') {
     cancelMessage.textContent = 'Cannot cancel the order in this stage.';
     cancelMessage.style.display = 'block';
     setTimeout(() => {
@@ -141,29 +140,7 @@ function cancelOrder() {
   .then(response => {
     if (response.ok) {
       console.log('Order Cancelled successfully');
-      sessionStorage.removeItem('order_id');
-      sessionStorage.removeItem('cartItems');
-      sessionStorage.removeItem('restaurant_name');
-      sessionStorage.removeItem('priceDetails');
-      sessionStorage.removeItem('orderSent');
-      sessionStorage.removeItem('')
-      document.body.innerHTML = "";
-      document.body.style.backgroundColor = '#ffcccc';
-
-      const orderCancelledContainer = document.createElement('div');
-      orderCancelledContainer.classList.add('order-cancelled-container');
-      document.body.appendChild(orderCancelledContainer);
-      const xMark = document.createElement('div');
-      xMark.classList.add('x-mark');
-      orderCancelledContainer.appendChild(xMark);
-      const message = document.createElement('div');
-      message.classList.add('order-cancelled-message');
-      message.textContent = 'Order Cancelled successfully';
-      orderCancelledContainer.appendChild(message);
-
-      setTimeout(() => {
-        window.location.href = '/landing';
-      }, 3000);
+      updateProgressForCancelledOrder();
     } else {
       console.error('Error cancelling order');
     }
@@ -171,6 +148,16 @@ function cancelOrder() {
   .catch(error => {
     console.error('Error:', error);
   });
+}
+
+function updateProgressForCancelledOrder() {
+  const progressSteps = document.querySelectorAll('.progress-step');
+  progressSteps.forEach(step => {
+    step.classList.remove('active');
+    step.classList.remove('completed');
+  });
+  const orderCancelledStep = document.querySelector('.progress-step:last-child');
+  orderCancelledStep.classList.add('active');
 }
 
 window.onload = () => {

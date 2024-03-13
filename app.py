@@ -26,7 +26,10 @@ init_db(app)
 # Page Routes
 @app.route('/')
 def home():
-    return render_template('Home.html')
+    if 'username' in session:
+        return redirect(url_for('landing'))
+    else:
+        return render_template('Home.html')
 
 
 @app.route('/landing')
@@ -224,23 +227,27 @@ def get_order_details():
                 'order_id': order.order_id,
                 'delivery_address': order.delivery_addr,
                 'order_status': order.order_status,
-                'completed_steps': []  # This will be populated with completed steps based on the status
+                'completed_steps': []
             }
             # Define the steps based on order status
             steps = ['Order Placed', 'Order Confirmed', 'Preparing Order',
                      'Order Ready', 'Captain Assigned', 'Out for Delivery', 'Delivered']
             # Add completed steps based on order status
-            found_current_status = False
-            for step in steps:
-                if step == order.order_status:
-                    found_current_status = True
-                    order_details['completed_steps'].append(step)
-                elif found_current_status:
-                    break
-                else:
-                    order_details['completed_steps'].append(step)
+            if order.order_status == 'Order Cancelled':
+                order_details['completed_steps'].append('Order Cancelled')
+                return jsonify(order_details)
+            else:
+                found_current_status = False
+                for step in steps:
+                    if step == order.order_status:
+                        found_current_status = True
+                        order_details['completed_steps'].append(step)
+                    elif found_current_status:
+                        break
+                    else:
+                        order_details['completed_steps'].append(step)
 
-            return jsonify(order_details)
+                return jsonify(order_details)
         else:
             return jsonify({'error': 'No order found for this user'})
     else:
@@ -261,6 +268,53 @@ def cancel_order():
             return jsonify({'message': 'Order cancelled successfully'})
 
 
+@app.route('/order_status_tracker')
+def order_status_tracker():
+    if 'username' in session:
+        return render_template('OrderStatusTracker.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/order_status_data', methods=['GET', 'POST'])
+def order_status_data():
+    if 'username' in session:
+        username = session['username']
+        data = request.json
+        order_id = data.get('order_id')
+        orders = OrderDetailsHeader.query.filter_by(user_name=username, order_id=order_id).all()
+        for order in orders:
+            order_details = {
+                'order_id': order.order_id,
+                'delivery_address': order.delivery_addr,
+                'order_status': order.order_status,
+                'completed_steps': []
+            }
+            # Define the steps based on order status
+            steps = ['Order Placed', 'Order Confirmed', 'Preparing Order',
+                     'Order Ready', 'Captain Assigned', 'Out for Delivery', 'Delivered']
+            # Add completed steps based on order status
+            if order.order_status == 'Order Cancelled':
+                order_details['completed_steps'].append('Order Cancelled')
+                return jsonify(order_details)
+            else:
+                found_current_status = False
+                for step in steps:
+                    if step == order.order_status:
+                        found_current_status = True
+                        order_details['completed_steps'].append(step)
+                    elif found_current_status:
+                        break
+                    else:
+                        order_details['completed_steps'].append(step)
+
+                return jsonify(order_details)
+        else:
+            return jsonify({'error': 'No order found for this user'})
+    else:
+        return jsonify({'error': 'User not logged in'})
+
+
 @app.route('/my_orders')
 def my_orders():
     if 'username' in session:
@@ -269,7 +323,7 @@ def my_orders():
         return redirect(url_for('login'))
 
 
-@app.route('/my_orders_data')
+@app.route('/my_orders_data', methods=['GET', 'POST'])
 def my_orders_data():
     if 'username' in session:
         username = session['username']
@@ -371,7 +425,7 @@ def help():
     print(session)
     print("------------------------------------------------------------------\n")
     if 'username' in session:
-        return render_template('Help.html')
+        return render_template('Help_Center.html')
     else:
         return redirect(url_for('login'))
 

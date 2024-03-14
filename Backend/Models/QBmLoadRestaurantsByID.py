@@ -36,4 +36,3 @@ def CreateRestaurant(location_id, restaurant_name, num_reviews, time_zone, ratin
     )
     db.session.add(new_restaurant)
     db.session.commit()
-    print(f"Restaurant created successfully --> {address} {restaurant_name}")

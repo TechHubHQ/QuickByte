@@ -1,6 +1,21 @@
 import os
 import sys
 import json
+import logging
+from datetime import datetime
+from dotenv import load_dotenv
+
+script_dir = os.path.dirname(__file__)
+env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+load_dotenv(env_path)
+
+# Ensure the directory for logs exists
+INTEGRATION_LOG_FOLDER = os.environ.get('INTEGRATION_LOG_FOLDER')
+INTEGRATION_LOG_DIR = os.path.join(script_dir, '..', '..', INTEGRATION_LOG_FOLDER)
+current_date = datetime.now().strftime('%Y-%m-%d')
+logging.basicConfig(filename=os.path.join(INTEGRATION_LOG_DIR, f'{current_date}_MenuFetcher.log'), level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
@@ -24,7 +39,7 @@ def GetFoodMenu():
 
 
 def CreateFoodMenu():
-    print(f"Creating food menu...")
+    logging.info(f"Creating food menu...")
     food_menu = GetFoodMenu()
     menu = food_menu["menu"]
     menu_details = MenuDetails.query.first()
@@ -32,7 +47,7 @@ def CreateFoodMenu():
         item_flag = menu_details.item_flag
     else:
         item_flag = None
-    print(f"Menu details: {menu_details}")
+    logging.info(f"Menu details: {menu_details}")
 
     if item_flag is None:
         item_flag = True
@@ -43,9 +58,9 @@ def CreateFoodMenu():
         for category in categories:
             item_category = category["name"]
             items = category["items"]
-            print("\n------------------------------------------------------------------")
-            print(f"Items under new cuisine: {cuisine_name}, {item_category}")
-            print("------------------------------------------------------------------\n")
+            logging.info("--------------------------------------------------------------------")
+            logging.info(f"Items under new cuisine: {cuisine_name}, {item_category}")
+            logging.info("------------------------------------------------------------------\n")
             for item in items:
                 item_name = item["name"]
                 item_type = item["type"]
@@ -67,7 +82,7 @@ def CreateFoodMenu():
                         item_flag=item_flag
                     )
                 else:
-                    print(f"Item with name '{item_name}' already exists in database. Skipping insertion.")
+                    logging.info(f"Item with name '{item_name}' already exists in database. Skipping insertion.")
 
 
 CreateFoodMenu()

@@ -40,7 +40,7 @@ function fetchOrderDetails() {
   })
   .then(data => {
       hideLoader();
-      document.getElementById('order-id').textContent = data.order_id;
+      document.getElementById('order-no').textContent = data.order_id;
       document.getElementById('order-status').textContent = data.order_status;
       document.getElementById('delivery-address').textContent = data.delivery_address;
 
@@ -140,7 +140,7 @@ function cancelOrder() {
   .then(response => {
     if (response.ok) {
       console.log('Order Cancelled successfully');
-      updateProgressForCancelledOrder();
+
     } else {
       console.error('Error cancelling order');
     }
@@ -150,27 +150,9 @@ function cancelOrder() {
   });
 }
 
-function updateProgressForCancelledOrder() {
-  const progressSteps = document.querySelectorAll('.progress-step');
-  progressSteps.forEach(step => {
-    step.classList.remove('active');
-    step.classList.remove('completed');
-  });
-  const orderCancelledStep = document.querySelector('.progress-step:last-child');
-  orderCancelledStep.classList.add('active');
-}
-
 window.onload = () => {
   sendOrderDetailsOnPageLoad();
   setTimeout(() => {
     fetchOrderDetails();
   }, 3000);
-  
-  const updateCalled = sessionStorage.getItem('updateCalled');
-  if (!updateCalled) {
-    setTimeout(() => {
-      updateOrderStatus();
-      sessionStorage.setItem('updateCalled', 'true');
-    }, 4000);
-  }
 };

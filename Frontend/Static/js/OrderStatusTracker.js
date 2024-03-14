@@ -64,6 +64,22 @@ function displayOrderTracker(orderdata) {
     }
     
     else {
+        const orderPlaced = document.getElementById("order-placed");
+        orderPlaced.classList.add("completed")
+        const orderConfirmed = document.getElementById("order-confirmed")
+        orderConfirmed.style.display = "flex";
+        const orderPrepared = document.getElementById("order-prepared");
+        orderPrepared.style.display = "flex";
+        const orderReady = document.getElementById("order-ready");
+        orderReady.style.display = "flex";
+        const capAssigned = document.getElementById("cap-assigned");
+        capAssigned.style.display = "flex";
+        const outForDelv = document.getElementById("out-for-delv");
+        outForDelv.style.display = "flex";
+        const delivery = document.getElementById("delivered");
+        delivery.style.display = "flex";
+        const orderCanceled = document.getElementById("order-cancelled");
+        orderCanceled.style.display = "none";
         const progressSteps = document.querySelectorAll('.progress-step');
         const completedSteps = orderdata.completed_steps;
 

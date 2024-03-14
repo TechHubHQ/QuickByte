@@ -5,19 +5,38 @@ import schedule
 from dotenv import load_dotenv
 from datetime import datetime
 from subprocess import Popen
+import logging
+
+# Set up logging
+script_dir = os.path.dirname(__file__)
+env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+load_dotenv(env_path)
+BUILD_LOG_FOLDER = os.environ.get('BUILD_LOG_FOLDER')
+BUILD_LOG_DIR = os.path.join(script_dir, '..', '..', BUILD_LOG_FOLDER)
+current_date = datetime.now().strftime('%Y-%m-%d')
+logging.basicConfig(
+    filename=os.path.join(BUILD_LOG_DIR, f'{current_date}_RebuildEngine.log'),
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
+
+# Import necessary modules
 from app import app
 from Backend.Connections.QBcDBConnector import db
 from Backend.Models.QBmLoadLocationID import CityLocation
 from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmLoadMenu import MenuDetails
 
+# Push the app context
 env_path = os.path.join(root_dir, 'config', '.env')
 load_dotenv(env_path)
 app.app_context().push()
 
+# Set up script directories
 current_dir = os.path.dirname(os.path.abspath(__file__))
 script_dir = os.path.join(current_dir, "..", "Integration")
 
@@ -30,39 +49,32 @@ def empty_table(model):
     """Function to empty the given table"""
     model.query.delete()
     db.session.commit()
-    print(f"Table {model.__tablename__} emptied.")
+    logging.info(f"Table {model.__tablename__} emptied.")
 
 
 def run_script(script_path, script_name):
-    print(f"Running {script_name}...")
-
+    logging.info(f"Running {script_name}...")
     if script_name == 'QBiLocationIDFetcher.py':
         empty_table(CityLocation)
         start_time = time.time()
         process = Popen([sys.executable, script_path])
         process.wait()
         end_time = time.time()
-        print("\n------------------------------------------------------------------")
-        print(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
-        print("------------------------------------------------------------------\n")
+        logging.info(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
     elif script_name == 'QBiRestaurantsFetcher.py':
         empty_table(RestaurantsByLoc)
         start_time = time.time()
         process = Popen([sys.executable, script_path])
         process.wait()
         end_time = time.time()
-        print("\n------------------------------------------------------------------")
-        print(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
-        print("------------------------------------------------------------------\n")
+        logging.info(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
     elif script_name == 'QBiMenuFetcher.py':
         empty_table(MenuDetails)
         start_time = time.time()
         process = Popen([sys.executable, script_path])
         process.wait()
         end_time = time.time()
-        print("\n------------------------------------------------------------------")
-        print(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
-        print("------------------------------------------------------------------\n")
+        logging.info(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
     else:
         raise ValueError("Invalid script name")
 
@@ -81,17 +93,17 @@ if datetime.now().weekday() == 6 and datetime.now().hour == 7:
 # Keep the script running to schedule the jobs
 while True:
     schedule.run_pending()
-    time.sleep(1)
+    time.sleep(10)
 
-    # Print the PID and "Script is alive" if the script is running
-    print(f"PID: {os.getpid()} - QBbRebuildDB is alive")
+    # Log the PID and "Script is alive" if the script is running
+    logging.info(f"PID: {os.getpid()} - QBbRebuildEngine is alive")
 
     # for Manual rebuild
     CORE_DEV = os.getenv("CORE_DEV")
     if len(sys.argv) > 1 and sys.argv[1] == "--rebuild" and sys.argv[2] in CORE_DEV:
-        print("\n--------------------------------------------")
-        print("Manual Rebuild process invoked")
-        print("---------------------------------------------\n")
+        logging.info("----------------------------------------------")
+        logging.info(f"Manual Rebuild process invoked by CORE DEV {sys.argv[2]}")
+        logging.info("---------------------------------------------\n")
         run_script(loc_fetch_script, "QBiLocationIDFetcher.py")
         run_script(res_fetch_script, "QBiRestaurantsFetcher.py")
         run_script(menu_fetch_script, "QBiMenuFetcher.py")

@@ -1,17 +1,37 @@
+import os
 import string
 import random
 from datetime import datetime
+import logging
+from dotenv import load_dotenv
 from Backend.Models.QBmOrder2ItemModel import CreateOrderHeader, CreateOrderItem, CheckOrder
+
+# Set up logging
+script_dir = os.path.dirname(__file__)
+env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+load_dotenv(env_path)
+LOGIC_LOG_FOLDER = os.environ.get('LOGIC_LOG_FOLDER')
+LOGIC_LOG_DIR = os.path.join(script_dir, '..', '..', LOGIC_LOG_FOLDER)
+current_date = datetime.now().strftime('%Y-%m-%d')
+logging.basicConfig(filename=os.path.join(LOGIC_LOG_DIR, f'{current_date}_OrderHandler.log'), level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Configure logging
+logging.basicConfig(filename='order_generation.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def generate_order_id():
-    current_date = datetime.now().strftime("%Y%m%d")
-    random_uid = ''.join(random.choices(string.ascii_uppercase, k=4))
-    order_id = f"{current_date}{random_uid}"
-    if CheckOrder(order_id=order_id):
-        return order_id
-    else:
-        generate_order_id()
+    try:
+        current_date = datetime.now().strftime("%Y%m%d")
+        random_uid = ''.join(random.choices(string.ascii_uppercase, k=4))
+        order_id = f"{current_date}{random_uid}"
+        if CheckOrder(order_id=order_id):
+            return order_id
+        else:
+            generate_order_id()
+    except Exception as e:
+        logging.error(f"Error generating order ID: {e}")
 
 
 class HandleOrderGeneration:
@@ -36,35 +56,41 @@ class HandleOrderGeneration:
         delivery_to,
         delivery_addr,
     ):
-        order_header = CreateOrderHeader(
-            user_name=username,
-            order_id=order_id,
-            restaurant_name=restaurant_name,
-            order_status=order_status,
-            order_type=order_type,
-            order_base_price=order_base_price,
-            order_tax=order_tax,
-            order_amount=order_amount,
-            order_rcv_time=order_rcv_time,
-            order_accept_time=order_accept_time,
-            order_prep_time=order_prep_time,
-            order_ready_time=order_ready_time,
-            captain_assigned_time=captain_assigned_time,
-            out_for_delivery_time=out_for_delivery_time,
-            order_delivered_time=order_delivered_time,
-            order_cancel_time=order_cancel_time,
-            delivery_to=delivery_to,
-            delivery_addr=delivery_addr,
-        )
-        return order_header
+        try:
+            order_header = CreateOrderHeader(
+                user_name=username,
+                order_id=order_id,
+                restaurant_name=restaurant_name,
+                order_status=order_status,
+                order_type=order_type,
+                order_base_price=order_base_price,
+                order_tax=order_tax,
+                order_amount=order_amount,
+                order_rcv_time=order_rcv_time,
+                order_accept_time=order_accept_time,
+                order_prep_time=order_prep_time,
+                order_ready_time=order_ready_time,
+                captain_assigned_time=captain_assigned_time,
+                out_for_delivery_time=out_for_delivery_time,
+                order_delivered_time=order_delivered_time,
+                order_cancel_time=order_cancel_time,
+                delivery_to=delivery_to,
+                delivery_addr=delivery_addr,
+            )
+            return order_header
+        except Exception as e:
+            logging.error(f"Error creating order header: {e}")
 
     @staticmethod
     def OrderItemCreation(order_id, item_no, item_name, item_price, item_quantity):
-        order_item = CreateOrderItem(
-            order_id=order_id,
-            item_no=item_no,
-            item_name=item_name,
-            item_price=item_price,
-            item_quantity=item_quantity
-        )
-        return order_item
+        try:
+            order_item = CreateOrderItem(
+                order_id=order_id,
+                item_no=item_no,
+                item_name=item_name,
+                item_price=item_price,
+                item_quantity=item_quantity
+            )
+            return order_item
+        except Exception as e:
+            logging.error(f"Error creating order item: {e}")

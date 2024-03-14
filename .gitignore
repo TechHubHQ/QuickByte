@@ -7,6 +7,9 @@ node_modules/
 # hitrc 
 .hintrc
 
+# Logs
+Logs/
+
 # Database
 DataBase/
 DataBase/QB.db

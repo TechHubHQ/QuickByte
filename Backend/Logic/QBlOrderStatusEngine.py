@@ -1,15 +1,24 @@
 import os
 import time
 import sys
-
+import logging
+from dotenv import load_dotenv
+from datetime import datetime
+script_dir = os.path.dirname(__file__)
+env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+load_dotenv(env_path)
+# Ensure the directory for logs exists
+LOGIC_LOG_FOLDER = os.environ.get('LOGIC_LOG_FOLDER')
+LOGIC_LOG_DIR = os.path.join(script_dir, '..', '..', LOGIC_LOG_FOLDER)
+current_date = datetime.now().strftime('%Y-%m-%d')
+logging.basicConfig(filename=os.path.join(LOGIC_LOG_DIR, f'{current_date}_OrderStatusEngine.log'), level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from datetime import datetime
 from app import app
 from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, UpdateOrderStatus, UpdateOrderStatusTimeStamps
 
-# Push the app context
 app.app_context().push()
 
 # Define order status mapping
@@ -23,7 +32,7 @@ ORDER_STATUS_MAPPING = {
 }
 
 
-def update_order_status():
+def OrderStatusEngine():
     while True:
         try:
             # Query orders that need status update
@@ -41,20 +50,20 @@ def update_order_status():
                     if next_status:
                         UpdateOrderStatus(order.order_id, next_status)
                         UpdateOrderStatusTimeStamps(order.order_id, next_status)
-                        print(
-                            f"{datetime.now()} - Order {order.order_id} updated from '{current_status}' to '{next_status}'")
+                        logging.info(
+                            f"Order {order.order_id} updated from '{current_status}' to '{next_status}'")
             else:
-                print(f"{datetime.now()} - No orders found requiring status update")
+                logging.info("No orders found requiring status update")
                 # Print alive ping
-                print(f"{datetime.now()} -- OrderStatusEngine is alive -- Process ID: {os.getpid()}")
+                logging.info(f"OrderStatusEngine is alive -- Process ID: {os.getpid()}")
 
             # Sleep for 2 minutes
             time.sleep(120)
 
         except Exception as e:
-            print(f"Error occurred: {e}")
+            logging.error(f"Error occurred: {e}")
             time.sleep(60)  # Wait for a minute before retrying in case of error
 
 
 if __name__ == '__main__':
-    update_order_status()
+    OrderStatusEngine()

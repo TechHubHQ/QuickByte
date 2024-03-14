@@ -26,4 +26,3 @@ def CreateMenu(cuisine_name, item_category, item_name, item_type, item_price, it
                            item_flag=item_flag)
     db.session.add(new_menu)
     db.session.commit()
-    print(f"Item created successfully --> {item_name}")

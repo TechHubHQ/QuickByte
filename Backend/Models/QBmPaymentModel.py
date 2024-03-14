@@ -30,4 +30,3 @@ def CreatePaymentDetails(user_name, card_number, expiry_date, cvv, upi_id, last_
                                      payment_mode=payment_mode)
     db.session.add(payment_details)
     db.session.commit()
-    return payment_details

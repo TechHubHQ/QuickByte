@@ -1,4 +1,5 @@
 import os
+import logging
 from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
 from sqlalchemy import func
@@ -20,91 +21,102 @@ app.config.from_object(Config)
 base_dir = os.path.abspath(os.path.dirname(__file__))
 app.config['UPLOAD_FOLDER'] = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'])
 app.config['QR_CODE_FOLDER'] = os.path.join(base_dir, app.config['QR_FOLDER_RELATIVE'])
+APP_LOG_FILE = app.config['APP_LOG_FILE']
+logging.basicConfig(filename=APP_LOG_FILE, level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                    )
 init_db(app)
 
 
 # Page Routes
 @app.route('/')
 def home():
+    app.logger.info(f"{session.get('username')} -- Rendering home page.")
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- User already in session. Redirecting to landing page.")
         return redirect(url_for('landing'))
     else:
+        app.logger.info("User accessed home page.")
         return render_template('Home.html')
 
 
 @app.route('/landing')
 def landing():
-    print(session)
     try:
         if 'username' in session:
+            app.logger.info(f"{session.get('username')} -- Accessing landing page.")
             return render_template('Landing.html')
         else:
+            app.logger.warning("User not logged in. Redirecting to login page.")
             return redirect(url_for('login'))
     except Exception as e:
-        print("\n----------------------------------------------------------------------------")
-        print(f"Exception while accessing landing page for user {session['username']}: \n{e}")
-        print("-----------------------------------------------------------------------------\n")
+        app.logger.error(f"Exception while accessing landing page for user {session.get('username')}:\n{e}")
+        app.logger.info("Redirecting to login page.")
         return redirect(url_for('login'))
 
 
 @app.route('/restaurants')
 def restaurants():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing restaurants page.")
         return render_template('Restaurants.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
 @app.route('/menu')
 def menu():
-    print("\n------------------------------------------------------------------")
-    print(session)
-    print("------------------------------------------------------------------\n")
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing menu page.")
         return render_template('Menu.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
 @app.route('/cart')
 def cart():
-    print(session)
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing cart page.")
         return render_template('Cart.html')
-
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
 @app.route('/payment')
 def payment():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing payment page.")
         return render_template('Payment.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
 @app.route('/pay_via_upi', methods=['POST'])
 def pay_via_upi():
-    # Extract UPI ID from the request JSON data
+    app.logger.info(">> Initiating UPI payment via PaymentHandler. <<")
     username = session.get('username')
     data = request.json
     upi_id = data.get('upi_id')
     paid_amount = data.get('paid_amount')
     payment_type = data.get('payment_type')
-    print(f"UPI ID: {upi_id}, username: {username}, paid amount: {paid_amount}, payment type: {payment_type}")
-
+    app.logger.info(f"PAYLOAD: {data}")
+    app.logger.info(f"Username: {username}, UPI ID: {upi_id}, Paid amount: {paid_amount}, Payment type: {payment_type}")
     result = HandlePayment(payment_type=payment_type, last_paid_amount=paid_amount, username=username, upi_id=upi_id)
-
     if result:
+        app.logger.info("UPI payment successful.")
         return jsonify({'message': 'Payment successful'})
     else:
+        app.logger.error("UPI payment failed.")
         return jsonify({'message': 'Payment failed'})
 
 
 @app.route('/pay_via_card', methods=['POST'])
 def pay_via_card():
-    # Extract card details from the request
+    app.logger.info("Initiating card payment via PaymentHandler.")
     username = session.get('username')
     data = request.json
     card_number = data.get('card_number')
@@ -113,6 +125,9 @@ def pay_via_card():
     cvv = data.get('cvv')
     payment_type = data.get('payment_type')
     paid_amount = data.get('paid_amount')
+    app.logger.info(f"PAYLOAD: {data}")
+    app.logger.info(
+        f"Username: {username}, Card Number: {card_number}, Cardholder Name: {cardholder_name}, Expiry Date: {expiry_date}, CVV: {cvv}, Payment type: {payment_type}")
 
     result = HandlePayment(
         username=username,
@@ -125,16 +140,20 @@ def pay_via_card():
     )
 
     if result:
+        app.logger.info("Card payment successful.")
         return jsonify({'message': 'Payment successful'})
     else:
+        app.logger.error("Card payment failed.")
         return jsonify({'message': 'Payment failed'})
 
 
 @app.route('/order_tracker')
 def order_tracker():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing order tracker page.")
         return render_template('OrderTracker.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
@@ -144,6 +163,7 @@ def place_order():
         username = session['username']
         email = QBUser.query.filter_by(username=username).first().email
         data = request.json
+        app.logger.info(f"Received order data: {data}")
         order_id = generate_order_id()
         session['order_id'] = order_id
         restaurant_name = data.get('restaurantName')
@@ -164,6 +184,11 @@ def place_order():
         delv_addr = Address.query.filter_by(email=email).first()
         delivery_addr = f"{delv_addr.line1}, {delv_addr.landmark}, {delv_addr.district}, {delv_addr.state}, {delv_addr.zip_code}"
 
+        app.logger.info(f"{session.get('username')} -- Placing order.")
+        app.logger.info(f"PAYLOAD: {data}")
+        app.logger.info(
+            f"Username: {username}, Order ID: {order_id}, Restaurant Name: {restaurant_name}, Order Amount: {order_amount}, Order Tax: {order_tax}, Subtotal: {subtotal}")
+
         # Lists to store item details
         item_names = []
         item_prices = []
@@ -171,11 +196,11 @@ def place_order():
 
         # Process each item in the order
         for item in items:
-            print(f"item: {item}")
+            app.logger.info(f"Processing item: {item}")
             item_name = item.get('name')
             item_price = float(item.get('price').split('₹')[1])  # Extract price without 'Price: ₹' prefix
             item_quantity = int(item.get('quantity'))
-            print(f"data: {item_name}, {item_price}, {item_quantity}")
+            app.logger.info(f"Item details - Name: {item_name}, Price: {item_price}, Quantity: {item_quantity}")
             item_names.append(item_name)
             item_prices.append(item_price)
             item_quantities.append(item_quantity)
@@ -211,9 +236,13 @@ def place_order():
                 item_price=item_prices[i],
                 item_quantity=item_quantities[i]
             )
-            print(order_item)
-        print(order_header)
-    return jsonify({'message': 'Order placed successfully'})
+            app.logger.info(f"Created order item: {order_item}")
+
+        app.logger.info(f"Order header created: {order_header}")
+        return jsonify({'message': 'Order placed successfully'})
+    else:
+        app.logger.warning("User not logged in.")
+        return jsonify({'error': 'User not logged in'})
 
 
 @app.route('/get_order_details')
@@ -223,6 +252,7 @@ def get_order_details():
         order_id = session['order_id']
         order = OrderDetailsHeader.query.filter_by(user_name=username, order_id=order_id).first()
         if order:
+            app.logger.info("Fetching order details.")
             order_details = {
                 'order_id': order.order_id,
                 'delivery_address': order.delivery_addr,
@@ -234,6 +264,7 @@ def get_order_details():
                      'Order Ready', 'Captain Assigned', 'Out for Delivery', 'Delivered']
             # Add completed steps based on order status
             if order.order_status == 'Order Cancelled':
+                app.logger.info("Order has been cancelled.")
                 order_details['completed_steps'].append('Order Cancelled')
                 return jsonify(order_details)
             else:
@@ -247,10 +278,13 @@ def get_order_details():
                     else:
                         order_details['completed_steps'].append(step)
 
+                app.logger.info(f"{order_id} -- Order details fetched successfully.")
                 return jsonify(order_details)
         else:
+            app.logger.error(f"{session.get('username')} -- No order found for this user.")
             return jsonify({'error': 'No order found for this user'})
     else:
+        app.logger.warning("User not logged in.")
         return jsonify({'error': 'User not logged in'})
 
 
@@ -265,14 +299,22 @@ def cancel_order():
             order.order_status = 'Order Cancelled'
             order.order_cancel_time = datetime.now()
             UpdateOrderStatusTimeStamps(order_id, order.order_status)
+            app.logger.info(f"Order {order_id} cancelled successfully. by {session.get('username')}")
             return jsonify({'message': 'Order cancelled successfully'})
+        else:
+            app.logger.error(f"{session.get('username')} -- No order found for this user.")
+    else:
+        app.logger.warning("User not logged in.")
+    return jsonify({'error': 'Unauthorized access or no order found'})
 
 
 @app.route('/order_status_tracker')
 def order_status_tracker():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing order status tracker page.")
         return render_template('OrderStatusTracker.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
@@ -296,6 +338,7 @@ def order_status_data():
             # Add completed steps based on order status
             if order.order_status == 'Order Cancelled':
                 order_details['completed_steps'].append('Order Cancelled')
+                app.logger.info(f"Order {order_id} has been cancelled.")
                 return jsonify(order_details)
             else:
                 found_current_status = False
@@ -308,18 +351,23 @@ def order_status_data():
                     else:
                         order_details['completed_steps'].append(step)
 
+                app.logger.info(f"Order details fetched for order {order_id} -- {order_details}")
                 return jsonify(order_details)
         else:
+            app.logger.error(f"{session.get('username')} -- No order found for this user.")
             return jsonify({'error': 'No order found for this user'})
     else:
+        app.logger.warning("User not logged in.")
         return jsonify({'error': 'User not logged in'})
 
 
 @app.route('/my_orders')
 def my_orders():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing my orders page.")
         return render_template('MyOrders.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
@@ -327,6 +375,7 @@ def my_orders():
 def my_orders_data():
     if 'username' in session:
         username = session['username']
+        app.logger.info(f"Fetching orders data for user {username}.")
         orders = OrderDetailsHeader.query.filter_by(user_name=username).all()
         data = []
         for order in orders:
@@ -367,19 +416,25 @@ def my_orders_data():
                 }
                 order_details['items'].append(item_details)
             data.append(order_details)
+        app.logger.info(f"Orders data fetched successfully. -- {data}")
         return jsonify(data)
+    else:
+        app.logger.warning("User not logged in. Unauthorized access attempted.")
+        return jsonify({'error': 'User not logged in or unauthorized access attempted'})
 
 
 @app.route('/profile')
 def profile():
     if 'username' in session:
         user_name = session['username']
+        app.logger.info(f"Accessing profile page for user {user_name}.")
         user = QBUser.query.filter_by(username=user_name).first()
         formatted_username = user.username.replace(' ', '_') if user else None
         profile_image_url = GetProfileImage(formatted_username) if formatted_username else None
-        print(f"url: {profile_image_url}")
+        app.logger.info(f"Profile image URL: {profile_image_url}")
         return render_template('Profile.html', user=user, profile_image_url=profile_image_url)
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
@@ -392,16 +447,18 @@ def GetProfileImage(username):
 @app.route('/my_address')
 def my_address():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing my address page.")
         return render_template('MyAddress.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
-# noinspection PyShadowingNames
 @app.route('/my_address_data')
 def my_address_data():
     if 'username' in session:
         username = session['username']
+        app.logger.info(f"Fetching address data for user {username}.")
         email = QBUser.query.filter_by(username=username).first().email
         addresses = Address.query.filter_by(email=email).all()
         data = []
@@ -414,19 +471,21 @@ def my_address_data():
                 'pincode': address.zip_code,
             }
             data.append(address_details)
+        app.logger.info(f"Address data fetched successfully. -- {data}")
         return jsonify(data)
     else:
+        app.logger.warning("User not logged in.")
         return jsonify({'error': 'User not logged in'})
 
 
 @app.route("/help")
 def help():
-    print("\n------------------------------------------------------------------")
-    print(session)
-    print("------------------------------------------------------------------\n")
+    app.logger.info(f"{session.get('username')} -- Accessing help page.")
+    app.logger.debug(f"Session: {session}")
     if 'username' in session:
         return render_template('Help_Center.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
@@ -440,9 +499,11 @@ def login():
         session['username'] = username
 
         if CheckUser(username, password):
+            app.logger.info(f"User {username} logged in successfully.")
             return redirect(url_for('landing'))
         else:
             flash('Invalid username or password', 'danger')
+            app.logger.warning(f"Failed login attempt for username: {username}")
             return redirect(url_for('login'))
     return render_template('Login.html', form=form)
 
@@ -467,6 +528,7 @@ def signup():
             CreateUser(username, email, password)
             # TODO: Implement Mailing Service After creating Domain (Deployment)
             # SendWelcomeEmail(email, username)
+            app.logger.info(f"New user {username} signed up successfully.")
             flash('Account created successfully!', 'success')
             return redirect(url_for('address'))
         else:
@@ -480,9 +542,9 @@ def signup():
 def address():
     email = session['email']
     form = AddressDetailsForm()
-    print("\n---------------------------------------------------------------------------------------------------")
-    print(f"received a {request.method} request {form.validate_on_submit()} and {form.errors} and {request.form}")
-    print("---------------------------------------------------------------------------------------------------\n")
+    app.logger.info(f"Accessing address page for user with email: {email}.")
+    app.logger.debug(
+        f"Received a {request.method} request with form validation result: {form.validate_on_submit()}, errors: {form.errors}, and form data: {request.form}")
     if request.method == 'POST' and form.validate_on_submit():
         user_email = email
         line1 = request.form['line1']
@@ -491,8 +553,9 @@ def address():
         district = request.form['district']
         zip_code = request.form['zip_code']
         CreateAddress(user_email, line1, land_mark, district, state, zip_code)
+        app.logger.info("Address saved successfully.")
         flash('Address saved successfully!', 'success')
-        print("redirecting to login page..")
+        app.logger.info("Redirecting to login page.")
         return redirect(url_for('login'))
 
     return render_template('AddressDetails.html', form=form)
@@ -500,31 +563,41 @@ def address():
 
 @app.route('/settings')
 def settings():
-    return render_template('Settings.html')
+    if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Accessing settings page.")
+        return render_template('Settings.html')
+    else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
+        return redirect(url_for('login'))
 
 
 @app.route("/logout")
 def logout():
-    # Remove the email from the session
-    session.pop('username', None)
+    # Remove the username from the session
+    username = session.pop('username', None)
+    app.logger.info(f"User {username} logged out.")
     return redirect(url_for('home'))
 
 
 @app.route("/associate")
 def associate():
     if 'username' in session:
+        app.logger.info(f"{session.get('username')} -- Registering to become Associate")
         return render_template("Associate.html")
     else:
-        redirect(url_for('login'))
+        app.logger.warning("User not logged in. Redirecting to login page.")
+        return redirect(url_for('login'))
 
 
 # Admin Module
 @app.route('/admin')
 def admin():
-    print(session)
+    app.logger.info("Accessing admin page.")
+    app.logger.debug(f"Session: {session}")
     if 'username' in session:
         return render_template('Admin.html')
     else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
         return redirect(url_for('login'))
 
 
@@ -565,14 +638,15 @@ def GetImages():
     else:
         images = night_images
 
+    app.logger.info(f"{datetime.now()} -- images rendered for {current_hour} hour slot")
     return jsonify(images)
 
 
-# noinspection PyShadowingNames
 @app.route('/api/restaurants')
 def GetRestaurants():
     if 'username' in session:
         username = session['username']
+        app.logger.info(f"Accessing restaurant API for user {username}.")
         user = QBUser.query.filter_by(username=username).first()
         email = user.email
         district = Address.query.filter_by(email=email).first().district
@@ -595,13 +669,19 @@ def GetRestaurants():
             restaurant_info.append(restaurant_dict)
 
         # Return the list of restaurant information as JSON
+        app.logger.info(f"Returning {len(restaurant_info)} for {district} for user {username}.\n "
+                        f"rendered restaurants: {restaurant_info}"
+                        )
         return jsonify(restaurant_info)
+    else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
+        return redirect(url_for('login'))
 
 
-# noinspection PyShadowingNames
 @app.route('/api/menu')
 def GetMenu():
     if 'username' in session:
+        app.logger.info("Accessing menu API.")
         menu_items = MenuDetails.query.all()
         # Create a list to store the menu information
         menu_info = []
@@ -617,8 +697,11 @@ def GetMenu():
                 'item_rating': menu.item_reviews
             }
             menu_info.append(menu_dict)
-        # Return the list of menu information as JSON
+        app.logger.info(f"Returning {len(menu_info)} menu items.\n rendered menu item: {menu_info}")
         return jsonify(menu_info)
+    else:
+        app.logger.warning("User not logged in. Redirecting to login page.")
+        return redirect(url_for('login'))
 
 
 @app.route('/upload_image', methods=['POST'])
@@ -628,11 +711,13 @@ def upload_image():
 
         if profile_img:
             UserController.SaveImage(session['username'], profile_img)
+            app.logger.info("Image uploaded successfully.")
             return jsonify({'message': 'Image uploaded successfully'})
         else:
-            print("No image selected")
+            app.logger.warning("No image selected.")
             return jsonify({'message': 'No image selected'})
     else:
+        app.logger.warning("User not logged in.")
         return jsonify({'message': 'User not logged in'})
 
 
@@ -648,9 +733,7 @@ def update_profile():
         else:
             UserController.UpdateUser(username, password)
             flash('User details updated Successfully', 'success')
-            print("\n------------------------------------------------------------------------")
-            print(f"user details updated with data --> username: {username}, key: {password}")
-            print("------------------------------------------------------------------------\n")
+            app.logger.info(f"User details updated for username: {username}")
             return redirect(url_for('settings'))
     elif 'username' in session:
         username = session['username']
@@ -661,12 +744,11 @@ def update_profile():
         else:
             UserController.UpdateUser(username, password)
             flash('User details updated Successfully', 'success')
-            print("\n------------------------------------------------------------------------")
-            print(f"user details updated with data --> username: {username}, key: {password}")
-            print("------------------------------------------------------------------------\n")
+            app.logger.info(f"User details updated for username: {username}")
             return redirect(url_for('settings'))
     else:
         flash('User not logged in', 'danger')
+        app.logger.warning("User not logged in.")
         return redirect(url_for('login'))
 
 
@@ -677,8 +759,10 @@ def update_preferences():
         preferences = request.form.get('email_notifications')
         preferences = True if preferences == 'on' else False
         UserController.UpdatePreferences(username, preferences)
+        app.logger.info(f"Updated preferences for user: {username}")
         return redirect(url_for('settings'))
     else:
+        app.logger.warning("User not logged in.")
         return redirect(url_for('login'))
 
 
@@ -703,8 +787,12 @@ def update_delv():
             preferred_delv_start_time,
             preferred_delv_end_time
         )
+        app.logger.info(f"Updated delivery details for user: {username} \nPAYLOAD: "
+                        f"{line1, landmark, state, district, preferred_delv_start_time, preferred_delv_end_time}"
+                        )
     return redirect(url_for('settings'))
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+    app.logger.info(f"{datetime.now()} -- Application started with DEBUGGER.")

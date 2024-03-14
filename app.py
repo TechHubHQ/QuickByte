@@ -797,7 +797,7 @@ def update_delv():
 
 if __name__ == '__main__':
     logging.basicConfig(
-        filename=(APP_LOG_DIR, f'{datetime.now()}_QuickByteAPP.log'),
+        filename=os.path.join(APP_LOG_DIR, f'{datetime.now()}_QuickByteAPP.log'),
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )

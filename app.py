@@ -1,5 +1,6 @@
 import os
 import logging
+from waitress import serve
 from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
 from sqlalchemy import func
@@ -22,9 +23,6 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 app.config['UPLOAD_FOLDER'] = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'])
 app.config['QR_CODE_FOLDER'] = os.path.join(base_dir, app.config['QR_FOLDER_RELATIVE'])
 APP_LOG_FILE = app.config['APP_LOG_FILE']
-logging.basicConfig(filename=APP_LOG_FILE, level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-                    )
 init_db(app)
 
 
@@ -794,5 +792,10 @@ def update_delv():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    app.logger.info(f"{datetime.now()} -- Application started with DEBUGGER.")
+    logging.basicConfig(filename=APP_LOG_FILE, level=logging.INFO,
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                        )
+
+    # Run the Waitress server
+    app.logger.info(f"{datetime.now()} --> APP Started")
+    serve(app, host='0.0.0.0', port=8080, threads=5)

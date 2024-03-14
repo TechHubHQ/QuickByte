@@ -2,6 +2,9 @@ import os
 import sys
 import requests
 import logging
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(root_dir)
+from app import app
 from Backend.Models.QBmLoadLocationID import CreateLocationID
 from dotenv import load_dotenv
 from datetime import datetime
@@ -11,16 +14,11 @@ from Backend.Connections.QBcDBConnector import db
 script_dir = os.path.dirname(__file__)
 env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
 load_dotenv(env_path)
-INTEGRATION_LOG_FOLDER = os.environ.get('INTEGRATION_LOG_FOLDER')
-INTEGRATION_LOG_DIR = os.path.join(script_dir, '..', '..', INTEGRATION_LOG_FOLDER)
+INTEGRATION_LOG_DIR = os.environ.get("INTEGRATION_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')
 logging.basicConfig(filename=os.path.join(INTEGRATION_LOG_DIR, f'{current_date}_FetchALLEngine.log'), level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append(root_dir)
-from app import app
 app.app_context().push()
 db.create_all()
 
@@ -34,96 +32,50 @@ def fetch_location_ids_for_indian_cities():
 
     andhra_telangana = [
         # Andhra Pradesh
-        "Visakhapatnam",
-        "Vijayawada",
-        "Guntur",
-        "Nellore",
-        "Kurnool",
-        "Rajahmundry",
-        "Kadapa (Cuddapah)",
-        "Kakinada",
-        "Eluru",
         "Anantapur",
-        "Tirupati",
-        "Ongole",
-        "Nandyal",
-        "Adoni",
-        "Tenali",
-        "Proddatur",
-        "Chittoor",
-        "Hindupur",
-        "Bhimavaram",
-        "Madanapalle",
+        "Chitoor",
+        "East Godavari",
+        "Guntur",
+        "Krishna",
+        "Kurnool",
+        "Nellore",
+        "Prakasam",
         "Srikakulam",
-        "Anakapalle",
-        "Tadipatri",
-        "Dharmavaram",
-        "Gudivada",
-        "Narasaraopet",
-        "Tadepalligudem",
-        "Chilakaluripet",
-        "Machilipatnam",
-        "Amaravati",
-        "Gudur",
-        "Peddapuram",
-        "Palasa-Kasibugga",
-        "Srikalahasti",
-        "Narasapuram",
-        "Rayachoti",
-        "Pithapuram",
-        "Tanuku",
-        "Sullurpeta",
-        "Yemmiganur",
-        "Markapur",
-        "Palakollu",
-        "Kavali",
-        "Mangalagiri",
-        "Tuni",
-        "Chirala",
-        "Ponnur",
-        "Nuzvid",
-        "Kandukur",
-
+        "Visakhapatnam",
+        "Vizianagaram",
+        "West Godavari",
         # Telangana
-        "Hyderabad",
-        "Warangal",
-        "Nizamabad",
-        "Khammam",
-        "Karimnagar",
-        "Ramagundam",
-        "Mahbubnagar",
-        "Nalgonda",
         "Adilabad",
-        "Suryapet",
-        "Miryalaguda",
+        "Bhadradri Kothagudem",
+        "Hyderabad",
         "Jagtial",
-        "Nirmal",
-        "Siddipet",
-        "Mancherial",
-        "Wanaparthy",
+        "Jangoan",
+        "Jayashankar Bhupalapally",
+        "Jogulamba Gadwal",
         "Kamareddy",
-        "Kothagudem",
-        "Sangareddy",
-        "Bhongir",
-        "Vikarabad",
-        "Jangaon",
-        "Bhadrachalam",
+        "Karimnagar",
+        "Khammam",
+        "Komaram Bheem Asifabad",
+        "Mahabubabad"
+        "Mahbubnagar",
+        "Mancherial",
         "Medak",
-        "Bhainsa",
-        "Sircilla",
-        "Kothur",
-        "Bodhan",
-        "Bellampalle",
-        "Kagaznagar",
-        "Gadwal",
-        "Palwancha",
-        "Koratla",
-        "Sadasivpet",
-        "Sirsilla",
-        "Manuguru",
-        "Metpally",
-        "Tandur",
-        "Kyathampalle"
+        "Medchal",
+        "Nagarkurnool",
+        "Nalgonda",
+        "Nirmal",
+        "Nizamabad",
+        "Peddapalli",
+        "Rajanna Sircilla",
+        "Rangareddy",
+        "Sangareddy",
+        "Siddipet",
+        "Suryapet",
+        "Vikarabad",
+        "Wanaparthy",
+        "Warangal Rural",
+        "Warangal Urban"
+        "Yadadri Bhuvanagiri"
     ]
 
     location_ids = {}

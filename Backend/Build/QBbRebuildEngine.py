@@ -11,8 +11,7 @@ import logging
 script_dir = os.path.dirname(__file__)
 env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
 load_dotenv(env_path)
-BUILD_LOG_FOLDER = os.environ.get('BUILD_LOG_FOLDER')
-BUILD_LOG_DIR = os.path.join(script_dir, '..', '..', BUILD_LOG_FOLDER)
+BUILD_LOG_DIR = os.environ.get("BUILD_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')
 logging.basicConfig(
     filename=os.path.join(BUILD_LOG_DIR, f'{current_date}_RebuildEngine.log'),

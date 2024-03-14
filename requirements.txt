@@ -12,3 +12,5 @@ Werkzeug~=3.0.1
 python-dotenv~=1.0.1
 schedule~=1.2.1
 qrcode~=7.4.2
+mock~=5.1.0
+waitress~=3.0.0

@@ -5,6 +5,7 @@ from flask import Flask, render_template, redirect, url_for, flash, jsonify
 from flask import request, session
 from sqlalchemy import func
 from datetime import datetime
+from dotenv  import load_dotenv
 from Backend.Connections.QBcDBConnector import init_db
 from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmAddressModel import Address, CreateAddress
@@ -22,7 +23,10 @@ app.config.from_object(Config)
 base_dir = os.path.abspath(os.path.dirname(__file__))
 app.config['UPLOAD_FOLDER'] = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'])
 app.config['QR_CODE_FOLDER'] = os.path.join(base_dir, app.config['QR_FOLDER_RELATIVE'])
-APP_LOG_FILE = app.config['APP_LOG_FILE']
+script_dir = os.path.dirname(__file__)
+env_path = os.path.join(script_dir, 'config', '.env')
+load_dotenv(env_path)
+APP_LOG_DIR = os.environ.get("APP_LOG_DIR")
 init_db(app)
 
 
@@ -792,9 +796,11 @@ def update_delv():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(filename=APP_LOG_FILE, level=logging.INFO,
-                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-                        )
+    logging.basicConfig(
+        filename=(APP_LOG_DIR, f'{datetime.now()}_QuickByteAPP.log'),
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
 
     # Run the Waitress server
     app.logger.info(f"{datetime.now()} --> APP Started")

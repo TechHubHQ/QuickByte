@@ -1,24 +1,8 @@
-import os
 import string
 import random
 from datetime import datetime
 import logging
-from dotenv import load_dotenv
 from Backend.Models.QBmOrder2ItemModel import CreateOrderHeader, CreateOrderItem, CheckOrder
-
-# Set up logging
-script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
-load_dotenv(env_path)
-LOGIC_LOG_FOLDER = os.environ.get('LOGIC_LOG_FOLDER')
-LOGIC_LOG_DIR = os.path.join(script_dir, '..', '..', LOGIC_LOG_FOLDER)
-current_date = datetime.now().strftime('%Y-%m-%d')
-logging.basicConfig(filename=os.path.join(LOGIC_LOG_DIR, f'{current_date}_OrderHandler.log'), level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Configure logging
-logging.basicConfig(filename='order_generation.log', level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def generate_order_id():

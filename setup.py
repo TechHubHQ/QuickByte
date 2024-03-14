@@ -2,6 +2,13 @@ import os
 import sqlite3
 import subprocess
 
+# QB Var directory
+QB_dir = "/var/qb"
+if not os.path.exists(QB_dir):
+    os.makedirs(QB_dir)
+    print(f"QB directory '{QB_dir}' created successfully.")
+
+
 # Create the DATABASE directory if it doesn't exist
 DB_dir = "DataBase"
 if not os.path.exists(DB_dir):
@@ -27,7 +34,7 @@ if not os.path.exists(image_folder_path):
 
 
 # Create LOG directories if they don't exist
-LOG_dir = "Logs"
+LOG_dir = "/var/qb/Logs"
 if not os.path.exists(LOG_dir):
     os.makedirs(LOG_dir)
     print(f"LOG directory '{LOG_dir}' created successfully.")

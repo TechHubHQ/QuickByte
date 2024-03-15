@@ -797,17 +797,18 @@ def update_delv():
 
 
 if __name__ == '__main__':
+    current_date = datetime.now().strftime('%Y-%m-%d')
     CORE_DEV = os.environ.get("CORE_DEV")    
     if sys.argv[1] == "--debug" and sys.argv[2] in CORE_DEV:
         logging.basicConfig(
-            filename=os.path.join(APP_LOG_DIR, f'{datetime.now()}_QuickByteAPP_Debug.log'),
+            filename=os.path.join(APP_LOG_DIR, f'{current_date}_QuickByteAPP_Debug.log'),
             level=logging.DEBUG,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
         app.run(debug=True)
     else:
         logging.basicConfig(
-            filename=os.path.join(APP_LOG_DIR, f'{datetime.now()}_QuickByteAPP.log'),
+            filename=os.path.join(APP_LOG_DIR, f'{current_date}_QuickByteAPP.log'),
             level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )

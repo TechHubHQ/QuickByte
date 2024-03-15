@@ -797,8 +797,8 @@ def update_delv():
 
 
 if __name__ == '__main__':
+    current_date = datetime.now().strftime('%Y-%m-%d')
     if len(sys.argv) >= 3:
-        current_date = datetime.now().strftime('%Y-%m-%d')
         CORE_DEV = os.environ.get("CORE_DEV")
 
         if sys.argv[1] == "--debug" and sys.argv[2] in CORE_DEV:
@@ -809,14 +809,14 @@ if __name__ == '__main__':
             )
             app.run(debug=True)
         else:
-            logging.basicConfig(
-                filename=os.path.join(APP_LOG_DIR, f'{current_date}_QuickByteAPP.log'),
-                level=logging.INFO,
-                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-            )
-            # Run the Waitress server
-            app.logger.info(f"{datetime.now()} --> APP Started")
-            serve(app, host='0.0.0.0', port=8080, threads=5)
+            print("Usage: for debug mode python APP.py --debug <CORE_DEV>")
+            print("Usage: for production mode python APP.py")
     else:
-        print("Usage: for debug mode python APP.py --debug <CORE_DEV>")
-        print("Usage: for production mode python APP.py")
+        logging.basicConfig(
+            filename=os.path.join(APP_LOG_DIR, f'{current_date}_QuickByteAPP.log'),
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+        # Run the Waitress server
+        app.logger.info(f"{datetime.now()} --> APP Started")
+        serve(app, host='0.0.0.0', port=8080, threads=5)

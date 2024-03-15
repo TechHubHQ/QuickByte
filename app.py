@@ -537,7 +537,7 @@ def signup():
         else:
             flash(validation_result, 'danger')
 
-    return render_template('Signup.html', form=form)
+    return render_template('SignUp.html', form=form)
 
 
 # Address Module

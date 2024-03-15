@@ -118,6 +118,7 @@ function sendOrderDetailsOnPageLoad() {
 }
 
 function cancelOrder() {
+  const orderNo = document.getElementById('order-no').textContent
   const orderStatus = document.getElementById('order-status').textContent;
   const cancelMessage = document.getElementById('cancel-message');
 
@@ -135,7 +136,7 @@ function cancelOrder() {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ order_id: orderId })
+    body: JSON.stringify({ order_id: orderNo })
   })
   .then(response => {
     if (response.ok) {

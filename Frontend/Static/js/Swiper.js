@@ -9,5 +9,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.onload = () => {
-  sessionStorage.removeItem('paymentMade')
+  sessionStorage.clear();
 }

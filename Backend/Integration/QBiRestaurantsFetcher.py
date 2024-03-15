@@ -1,3 +1,26 @@
+# ============================================================================================================================
+# This script fetches restaurant data from a third-party API and stores it in the database. It performs the following tasks:
+
+# 1. Sets up logging and loads environment variables from a .env file.
+# 2. Adds the root directory to the system path and imports necessary modules.
+# 3. Initializes the Flask application context and creates the database tables if they don't exist.
+# 4. Retrieves the API URL and headers from environment variables.
+# 5. Fetches a list of distinct city IDs from the database.
+# 6. Iterates over each city ID and sends a request to the API to fetch restaurant data for that location.
+# 7. For each restaurant in the API response:
+#     a. Checks if the restaurant already exists in the database.
+#     b. If the restaurant doesn't exist, it extracts relevant data from the API response.
+#     c. Logs the extracted restaurant data.
+#     d. Creates a new record in the database with the restaurant data.
+
+# This script is designed to be run periodically or on-demand to keep the restaurant data in the database up-to-date.
+# ==========================================================================================================================
+
+
+# ==================================================
+# Imports/packages
+# ==================================================
+
 import os
 import sys
 import requests

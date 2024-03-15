@@ -1,3 +1,31 @@
+# ===============================================================================================================
+# This script is an Order Status Engine that runs continuously and updates the status of orders 
+# in a database based on a predefined order status mapping. Here's a breakdown of the main functionality:
+
+# 1. Imports necessary modules and sets up logging.
+# 2. Configures the application context for the Flask app.
+# 3. Defines an ORDER_STATUS_MAPPING dictionary that maps the current order status to the next status.
+# 4. The OrderStatusEngine function:
+#   a. Queries the database for orders that need a status update based on the order status and order 
+#      cancellation/delivery status.
+#   b. For each order found, it updates the order status to the next status in the mapping using the 
+#      UpdateOrderStatus and UpdateOrderStatusTimeStamps functions.
+#   c. Logs the status update for each order.
+#   d. If no orders are found, it logs a message indicating that no orders require a status update.
+#   e. Logs an "alive ping" message with the process ID.
+#   f. Sleeps for 2 minutes before running the loop again.
+# 5. Catches and logs any exceptions that occur during execution and waits for 1 minute before retrying.
+# 6. The main function calls OrderStatusEngine when the script is run directly.
+
+# This script is designed to be run continuously, either as a standalone script or as part of a larger application, 
+# to maintain the order status in the database based on the predefined order status flow.
+# =====================================================================================================================
+
+
+# ===========================================================
+# Imports/Packages
+# ===========================================================
+
 import os
 import time
 import sys
@@ -30,8 +58,38 @@ ORDER_STATUS_MAPPING = {
     'Out for Delivery': 'Delivered'
 }
 
+# ======================================================================
+# OrderStatusEngine to update the status of the orders from DB
+# =======================================================================
+
 
 def OrderStatusEngine():
+    """
+    This function runs in an infinite loop and performs the following tasks:
+
+    1. Queries the database for orders that need a status update based on the following conditions:
+        - The order status is one of the keys in the ORDER_STATUS_MAPPING dictionary.
+        - The order has not been canceled (order_cancel_time is None).
+        - The order has not been delivered (order_delivered_time is None).
+
+    2. If there are orders found, it processes each order as follows:
+        - Retrieves the current order status.
+        - Looks up the next status in the ORDER_STATUS_MAPPING dictionary using the current status.
+        - If a next status is found, it calls the UpdateOrderStatus and UpdateOrderStatusTimeStamps functions
+          to update the order status and timestamps in the database.
+        - Logs a message indicating the order ID and the status change.
+
+    3. If no orders are found, it logs a message indicating that no orders require a status update.
+    4. Logs an "alive ping" message with the current process ID to indicate that the script is running.
+    5. Sleeps for 2 minutes (120 seconds) before repeating the loop.
+
+    If an exception occurs during execution, it logs the error message and waits for 1 minute (60 seconds)
+    before retrying the loop.
+
+    This function is designed to run continuously, as a standalone script,
+    to maintain the order status in the database based on the predefined order status flow.
+    """
+    
     while True:
         try:
             # Query orders that need status update

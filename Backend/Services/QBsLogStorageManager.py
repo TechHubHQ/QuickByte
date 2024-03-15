@@ -1,3 +1,16 @@
+# ============================================================================================
+# Log cleanup script that runs continuously to remove log files older than 5 days.
+
+# Iterates through all files in the LOG_DIR directory and checks the modification
+# time. If a log file is older than 5 days, it gets deleted.
+
+# Runs indefinitely on a 24 hour interval.
+# =============================================================================================
+
+
+# =======================================================================
+# Imports/Packages
+# =======================================================================
 import os
 import time
 import logging
@@ -22,22 +35,19 @@ root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 LOG_DIR = os.path.join(root_dir, 'Logs')
 
 
-def remove_old_logs():
+# ========================================================================================
+# RemoveOldLogs() - Function to remove old logs from the LOG_DIR directory.
+# ========================================================================================
+def RemoveOldLogs():
     try:
-        # Get current date
         current_date = datetime.now()
-
-        # Calculated 5 days ago
         five_days_ago = current_date - timedelta(days=5)
 
-        # Iterate over files in the log directory
         for filename in os.listdir(LOG_DIR):
-            # Check if the file is a log file and its modification time is older than 5 days
             if filename.endswith(".log"):
                 filepath = os.path.join(LOG_DIR, filename)
                 mod_time = datetime.fromtimestamp(os.path.getmtime(filepath))
                 if mod_time < five_days_ago:
-                    # Remove the log file
                     os.remove(filepath)
                     logging.info(f"Removed old log file: {filepath}")
     except Exception as e:
@@ -47,14 +57,12 @@ def remove_old_logs():
 if __name__ == "__main__":
     try:
         logging.info("Starting log cleanup script...")
-        # Run the script continuously
         while True:
-            remove_old_logs()
-            # Sleep for 24 hours before checking again
+            RemoveOldLogs()
             logging.info(f"-- LogManagerService is alive {os.getpid()} --")
             logging.info("Sleeping for 24 hours...")
-            time.sleep(24 * 60 * 60)  # 24 hours in seconds
+            time.sleep(24 * 60 * 60)
     except KeyboardInterrupt:
         logging.info("Script terminated by user.")
     except Exception as e:
-        logging.error(f"Unexpected error occurred: {e}")
+        logging.error(f"Unexpected error occurred: \n{e}")

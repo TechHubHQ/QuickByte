@@ -1,3 +1,7 @@
+"""
+Creates necessary directories and files for the QuickBase application 
+if they don't already exist. Also installs Python package dependencies.
+"""
 import os
 import sqlite3
 import subprocess
@@ -23,7 +27,7 @@ else:
     print(f"SQLite database file '{db_path}' already exists.")
 
 
-# Create the Image directory if it doesn't exist
+# Create the Image/Users directory if it doesn't exist
 img_dir = "Frontend/Static/Images/"
 
 image_folder_path = os.path.join(img_dir, "Users")

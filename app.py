@@ -17,6 +17,7 @@ from Backend.Controllers.QBcrUserController import UserController
 from Backend.Logic.QBlPaymentHandler import HandlePayment
 from Backend.Logic.QBlOrderHandler import HandleOrderGeneration, generate_order_id
 from Config.AppConfig import Config
+import sys
 
 app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
 app.config.from_object(Config)
@@ -805,3 +806,7 @@ if __name__ == '__main__':
     # Run the Waitress server
     app.logger.info(f"{datetime.now()} --> APP Started")
     serve(app, host='0.0.0.0', port=8080, threads=5)
+
+    CORE_DEV = os.environ.get("CORE_DEV")    
+    if sys.argv[1] == "--debug" and sys.argv[2] in CORE_DEV:
+        app.run(debug=True)

@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 INTEGRATION_LOG_DIR = os.environ.get("INTEGRATION_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')

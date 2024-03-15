@@ -6,7 +6,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 
 # Ensure the directory for logs exists

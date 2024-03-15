@@ -5,7 +5,7 @@ import logging
 from dotenv import load_dotenv
 from datetime import datetime
 script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 # Ensure the directory for logs exists
 LOGIC_LOG_DIR = os.environ.get("LOGIC_LOG_DIR")

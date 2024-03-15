@@ -9,7 +9,7 @@ import logging
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 BUILD_LOG_DIR = os.environ.get("BUILD_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')
@@ -31,8 +31,6 @@ from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmLoadMenu import MenuDetails
 
 # Push the app context
-env_path = os.path.join(root_dir, 'config', '.env')
-load_dotenv(env_path)
 app.app_context().push()
 
 # Set up script directories

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 SERVICE_LOG_DIR = os.environ.get("SERVICES_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')

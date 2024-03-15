@@ -7,7 +7,7 @@ import logging
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 INTEGRATION_LOG_DIR = os.environ.get("INTEGRATION_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')
@@ -23,10 +23,6 @@ from Backend.Models.QBmLoadRestaurantsByID import CreateRestaurant, RestaurantsB
 from Backend.Models.QBmLoadLocationID import CityLocation
 from Backend.Connections.QBcDBConnector import db
 
-script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'config', '.env')
-
-load_dotenv(env_path)
 app.app_context().push()
 db.create_all()
 

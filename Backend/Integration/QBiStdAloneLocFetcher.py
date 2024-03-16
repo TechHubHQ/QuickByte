@@ -30,6 +30,7 @@ import os
 import sys
 import requests
 import logging
+
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
 from app import app
@@ -37,6 +38,7 @@ from Backend.Models.QBmLoadLocationID import CreateLocationID
 from dotenv import load_dotenv
 from datetime import datetime
 from Backend.Connections.QBcDBConnector import db
+from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -44,8 +46,12 @@ env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
 load_dotenv(env_path)
 INTEGRATION_LOG_DIR = os.environ.get("INTEGRATION_LOG_DIR")
 current_date = datetime.now().strftime('%Y-%m-%d')
-logging.basicConfig(filename=os.path.join(INTEGRATION_LOG_DIR, f'{current_date}_FetchALLEngine.log'), level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+file_handler = RollingFileHandler(INTEGRATION_LOG_DIR, 'StdAloneLocFetcher.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 app.app_context().push()
 db.create_all()
@@ -69,7 +75,7 @@ def FetchLocationIDS():
 
     If an exception occurs while fetching data for a city, it logs an error message and continues with the next city.
     """
-    
+
     url = os.environ.get("LOC_API")
     headers = {
         "X-RapidAPI-Key": os.environ.get("LOC_API_KEY"),

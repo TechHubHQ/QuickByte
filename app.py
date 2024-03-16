@@ -30,6 +30,7 @@ from Backend.Controllers.QBcrUserController import UserController
 from Backend.Logic.QBlPaymentHandler import HandlePayment
 from Backend.Logic.QBlOrderHandler import HandleOrderGeneration, generate_order_id
 from Config.AppConfig import Config
+from Config.PyLogger import RollingFileHandler
 import sys
 
 app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
@@ -815,21 +816,25 @@ if __name__ == '__main__':
         CORE_DEV = os.environ.get("CORE_DEV")
 
         if sys.argv[1] == "--PROD" and sys.argv[2] in CORE_DEV:
-            logging.basicConfig(
-                filename=os.path.join(APP_LOG_DIR, f'{current_date}_QuickByteAPP_Debug.log'),
-                level=logging.DEBUG,
-                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-            )
+            logger = logging.getLogger()
+            logger.setLevel(logging.INFO)
+            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+            file_handler = RollingFileHandler(APP_LOG_DIR, 'QuickByteAPP.log')
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
             # Run the Waitress server
             app.logger.info(f"{datetime.now()} --> APP Started")
             serve(app, host='0.0.0.0', port=8080, threads=5)
         elif sys.argv[1] == "--debug":
-            logging.basicConfig(
-            filename=os.path.join(APP_LOG_DIR, f'{current_date}_QuickByteAPP.log'),
-            level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        
+            logger = logging.getLogger()
+            logger.setLevel(logging.INFO)
+            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+            file_handler = RollingFileHandler(APP_LOG_DIR, 'QuickByteAPP_DEBUG.log')
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
+
         app.run(debug=True)
     else:
         print("Usage: for debug mode python APP.py --debug")

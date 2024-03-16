@@ -35,19 +35,6 @@ from dotenv import load_dotenv
 from datetime import datetime
 from subprocess import Popen
 import logging
-
-# Set up logging
-script_dir = os.path.dirname(__file__)
-env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
-load_dotenv(env_path)
-BUILD_LOG_DIR = os.environ.get("BUILD_LOG_DIR")
-current_date = datetime.now().strftime('%Y-%m-%d')
-logging.basicConfig(
-    filename=os.path.join(BUILD_LOG_DIR, f'{current_date}_RebuildEngine.log'),
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-
 # Add the root directory to the Python path
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
@@ -58,6 +45,20 @@ from Backend.Connections.QBcDBConnector import db
 from Backend.Models.QBmLoadLocationID import CityLocation
 from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmLoadMenu import MenuDetails
+from Config.PyLogger import RollingFileHandler
+
+# Set up logging
+script_dir = os.path.dirname(__file__)
+env_path = os.path.join(script_dir, '..', '..', 'Config', '.env')
+load_dotenv(env_path)
+BUILD_LOG_DIR = os.environ.get("BUILD_LOG_DIR")
+current_date = datetime.now().strftime('%Y-%m-%d')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+file_handler = RollingFileHandler(BUILD_LOG_DIR, 'RebuildEngine.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 # Push the app context
 app.app_context().push()

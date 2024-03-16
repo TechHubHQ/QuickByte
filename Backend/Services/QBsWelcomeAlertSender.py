@@ -2,7 +2,7 @@
 # This script sets up a Flask application with email sending capabilities using the Flask-Mail extension.
 # It configures the SMTP server settings and provides a function to send a welcome email to new users.
 
-# The main components of this script are:
+# The main elements of this script are:
 
 # 1. Flask application setup with email server configuration.
 # 2. Mail extension initialization.
@@ -45,7 +45,7 @@ def SendWelcomeEmail(email_id, user_name):
         user_name (str): The name of the user to be included in the email.
 
     This function performs the following tasks:
-    1. Creates a new email message with the subject "Welcome to QuickByte!".
+    1. Creates a new email message with the subject "Welcome to QuickByte!"
     2. Renders an HTML template named "WelcomeEmailTemplate.html" with the provided user_name.
     3. Constructs the path to a PDF file named "QuickByteGuide.pdf" in the "Docs" directory.
     4. Attaches the PDF file to the email message.

@@ -1,3 +1,16 @@
+# ================================================================================================
+# QuickByte Food Delivery Application
+
+# This is the main application module for the QuickByte food delivery service.
+# It handles various routes and functionalities such as user authentication,
+# restaurant listing, menu display, order placement, payment, order tracking,
+# and user profile management.
+
+# The application is built using the Flask web framework and SQLAlchemy for database
+# operations. It integrates with other modules and components to provide a
+# comprehensive food delivery experience.
+# ================================================================================================
+
 import os
 import logging
 from waitress import serve

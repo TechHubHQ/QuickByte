@@ -15,7 +15,7 @@ class RollingFileHandler(logging.FileHandler):
         self.log_dir = log_dir
         self.log_file_name = log_file_name
         self.current_date = datetime.now().date()
-        self.file_path = self.get_log_file_path()  # Initialize file_path
+        self.file_path = self.get_log_file_path()
         super().__init__(self.file_path, mode, encoding, delay)
 
     def get_log_file_path(self):

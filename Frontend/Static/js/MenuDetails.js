@@ -71,7 +71,7 @@ fetch('/api/menu')
 
   // Function to get image path
   const getImagePath = (itemName) => {
-    const imagePath = `../Static/Images/IMGLib/${itemName}.png`;
+    const imagePath = '../Static/Images/IMGLib/' + `${itemName.toLowerCase()}.png`;;
     return imagePath;
   };
 

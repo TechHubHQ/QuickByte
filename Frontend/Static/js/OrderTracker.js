@@ -117,6 +117,37 @@ function sendOrderDetailsOnPageLoad() {
   }
 }
 
+function displayCancelAnimation() {
+  document.body.innerHTML = "";
+  document.body.style.backgroundColor = '#FFC0CB';
+
+  const message = document.createElement('div');
+  message.textContent = 'Your order has been cancelled successfully';
+  message.style.color = 'white';
+  message.style.fontSize = '20px';
+  message.style.textAlign = 'center';
+  message.style.marginTop = '20px';
+  message.style.position = 'absolute';
+  message.style.top = '70%';
+  message.style.left = '50%';
+  message.style.transform = 'translate(-50%, -50%)';
+  document.body.appendChild(message);
+
+  const xMarkContainer = document.createElement('div');
+  xMarkContainer.classList.add('x-mark');
+  xMarkContainer.style.position = 'absolute';
+  xMarkContainer.style.top = '50%';
+  xMarkContainer.style.left = '45%';
+  xMarkContainer.style.transform = 'translate(-50%, -50%)';
+  document.body.appendChild(xMarkContainer);
+
+  setTimeout(() => {
+    message.remove();
+    xMarkContainer.remove();
+    window.location.href = '/landing';
+  }, 1000);
+}
+
 function cancelOrder() {
   const orderNo = document.getElementById('order-no').textContent
   const orderStatus = document.getElementById('order-status').textContent;
@@ -141,7 +172,7 @@ function cancelOrder() {
   .then(response => {
     if (response.ok) {
       console.log('Order Cancelled successfully');
-
+      displayCancelAnimation();
     } else {
       console.error('Error cancelling order');
     }

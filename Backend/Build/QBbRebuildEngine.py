@@ -62,12 +62,13 @@ logger.addHandler(file_handler)
 
 # Push the app context
 app.app_context().push()
+db.create_all()
 
 # Set up script directories
 current_dir = os.path.dirname(os.path.abspath(__file__))
 script_dir = os.path.join(current_dir, "..", "Integration")
 
-loc_fetch_script = os.path.join(script_dir, "QBiLocationIDFetcher.py")
+loc_fetch_script = os.path.join(script_dir, "QBiStdAloneLocFetcher.py")
 res_fetch_script = os.path.join(script_dir, "QBiRestaurantsFetcher.py")
 menu_fetch_script = os.path.join(script_dir, "QBiMenuFetcher.py")
 
@@ -163,7 +164,7 @@ while True:
         logging.info("-----------------------------------------------------------")
         logging.info(f"Manual Rebuild process invoked by CORE DEV {sys.argv[2]}")
         logging.info("---------------------------------------------------------\n")
-        RunScript(loc_fetch_script, "QBiLocationIDFetcher.py")
+        RunScript(loc_fetch_script, "QBiStdAloneLocFetcher.py")
         RunScript(res_fetch_script, "QBiRestaurantsFetcher.py")
         RunScript(menu_fetch_script, "QBiMenuFetcher.py")
         break

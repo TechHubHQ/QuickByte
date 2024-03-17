@@ -126,7 +126,7 @@ def FetchLocationIDS():
         "Vikarabad",
         "Wanaparthy",
         "Warangal Rural",
-        "Warangal Urban"
+        "Warangal Urban",
         "Yadadri Bhuvanagiri"
     ]
 

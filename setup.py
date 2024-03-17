@@ -63,6 +63,11 @@ if not os.path.exists(SERVICES_LOG_dir):
     os.makedirs(SERVICES_LOG_dir)
     print(f"SERVICES LOG directory '{SERVICES_LOG_dir}' created successfully.")
 
+BUILD_LOG_dir = os.path.join(LOG_dir, "BUILD")
+if not os.path.exists(BUILD_LOG_dir):
+    os.makedirs(BUILD_LOG_dir)
+    print(f"BUILD LOG directory '{BUILD_LOG_dir}' created successfully.")
+
 # Install required Python packages from requirements.txt
 requirements_file = "requirements.txt"
 if os.path.exists(requirements_file):

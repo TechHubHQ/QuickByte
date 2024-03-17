@@ -171,26 +171,49 @@ On App start-up run the below command to get the setup done for the APP automati
  sudo python3 setup.py
  ```
 
+## FETCH DATA
+
+After running the setup, the app needs data to function.
+We need to fetch data from the API to DB to get the Restaurants and Menu
+details.
+
+Go to [Travel Advisor API](https://rapidapi.com/apidojo/api/travel-advisor)
+> Get your API-KEY and store it in .env file -- path (QuickByte/Config/.env) 
+```bash
+# Run below script to fetch location IDs
+
+sudo python3 Backend/Integration/QBiStdAloneLocFetcher.py
+```
+This will fetch the location IDs from the Travel Advisor API and store it in the SQLite database.
+
+```bash
+# Run below script to fetch Restaurants for each location
+
+sudo python3 Backend/Integration/QBiRestaurantsFetcher.py
+```
+This will fetch the restaurant details for each location ID from the Travel Advisor API
+and store it in the SQLite database.
+
 ## Run the APP Locally
 
 -- Run the app with the below command
 
 ### Run Prod Server
 ```bash
-nohup python3 app.py --PROD <CORE_DEV>
+python3 app.py --PROD <CORE_DEV>
 
 # If asked for admin access 
-nohup sudo python3 app.py  --PROD <CORE_DEV>
+sudo python3 app.py  --PROD <CORE_DEV>
 
 # after this check localhost:8080
 ```
 
 ### Run Dev Server
 ```bash
-nohup sudo python3 app.py --debug
+sudo python3 app.py --debug
 
 # If asked for admin access
-nohup sudo python3 app.py --debug
+sudo python3 app.py --debug
 
 # after this check localhost:5000
 ```
@@ -258,3 +281,27 @@ git gui
 
 ## Feature Request
 > Please check out .github/ISSUE_TEMPLATE/feature_request.md for submitting as feature request
+
+## Sample .env file
+
+```vim 
+# APIs
+
+## LOCATIONS
+LOC_API = "https://travel-advisor.p.rapidapi.com/locations/search"
+LOC_API_KEY = "your-travel-advisor-api-key"
+LOC_API_HOST = "travel-advisor.p.rapidapi.com"
+
+## RESTAURANTS
+REST_API = "https://travel-advisor.p.rapidapi.com/restaurants/list"
+REST_API_KEY = "your-travel-advisor-api-key"
+REST_API_HOST = "travel-advisor.p.rapidapi.com"
+
+# Logs
+APP_LOG_DIR = 'define-your-logs-path'
+INTEGRATION_LOG_DIR = 'define-your-logs-path'
+LOGIC_LOG_DIR = 'define-your-logs-path'
+SERVICES_LOG_DIR = 'define-your-logs-path'
+BUILD_LOG_DIR = 'define-your-logs-path'
+MODEL_LOG_DIR = 'define-your-logs-path'
+```

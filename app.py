@@ -826,14 +826,14 @@ if __name__ == '__main__':
             # Run the Waitress server
             app.logger.info(f"{datetime.now()} --> APP Started")
             serve(app, host='0.0.0.0', port=8080, threads=5)
-        elif sys.argv[1] == "--debug":
-            logger = logging.getLogger()
-            logger.setLevel(logging.INFO)
-            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    elif sys.argv[1] == "--debug":
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
-            file_handler = RollingFileHandler(APP_LOG_DIR, 'QuickByteAPP_DEBUG.log')
-            file_handler.setFormatter(formatter)
-            logger.addHandler(file_handler)
+        file_handler = RollingFileHandler(APP_LOG_DIR, 'QuickByteAPP_DEBUG.log')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
 
         app.run(debug=True)
     else:

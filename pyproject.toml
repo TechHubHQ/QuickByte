@@ -7,6 +7,9 @@ authors = ["Kalyan Kanuri"]
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.11"
 flask = "^3.0.2"
+sqlalchemy = "^2.0.27"
+python-dotenv = "^1.0.1"
+waitress = "^3.0.0"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md

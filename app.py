@@ -144,7 +144,8 @@ def pay_via_card():
     paid_amount = data.get('paid_amount')
     app.logger.info(f"PAYLOAD: {data}")
     app.logger.info(
-        f"Username: {username}, Card Number: {card_number}, Cardholder Name: {cardholder_name}, Expiry Date: {expiry_date}, CVV: {cvv}, Payment type: {payment_type}")
+        f"Username: {username}, Card Number: {card_number}, Cardholder Name: {cardholder_name}, "
+        f"Expiry Date: {expiry_date}, CVV: {cvv}, Payment type: {payment_type}")
 
     result = HandlePayment(
         username=username,
@@ -199,12 +200,14 @@ def place_order():
         order_cancel_time = None
         delivery_to = username
         delv_addr = Address.query.filter_by(email=email).first()
-        delivery_addr = f"{delv_addr.line1}, {delv_addr.landmark}, {delv_addr.district}, {delv_addr.state}, {delv_addr.zip_code}"
+        delivery_addr = (f"{delv_addr.line1}, {delv_addr.landmark}, {delv_addr.district}, "
+                         f"{delv_addr.state}, {delv_addr.zip_code}")
 
         app.logger.info(f"{session.get('username')} -- Placing order.")
         app.logger.info(f"PAYLOAD: {data}")
         app.logger.info(
-            f"Username: {username}, Order ID: {order_id}, Restaurant Name: {restaurant_name}, Order Amount: {order_amount}, Order Tax: {order_tax}, Subtotal: {subtotal}")
+            f"Username: {username}, Order ID: {order_id}, Restaurant Name: {restaurant_name}, "
+            f"Order Amount: {order_amount}, Order Tax: {order_tax}, Subtotal: {subtotal}")
 
         # Lists to store item details
         item_names = []
@@ -561,7 +564,8 @@ def address():
     form = AddressDetailsForm()
     app.logger.info(f"Accessing address page for user with email: {email}.")
     app.logger.debug(
-        f"Received a {request.method} request with form validation result: {form.validate_on_submit()}, errors: {form.errors}, and form data: {request.form}")
+        f"Received a {request.method} request with form validation result: {form.validate_on_submit()}, "
+        f"errors: {form.errors}, and form data: {request.form}")
     if request.method == 'POST' and form.validate_on_submit():
         user_email = email
         line1 = request.form['line1']

@@ -194,6 +194,14 @@ sudo python3 Backend/Integration/QBiRestaurantsFetcher.py
 This will fetch the restaurant details for each location ID from the Travel Advisor API
 and store it in the SQLite database.
 
+```bash
+#Run below script to fetch Menu details
+
+sudo python3 Backend/Integration/QBiMenuFetcher.py
+```
+
+This will fetch the menu details for each restaurant ID from the static FoodMenu.json file
+
 ## Run the APP Locally
 
 -- Run the app with the below command
@@ -210,7 +218,7 @@ sudo python3 app.py  --PROD <CORE_DEV>
 
 ### Run Dev Server
 ```bash
-sudo python3 app.py --debug
+python3 app.py --debug
 
 # If asked for admin access
 sudo python3 app.py --debug

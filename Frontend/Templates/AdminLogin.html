@@ -6,48 +6,48 @@
   <title>Admin Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/ADlogo.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/AdminLogin.css') }}"/>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-          <div class="col s12 m8 offset-m2">
-            <div class="card admin-login-card">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="card admin-login-card">
+          <div class="row no-margin">
+            <div class="col s12 m6 admin-login-image-container">
+              <img src="{{ url_for('static', filename='Images/IMGLib/admin_login.png') }}" alt="Admin Login" class="admin-login-image">
+            </div>
+            <div class="col s12 m6">
               <div class="card-content">
-                <div class="row">
-                  <div class="col s6">
-                    <img src="{{ url_for('static', filename='Images/IMGLib/admin_login.png') }}" alt="Admin Login" class="admin-login-image">
+                <span class="card-title">Admin Login</span>
+                <form id="admin-login-form">
+                  <div class="input-field">
+                    <input type="text" id="username" name="username" required>
+                    <label for="username">Username</label>
                   </div>
-                  <div class="col s6">
-                    <span class="card-title">Admin Login</span>
-                    <form id="admin-login-form">
-                      <div class="input-field">
-                        <input type="text" id="username" name="username" required>
-                        <label for="username">Username</label>
-                      </div>
-                      <div class="input-field">
-                        <input type="password" id="password" name="password" required>
-                        <label for="password">Password</label>
-                      </div>
-                      <div class="center-align">
-                        <button class="btn waves-effect waves-light" type="submit">
-                          Login
-                          <i class="material-icons right">send</i>
-                        </button>
-                      </div>
-                    </form>
-                    <div class="center-align">
-                      <p>Don't have an account? <a href="/admin/register">Register</a></p>
-                    </div>
+                  <div class="input-field">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password</label>
                   </div>
+                  <div class="center-align">
+                    <button class="btn waves-effect waves-light" type="submit">
+                      Login
+                      <i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </form>
+                <div class="center-align">
+                  <p>Don't have an account? <a href="/admin/register">Register</a></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="../Static/js/AdminLogin.js"></script>
-  </body>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="../Static/js/AdminLogin.js"></script>
+</body>
 </html>

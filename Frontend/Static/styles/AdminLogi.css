@@ -1,0 +1,20 @@
+.admin-login-card {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .admin-login-image-container {
+    background-color: #242424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .admin-login-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .no-margin {
+    margin: 0;
+  }

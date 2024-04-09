@@ -22,6 +22,10 @@ def GetAdminHomeData():
     return page_data
 
 
+def row_to_dict(row):
+    return {col: getattr(row, col) for col in row.__table__.columns.keys()}
+
+
 def GetAdminDashboardData():
     dashboard_data = {
         "orderTrends": [],
@@ -44,12 +48,9 @@ def GetAdminDashboardData():
     )
 
     for trend in order_trends:
-        dashboard_data['orderTrends'].append({
-            'month': trend.month,
-            'orders': trend.orders
-        })
+        dashboard_data['orderTrends'].append(row_to_dict(trend))
 
-    #  Fetch popular dishes data
+    # Fetch popular dishes data
     popular_dishes = (
         db.session.query(
             OrderItemDetails.item_name.label('dish'),
@@ -63,11 +64,7 @@ def GetAdminDashboardData():
     )
 
     for dish in popular_dishes:
-        dashboard_data['popularDishes'].append({
-            'dish': dish.dish,
-            'orders': dish.orders,
-            'qty': dish.qty
-        })
+        dashboard_data['popularDishes'].append(row_to_dict(dish))
 
     # Fetch customer satisfaction data
     customer_satisfaction = (
@@ -80,7 +77,7 @@ def GetAdminDashboardData():
         .first()
     )
 
-    dashboard_data['customerSatisfaction'].append(customer_satisfaction)
+    dashboard_data['customerSatisfaction'].append(row_to_dict(customer_satisfaction))
 
     # Fetch Order Status data
     order_status = (
@@ -110,7 +107,7 @@ def GetAdminDashboardData():
         .first()
     )
 
-    dashboard_data['orderStatus'].append(order_status)
+    dashboard_data['orderStatus'].append(row_to_dict(order_status))
 
     # Fetch Delivery Stats data
     delivery_stats = (
@@ -130,7 +127,7 @@ def GetAdminDashboardData():
         .first()
     )
 
-    dashboard_data['deliveryStats'].append(delivery_stats)
+    dashboard_data['deliveryStats'].append(row_to_dict(delivery_stats))
 
     # Fetch User Growth data
     user_growth = (
@@ -144,9 +141,6 @@ def GetAdminDashboardData():
     )
 
     for growth in user_growth:
-        dashboard_data['userGrowth'].append({
-            'month': growth.month,
-            'users': growth.users
-        })
+        dashboard_data['userGrowth'].append(row_to_dict(growth))
 
     return dashboard_data

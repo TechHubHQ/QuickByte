@@ -6,7 +6,7 @@ from datetime import datetime
 from Backend.Connections.QBcDBConnector import db
 
 
-class QBBiz(db.model):
+class QBBiz(db.Model):
     __tablename__ = 'QB_BIZ'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)

@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
         if (response.ok) {
           M.toast({ html: 'Admin registered successfully!' });
-          // Redirect the admin to the login page or display a success message
+          setTimeout(() => {
+            window.location.href = '/admin/login';
+          }, 2000);
+          
         } else {
           const { error } = await response.json();
           M.toast({ html: error });

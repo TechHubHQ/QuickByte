@@ -2,7 +2,6 @@ import jwt
 from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify, render_template
 from functools import wraps
-from werkzeug.security import generate_password_hash
 from Backend.Models.QBmAdminModel import QBBiz
 from Backend.Admin.AdMonBizLogic import GetAdminHomeData, GetAdminDashboardData
 from Backend.Connections.QBcDBConnector import db, bcrypt
@@ -28,7 +27,7 @@ class AdminController:
             new_admin = QBBiz(
                 username=username,
                 email=email,
-                password=generate_password_hash(password)
+                password=bcrypt.generate_password_hash(password)
             )
             db.session.add(new_admin)
             db.session.commit()

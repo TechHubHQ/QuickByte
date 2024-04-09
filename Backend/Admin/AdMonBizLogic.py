@@ -72,10 +72,10 @@ def GetAdminDashboardData():
     # Fetch customer satisfaction data
     customer_satisfaction = (
         db.session.query(
-            func.sum(case([(MenuDetails.item_reviews >= 4, 1)], else_=0)).label('excellent'),
-            func.sum(case([(MenuDetails.item_reviews >= 3, 1)], else_=0)).label('good'),
-            func.sum(case([(MenuDetails.item_reviews >= 2, 1)], else_=0)).label('fair'),
-            func.sum(case([(MenuDetails.item_reviews >= 1, 1)], else_=0)).label('poor')
+            func.sum(case((MenuDetails.item_reviews >= 4, 1), else_=0)).label('excellent'),
+            func.sum(case((MenuDetails.item_reviews >= 3, 1), else_=0)).label('good'),
+            func.sum(case((MenuDetails.item_reviews >= 2, 1), else_=0)).label('fair'),
+            func.sum(case((MenuDetails.item_reviews < 2, 1), else_=0)).label('poor')
         )
         .first()
     )

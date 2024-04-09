@@ -35,11 +35,11 @@ def GetAdminDashboardData():
     # Fetch order trends data
     order_trends = (
         db.session.query(
-            func.to_char(OrderDetailsHeader.order_rcv_time, 'Mon').label('month'),
+            func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time).label('month'),
             func.count(OrderDetailsHeader.order_id).label('orders')
         )
-        .group_by(func.to_char(OrderDetailsHeader.order_rcv_time, 'Mon'))
-        .order_by(func.to_char(OrderDetailsHeader.order_rcv_time, 'Mon'))
+        .group_by(func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time))
+        .order_by(func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time))
         .all()
     )
 
@@ -126,13 +126,14 @@ def GetAdminDashboardData():
     # Fetch User Growth data
     user_growth = (
         db.session.query(
-            func.to_char(QBUser.user_created_time, 'Mon').label('month'),
+            func.strftime('%Y-%m', QBUser.user_created_time).label('month'),
             func.count(QBUser.user_id).label('users')
         )
-        .group_by(func.to_char(QBUser.user_created_time, 'Mon'))
-        .order_by(func.to_char(QBUser.user_created_time, 'Mon'))
+        .group_by(func.strftime('%Y-%m', QBUser.user_created_time))
+        .order_by(func.strftime('%Y-%m', QBUser.user_created_time))
         .all()
     )
+
     for growth in user_growth:
         dashboard_data['userGrowth'].append({
             'month': growth.month,

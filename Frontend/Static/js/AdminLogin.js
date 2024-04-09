@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Store the token in local storage or session storage
           localStorage.setItem('adminToken', token);
           // Redirect the user to the admin dashboard
-          window.location.href = '/admin/dashboard';
+          window.location.href = '/admin/home';
         } else {
           const { error } = await response.json();
           M.toast({ html: error });

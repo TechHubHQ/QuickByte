@@ -82,14 +82,14 @@ class AdminController:
 
     @staticmethod
     @admin_required
-    @admin_controller_bp.route('/admin/home', methods=['GET', 'POST'])
+    @admin_controller_bp.route('/home', methods=['GET', 'POST'])
     def admin_home():
         adminhm_data = GetAdminHomeData()
         return render_template('AdminHome.html', page_data=adminhm_data)
 
     @staticmethod
     @admin_required
-    @admin_controller_bp.route('/admin/dashboard', methods=['GET', 'POST'])
+    @admin_controller_bp.route('/dashboard', methods=['GET', 'POST'])
     def admin_dashboard():
         dashboard_data = GetAdminDashboardData()
         return render_template('AdminDashboard.html', dashboard_data=dashboard_data)

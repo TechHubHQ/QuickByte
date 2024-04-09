@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/AdminHome.css') }}">
+</head>
+<body>
+  <nav class="teal">
+    <div class="nav-wrapper">
+      <a href="#" data-target="slide-out" class="sidenav-trigger show-on-medium-and-down"><i class="material-icons">menu</i></a>
+      <a href="#" class="brand-logo">SME Logistics</a>
+    </div>
+  </nav>
+
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <li><a href="#!"><i class="material-icons">dashboard</i>Dashboard</a></li>
+    <li><a href="#!"><i class="material-icons">restaurant</i>Restaurant Management</a></li>
+    <li><a href="#!"><i class="material-icons">restaurant_menu</i>Menu Management</a></li>
+    <li><a href="#!"><i class="material-icons">supervisor_account</i>User Management</a></li>
+    <li><a href="#!"><i class="material-icons">local_shipping</i>Delivery Management</a></li>
+    <li><a href="#!"><i class="material-icons">assessment</i>Analytics</a></li>
+    <li><a href="#!"><i class="material-icons">local_mall</i>Order Status</a></li>
+  </ul>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9 offset-m3">
+        <h1>SME Dashboard</h1>
+        <div class="row">
+          <div class="col s12 m6 l3">
+            <div class="card teal darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Total Users</span>
+                <p id="total-users">Loading...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6 l3">
+            <div class="card indigo darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Total Orders</span>
+                <p id="total-orders">Loading...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6 l3">
+            <div class="card deep-purple darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Total Items</span>
+                <p id="total-items">Loading...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6 l3">
+            <div class="card amber darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Total Admins</span>
+                <p id="total-admins">Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="../Static/js/AdminHome.js"></script>
+</body>
+</html>

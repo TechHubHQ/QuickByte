@@ -14,3 +14,5 @@ schedule~=1.2.1
 qrcode~=7.4.2
 mock~=5.1.0
 waitress~=3.0.0
+pytz~=2024.1
+pyjwt~=2.8.0

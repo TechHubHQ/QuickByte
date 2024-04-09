@@ -1,0 +1,22 @@
+nav .brand-logo {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 992px) {
+    .sidenav-fixed {
+        position: relative;
+        height: auto;
+    }
+
+    nav {
+        height: auto;
+        line-height: normal;
+    }
+
+    nav .brand-logo {
+        position: relative;
+        transform: none;
+        left: auto;
+    }
+}

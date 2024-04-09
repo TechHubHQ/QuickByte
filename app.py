@@ -19,6 +19,7 @@ from flask import request, session
 from sqlalchemy import func
 from datetime import datetime
 from dotenv import load_dotenv
+from Backend.Admin import admin_bp
 from Backend.Connections.QBcDBConnector import init_db
 from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 from Backend.Models.QBmAddressModel import Address, CreateAddress
@@ -35,6 +36,7 @@ import sys
 
 app = Flask(__name__, template_folder='./Frontend/Templates', static_folder='./Frontend/Static')
 app.config.from_object(Config)
+app.register_blueprint(admin_bp)
 base_dir = os.path.abspath(os.path.dirname(__file__))
 app.config['UPLOAD_FOLDER'] = os.path.join(base_dir, app.config['UPLOAD_FOLDER_RELATIVE'])
 app.config['QR_CODE_FOLDER'] = os.path.join(base_dir, app.config['QR_FOLDER_RELATIVE'])
@@ -517,8 +519,10 @@ def login():
         username = form.username.data
         password = form.password.data
         session['username'] = username
-
-        if CheckUser(username, password):
+        result = CheckUser(username, password)
+        if result == "Admin Login":
+            return redirect(url_for('admin.login'))
+        elif result:
             app.logger.info(f"User {username} logged in successfully.")
             return redirect(url_for('landing'))
         else:

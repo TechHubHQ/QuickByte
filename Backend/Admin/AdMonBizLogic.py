@@ -135,7 +135,7 @@ def GetAdminDashboardData():
     # Fetch User Growth data
     user_growth = (
         db.session.query(
-            func.strftime('%Y-%m', QBUser.user_created_time).label('month'),
+            func.strftime('%Y-%m', QBUser.created_at).label('month'),
             func.count(QBUser.user_id).label('users')
         )
         .group_by(func.strftime('%Y-%m', QBUser.created_at))

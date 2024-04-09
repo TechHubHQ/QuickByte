@@ -521,7 +521,7 @@ def login():
         session['username'] = username
         result = CheckUser(username, password)
         if result == "Admin Login":
-            return redirect(url_for('admin_controller.login_admin'))
+            return redirect(url_for('admin.admin_controller.login_admin'))
         elif result:
             app.logger.info(f"User {username} logged in successfully.")
             return redirect(url_for('landing'))

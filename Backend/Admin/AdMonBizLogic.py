@@ -23,7 +23,7 @@ def GetAdminHomeData():
 
 
 def row_to_dict(row):
-    return {col: getattr(row, col) for col in row.__table__.columns.keys()}
+    return {key: value for key, value in row.items()}
 
 
 def GetAdminDashboardData():

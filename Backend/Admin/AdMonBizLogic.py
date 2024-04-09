@@ -85,17 +85,27 @@ def GetAdminDashboardData():
     # Fetch Order Status data
     order_status = (
         db.session.query(
-            func.sum(case([(OrderDetailsHeader.order_status == 'Order Placed', 1)], else_=0)).label('placed'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Order Confirmed', 1)], else_=0))
-            .label('confirmed'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Order Ready', 1)], else_=0)).label('ready'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Captain Assigned', 1)], else_=0))
-            .label('captain'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Out for Delivery', 1)], else_=0))
-            .label('out_for_delivery'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Delivered', 1)], else_=0)).label('delivered'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Order Cancelled', 1)], else_=0))
-            .label('cancelled')
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Order Placed', 1), else_=0
+            )).label('placed'),
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Order Confirmed', 1), else_=0
+            )).label('confirmed'),
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Order Ready', 1), else_=0
+            )).label('ready'),
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Captain Assigned', 1), else_=0
+            )).label('captain'),
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Out for Delivery', 1), else_=0
+            )).label('out_for_delivery'),
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Delivered', 1), else_=0
+            )).label('delivered'),
+            func.sum(case((
+                OrderDetailsHeader.order_status == 'Order Cancelled', 1), else_=0
+            )).label('cancelled')
         )
         .first()
     )
@@ -105,18 +115,17 @@ def GetAdminDashboardData():
     # Fetch Delivery Stats data
     delivery_stats = (
         db.session.query(
-            func.sum(case([(
+            func.sum(case((
                 func.abs(extract(
                     'minute', OrderDetailsHeader.order_delivered_time - OrderDetailsHeader.order_rcv_time
                 )) <= 10, 1
-            )], else_=0)).label('on_time'),
-            func.sum(case([(
+            ), else_=0)).label('on_time'),
+            func.sum(case((
                 func.abs(extract(
                     'minute', OrderDetailsHeader.order_delivered_time - OrderDetailsHeader.order_rcv_time
                 )) >= 10, 1
-            )], else_=0)).label('late'),
-            func.sum(case([(OrderDetailsHeader.order_status == 'Order Cancelled', 1)], else_=0))
-            .label('cancelled')
+            ), else_=0)).label('late'),
+            func.sum(case((OrderDetailsHeader.order_status == 'Order Cancelled', 1), else_=0)).label('cancelled')
         )
         .first()
     )

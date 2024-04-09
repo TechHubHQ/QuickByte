@@ -138,8 +138,8 @@ def GetAdminDashboardData():
             func.strftime('%Y-%m', QBUser.user_created_time).label('month'),
             func.count(QBUser.user_id).label('users')
         )
-        .group_by(func.strftime('%Y-%m', QBUser.user_created_time))
-        .order_by(func.strftime('%Y-%m', QBUser.user_created_time))
+        .group_by(func.strftime('%Y-%m', QBUser.created_at))
+        .order_by(func.strftime('%Y-%m', QBUser.created_at))
         .all()
     )
 

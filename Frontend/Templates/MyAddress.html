@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>My Address</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/QBlogo.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/MyAddress.css') }}">
   <script src='../Static/js/GetAddress.js'></script>
   <script src="../Static/js/StatesDropdownGetter.js"></script>
@@ -16,7 +17,7 @@
   <!-- Edit Address Widget -->
   <div id="edit-form" class="edit-address-widget" style="display: none;">
     <h2>Edit Address</h2>
-    <form id="update-form" action={{url_for('update_delv')}} method="POST">
+    <form id="update-form" action="{{ url_for('update_delv') }}" method="POST">
         <div class="form-group">
           <label for="line1">Address Line 1:</label>
           <input type="text" name="line1" id="line1">

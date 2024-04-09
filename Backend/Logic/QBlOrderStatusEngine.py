@@ -126,6 +126,7 @@ def OrderStatusEngine():
         except Exception as e:
             logging.error(f"Error occurred: {e}")
             time.sleep(60)  # Wait for a minute before retrying in case of error
+            logging.info(f"OrderStatusEngine Waiting to restart after error -- Process ID: {os.getpid()}")
 
 
 if __name__ == '__main__':

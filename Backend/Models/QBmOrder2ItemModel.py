@@ -250,9 +250,9 @@ def UpdateOrderStatusTimeStamps(order_id, order_status):
         order.captain_assigned_time = datetime.now()
     elif order_status == 'Order Ready':
         order.order_ready_time = datetime.now()
-    elif order_status == 'Order Preparing':
+    elif order_status == 'Preparing Order':
         order.order_prep_time = datetime.now()
-    elif order_status == 'Order Accepted':
+    elif order_status == 'Order Confirmed':
         order.order_accept_time = datetime.now()
     db.session.commit()
     return order

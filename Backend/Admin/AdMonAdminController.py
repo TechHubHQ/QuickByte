@@ -91,5 +91,11 @@ class AdminController:
     @admin_required
     @admin_controller_bp.route('/dashboard', methods=['GET', 'POST'])
     def admin_dashboard():
+        return render_template('AdminDashboard.html')
+
+    @staticmethod
+    @admin_required
+    @admin_controller_bp.route('/dashboard/data', methods=['GET', 'POST'])
+    def admin_dashboard_data():
         dashboard_data = GetAdminDashboardData()
-        return render_template('AdminDashboard.html', dashboard_data=dashboard_data)
+        return jsonify(dashboard_data)

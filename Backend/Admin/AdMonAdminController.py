@@ -84,8 +84,14 @@ class AdminController:
     @admin_required
     @admin_controller_bp.route('/home', methods=['GET', 'POST'])
     def admin_home():
-        adminhm_data = GetAdminHomeData()
-        return render_template('AdminHome.html', page_data=adminhm_data)
+        return render_template('AdminHome.html')
+
+    @staticmethod
+    @admin_required
+    @admin_controller_bp.route('/home/data', methods=['GET', 'POST'])
+    def admin_home_data():
+        home_data = GetAdminHomeData()
+        return jsonify(home_data)
 
     @staticmethod
     @admin_required

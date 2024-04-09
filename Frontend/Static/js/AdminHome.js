@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/admin/home')
+    fetch('/admin/home/data')
         .then(response => response.json())
         .then(data => {
         document.getElementById('total-users').textContent = data.total_users;

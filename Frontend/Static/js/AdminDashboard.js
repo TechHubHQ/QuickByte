@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
       instances[0].open();
     });
   
-    fetch('/admin/dashboard')
+    fetch('/admin/dashboard/data')
       .then(response => response.json())
       .then(data => {
         const orderTrendsData = {

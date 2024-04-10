@@ -1,44 +1,48 @@
 nav .brand-logo {
     left: 50%;
     transform: translateX(-50%);
-  }
-  
-  .chart-container {
+}
+
+.sidenav {
+    margin-top: 80px;
+}
+
+.chart-container {
     position: relative;
     height: 300px;
-  }
-  
-  @media (max-width: 992px) {
+}
+
+@media (max-width: 992px) {
     nav {
-      height: auto;
-      line-height: normal;
+        height: auto;
+        line-height: normal;
     }
-  
+
     nav .brand-logo {
-      position: relative;
-      transform: none;
-      left: auto;
+        position: relative;
+        transform: none;
+        left: auto;
     }
-  
+
     .sidenav-trigger {
-      display: block;
+        display: block;
     }
-  
+
     .sidenav-trigger i {
-      line-height: 64px;
+        line-height: 64px;
     }
-  
+
     .sidenav {
-      top: 64px;
+        top: 64px;
     }
-  }
-  
-  @media (min-width: 993px) {
+}
+
+@media (min-width: 993px) {
     .sidenav-trigger {
-      display: none;
+        display: none;
     }
-  
+
     .sidenav {
-      top: 64px;
+        top: 64px;
     }
-  }
+}

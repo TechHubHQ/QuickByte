@@ -1,27 +1,22 @@
 nav .brand-logo {
     left: 50%;
     transform: translateX(-50%);
-}
-
-.chart-container {
+  }
+  
+  .chart-container {
     position: relative;
     height: 300px;
-}
-
-@media (max-width: 992px) {
-    .sidenav-fixed {
-        position: relative;
-        height: auto;
-    }
-
+  }
+  
+  @media (max-width: 992px) {
     nav {
-        height: auto;
-        line-height: normal;
+      height: auto;
+      line-height: normal;
     }
-
+  
     nav .brand-logo {
-        position: relative;
-        transform: none;
-        left: auto;
+      position: relative;
+      transform: none;
+      left: auto;
     }
-}
+  }

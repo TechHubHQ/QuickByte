@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', function() {
             {
               label: 'Customer Satisfaction',
               data: [
-                data.customerSatisfaction[0].excellent,
-                data.customerSatisfaction[0].good,
-                data.customerSatisfaction[0].fair,
-                data.customerSatisfaction[0].poor
+                data.customerSatisfaction.excellent,
+                data.customerSatisfaction.good,
+                data.customerSatisfaction.fair,
+                data.customerSatisfaction.poor
               ],
               backgroundColor: [
                 'rgba(75, 192, 192, 0.5)',

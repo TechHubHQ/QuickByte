@@ -21,22 +21,17 @@ def GetAdminHomeData():
 
     return page_data
 
-
 def custom_mapping(row):
-    return {col.name: getattr(row, col.name) for col in row.__table__.columns}
-
-
-def row_to_dict(row):
-    return dict(custom_mapping(row))
+    return {field: getattr(row, field) for field in row._fields}
 
 
 def GetAdminDashboardData():
     dashboard_data = {
         "orderTrends": [],
         "popularDishes": [],
-        "customerSatisfaction": [],
-        "orderStatus": [],
-        "deliveryStats": [],
+        "customerSatisfaction": {},
+        "orderStatus": {},
+        "deliveryStats": {},
         "userGrowth": []
     }
 
@@ -52,7 +47,7 @@ def GetAdminDashboardData():
     )
 
     for trend in order_trends:
-        dashboard_data['orderTrends'].append(row_to_dict(trend))
+        dashboard_data['orderTrends'].append(custom_mapping(trend))
 
     # Fetch popular dishes data
     popular_dishes = (
@@ -68,7 +63,7 @@ def GetAdminDashboardData():
     )
 
     for dish in popular_dishes:
-        dashboard_data['popularDishes'].append(row_to_dict(dish))
+        dashboard_data['popularDishes'].append(custom_mapping(dish))
 
     # Fetch customer satisfaction data
     customer_satisfaction = (
@@ -81,7 +76,7 @@ def GetAdminDashboardData():
         .first()
     )
 
-    dashboard_data['customerSatisfaction'].append(row_to_dict(customer_satisfaction))
+    dashboard_data['customerSatisfaction'] = custom_mapping(customer_satisfaction)
 
     # Fetch Order Status data
     order_status = (
@@ -111,7 +106,7 @@ def GetAdminDashboardData():
         .first()
     )
 
-    dashboard_data['orderStatus'].append(row_to_dict(order_status))
+    dashboard_data['orderStatus'] = custom_mapping(order_status)
 
     # Fetch Delivery Stats data
     delivery_stats = (
@@ -131,7 +126,7 @@ def GetAdminDashboardData():
         .first()
     )
 
-    dashboard_data['deliveryStats'].append(row_to_dict(delivery_stats))
+    dashboard_data['deliveryStats'] = custom_mapping(delivery_stats)
 
     # Fetch User Growth data
     user_growth = (
@@ -145,6 +140,6 @@ def GetAdminDashboardData():
     )
 
     for growth in user_growth:
-        dashboard_data['userGrowth'].append(row_to_dict(growth))
+        dashboard_data['userGrowth'].append(custom_mapping(growth))
 
     return dashboard_data

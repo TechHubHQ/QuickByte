@@ -22,8 +22,12 @@ def GetAdminHomeData():
     return page_data
 
 
+def custom_mapping(row):
+    return {col.name: getattr(row, col.name) for col in row.__table__.columns}
+
+
 def row_to_dict(row):
-    return {key: value for key, value in row.items()}
+    return dict(custom_mapping(row))
 
 
 def GetAdminDashboardData():

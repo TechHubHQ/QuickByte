@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 'rgba(75, 192, 192, 0.5)',
                 'rgba(153, 102, 255, 0.5)',
                 'rgba(255, 159, 64, 0.5)',
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(255, 99, 132, 0.5)'
+                'rgba(76, 175, 80, 0.5)',
+                'rgba(244, 67, 54, 0.5)'
               ],
               borderColor: [
                 'rgb(54, 162, 235)',
@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 'rgb(75, 192, 192)',
                 'rgb(153, 102, 255)',
                 'rgb(255, 159, 64)',
-                'rgb(255, 99, 132)',
-                'rgb(255, 99, 132)'
+                'rgb(76, 175, 80)',
+                'rgb(244, 67, 54)'
               ],
               borderWidth: 1
             }

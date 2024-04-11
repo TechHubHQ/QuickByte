@@ -88,6 +88,9 @@ def GetAdminDashboardData():
                 OrderDetailsHeader.order_status == 'Order Confirmed', 1), else_=0
             )).label('confirmed'),
             func.sum(case((
+                OrderDetailsHeader.order_status == '', 1), else_=0
+            )).label('Preparing Order'),
+            func.sum(case((
                 OrderDetailsHeader.order_status == 'Order Ready', 1), else_=0
             )).label('ready'),
             func.sum(case((

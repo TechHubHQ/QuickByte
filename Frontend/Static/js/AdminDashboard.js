@@ -81,13 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
         };
   
         const orderStatusData = {
-          labels: ['Placed', 'Confirmed', 'Ready', 'Captain Assigned', 'Out for Delivery', 'Delivered', 'Cancelled'],
+          labels: ['Placed', 'Confirmed', 'Preparing', 'Ready', 'Captain Assigned', 'Out for Delivery', 'Delivered', 'Cancelled'],
           datasets: [
             {
               label: 'Order Status',
               data: [
                 data.orderStatus.placed,
                 data.orderStatus.confirmed,
+                data.orderStatus.preparing,
                 data.orderStatus.ready,
                 data.orderStatus.captain,
                 data.orderStatus.out_for_delivery,
@@ -97,20 +98,22 @@ document.addEventListener('DOMContentLoaded', function() {
               backgroundColor: [
                 'rgba(54, 162, 235, 0.5)',
                 'rgba(255, 205, 86, 0.5)',
-                'rgba(75, 192, 192, 0.5)',
+                'rgba(251, 192, 45, 0.5)',
                 'rgba(153, 102, 255, 0.5)',
                 'rgba(255, 159, 64, 0.5)',
                 'rgba(76, 175, 80, 0.5)',
-                'rgba(244, 67, 54, 0.5)'
+                'rgba(46, 125, 50, 0.5)',
+                'rgba(211, 47, 47, 0.5)'
               ],
               borderColor: [
                 'rgb(54, 162, 235)',
                 'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
+                'rgb(251, 192, 45)',
                 'rgb(153, 102, 255)',
                 'rgb(255, 159, 64)',
                 'rgb(76, 175, 80)',
-                'rgb(244, 67, 54)'
+                'rgb(46, 125, 50)',
+                'rgb(211, 47, 47)'
               ],
               borderWidth: 1
             }

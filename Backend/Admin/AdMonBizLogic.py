@@ -59,6 +59,7 @@ def GetAdminDashboardData():
         .group_by(OrderItemDetails.item_name)
         .order_by(func.count(OrderItemDetails.item_name).desc())
         .order_by(func.sum(OrderItemDetails.item_quantity).desc())
+        .limit(5)
         .all()
     )
 

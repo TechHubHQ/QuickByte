@@ -19,6 +19,10 @@ nav .brand-logo {
   z-index: 998;
 }
 
+.chart-title {
+  margin-top: 85px;
+}
+
 .chart-container {
   position: relative;
   height: 300px;

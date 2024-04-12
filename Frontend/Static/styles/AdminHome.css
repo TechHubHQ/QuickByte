@@ -3,8 +3,20 @@ nav .brand-logo {
     transform: translateX(-50%);
 }
 
-.sidenav {
-    top: 66px;
+.admin-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  height: calc(100% - 64px);
+  z-index: 998;
 }
 
 .chart-container {

@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [
           {
             label: 'Repeat Order Rate',
-            data: [data.RepeatOrderRate.repeat_order_rate, 1 - data.RepeatOrderRate.repeat_order_rate],
+            data: [data.RepeatOrderRate.repeat_order_rate * 100, (1 - data.RepeatOrderRate.repeat_order_rate) * 100],
             backgroundColor: [
               'rgba(75, 192, 192, 0.5)',
               'rgba(255, 99, 132, 0.5)'
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
               beginAtZero: true,
               ticks: {
                 callback: function(value) {
-                  return '$' + value.toLocaleString();
+                  return '₹' + value.toLocaleString();
                 }
               }
             }
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
               beginAtZero: true,
               ticks: {
                 callback: function(value) {
-                  return '$' + value.toLocaleString();
+                  return '₹' + value.toLocaleString();
                 }
               }
             }
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
               beginAtZero: true,
               ticks: {
                 callback: function(value) {
-                  return '$' + value.toLocaleString();
+                  return '₹' + value.toLocaleString();
                 }
               }
             }
@@ -192,11 +192,19 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       new Chart(document.getElementById('repeatOrderRateChart'), {
-        type: 'pie',
+        type: 'bar',
         data: repeatOrderRateData,
         options: {
-          responsive: true,
-          maintainAspectRatio: false
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return value.toFixed(2) + '%';
+                }
+              }
+            }
+          }
         }
       });
     })

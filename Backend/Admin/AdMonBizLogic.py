@@ -1,9 +1,11 @@
-from sqlalchemy import func, case, extract
+from sqlalchemy import func, case, extract, distinct
 from Backend.Connections.QBcDBConnector import db
 from Backend.Models.QBmUserModel import QBUser
 from Backend.Models.QBmAdminModel import QBBiz
 from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, OrderItemDetails
 from Backend.Models.QBmLoadMenu import MenuDetails
+from Backend.Models.QBmPaymentModel import PaymentDetails
+from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
 
 
 def GetAdminHomeData():
@@ -20,6 +22,7 @@ def GetAdminHomeData():
     }
 
     return page_data
+
 
 def custom_mapping(row):
     return {field: getattr(row, field) for field in row._fields}
@@ -147,3 +150,93 @@ def GetAdminDashboardData():
         dashboard_data['userGrowth'].append(custom_mapping(growth))
 
     return dashboard_data
+
+
+def GetAdminAnalytics():
+    analytics_data = {
+        "RevenueDetails": [],
+        "AverageOrderValue": [],
+        "TopRestaurants": [],
+        "PeakOrderTime": [],
+        "OrderFrequency": [],
+        "RepeatOrderRate": []
+    }
+
+    revenue_details = (
+        db.session.query(
+            func.strftime('%Y-%m', PaymentDetails.last_paid_on).label('revenue'),
+            func.count(PaymentDetails.last_paid_amount).label('amount')
+        )
+        .group_by(func.strftime('%Y-%m', PaymentDetails.last_paid_on))
+        .order_by(func.strftime('%Y-%m', PaymentDetails.last_paid_amount))
+        .all()
+    )
+
+    for revenue in revenue_details:
+        analytics_data['RevenueDetails'].append(custom_mapping(revenue))
+
+    average_order_value = (
+        db.session.query(
+            func.strftime('%Y-%m', PaymentDetails.last_paid_on).label('month'),
+            func.avg(PaymentDetails.last_paid_amount).label('average')
+        )
+        .group_by(func.strftime('%Y-%m', PaymentDetails.last_paid_on))
+        .order_by(func.strftime('%Y-%m', PaymentDetails.last_paid_amount))
+        .all()
+    )
+
+    for value in average_order_value:
+        analytics_data['AverageOrderValue'].append(custom_mapping(value))
+
+    top_restaurants = (
+        db.session.query(
+            RestaurantsByLoc.restaurant_name,
+            func.sum(PaymentDetails.last_paid_amount).label('total_revenue')
+        )
+        .join(OrderDetailsHeader, RestaurantsByLoc.restaurant_name == OrderDetailsHeader.restaurant_name)
+        .join(PaymentDetails, OrderDetailsHeader.order_amount == PaymentDetails.last_paid_amount)
+        .group_by(RestaurantsByLoc.restaurant_name)
+        .order_by(func.sum(PaymentDetails.last_paid_amount).desc())
+        .limit(5)
+        .all()
+    )
+
+    for restaurant in top_restaurants:
+        analytics_data['TopRestaurants'].append(custom_mapping(restaurant))
+
+    peak_order_time = (
+        db.session.query(
+            func.strftime('%H:00', OrderDetailsHeader.order_rcv_time).label('time'),
+            func.count(OrderDetailsHeader.order_id).label('orders')
+        )
+        .group_by(func.strftime('%H:00', OrderDetailsHeader.order_rcv_time))
+        .order_by(func.count(OrderDetailsHeader.order_id).desc())
+        .first()
+    )
+
+    analytics_data['PeakOrderTime'] = custom_mapping(peak_order_time)
+
+    order_frequency = (
+        db.session.query(
+            func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time).label('month'),
+            func.count(OrderDetailsHeader.order_id).label('orders')
+        )
+        .group_by(func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time))
+        .order_by(func.count(OrderDetailsHeader.order_id).desc())
+        .all()
+    )
+
+    for frequency in order_frequency:
+        analytics_data['OrderFrequency'].append(custom_mapping(frequency))
+
+    repeat_order_rate = (
+        db.session.query(
+            func.count(OrderDetailsHeader.user_name).label('users'),
+            func.count(distinct(OrderDetailsHeader.order_id)).label('orders')
+            (
+                func.count(OrderDetailsHeader.user_name) / func.count(distinct(OrderDetailsHeader.order_id))
+            ).label('repeat_order_rate')
+        )
+    )
+
+    return analytics_data

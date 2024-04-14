@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SME Dashboard</title>
+  <title>SME Analytics</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Images/common/ADlogo.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/AdminDashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/AdminAnalytics.css') }}">
 </head>
 <body>
   <nav class="teal admin-nav">
     <div class="nav-wrapper">
       <a href="#" data-target="slide-out" class="sidenav-trigger show-on-medium-and-down"><i class="material-icons">menu</i></a>
-      <a href="#" class="brand-logo">SME Dashboard</a>
+      <a href="#" class="brand-logo">SME Analytics</a>
     </div>
   </nav>
-  
+
   <ul id="slide-out" class="sidenav sidenav-fixed admin-sidebar">
     <li><a href="{{ url_for('admin.admin_controller.admin_home') }}"><i class="material-icons">home</i>Home</a></li>
     <li><a href="{{ url_for('admin.admin_controller.admin_dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
@@ -30,14 +30,14 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m9 offset-m3">
-        <h1 class="chart-title">SME Dashboard</h1>
+        <h1 class="chart-title">SME Analytics</h1>
         <div class="row">
           <div class="col s12 m6">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">Order Trends</span>
+                <span class="card-title">Revenue by Month</span>
                 <div class="chart-container">
-                  <canvas id="orderTrendsChart"></canvas>
+                  <canvas id="revenueChart"></canvas>
                 </div>
               </div>
             </div>
@@ -45,9 +45,9 @@
           <div class="col s12 m6">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">Popular Dishes</span>
+                <span class="card-title">Average Order Value</span>
                 <div class="chart-container">
-                  <canvas id="popularDishesChart"></canvas>
+                  <canvas id="averageOrderValueChart"></canvas>
                 </div>
               </div>
             </div>
@@ -57,9 +57,9 @@
           <div class="col s12 m6">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">Customer Satisfaction</span>
+                <span class="card-title">Top Performing Restaurants</span>
                 <div class="chart-container">
-                  <canvas id="customerSatisfactionChart"></canvas>
+                  <canvas id="topRestaurantsChart"></canvas>
                 </div>
               </div>
             </div>
@@ -67,9 +67,9 @@
           <div class="col s12 m6">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">Order Status</span>
+                <span class="card-title">Peak Order Time</span>
                 <div class="chart-container">
-                  <canvas id="orderStatusChart"></canvas>
+                  <canvas id="peakOrderTimeChart"></canvas>
                 </div>
               </div>
             </div>
@@ -79,9 +79,9 @@
           <div class="col s12 m6">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">Delivery Statistics</span>
+                <span class="card-title">Order Frequency</span>
                 <div class="chart-container">
-                  <canvas id="deliveryChart"></canvas>
+                  <canvas id="orderFrequencyChart"></canvas>
                 </div>
               </div>
             </div>
@@ -89,9 +89,9 @@
           <div class="col s12 m6">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">User Growth</span>
+                <span class="card-title">Repeat Order Rate</span>
                 <div class="chart-container">
-                  <canvas id="userGrowthChart"></canvas>
+                  <canvas id="repeatOrderRateChart"></canvas>
                 </div>
               </div>
             </div>
@@ -103,6 +103,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../Static/js/AdminDashboard.js"></script>
+  <script src="../Static/js/AdminAnalytics.js"></script>
 </body>
 </html>

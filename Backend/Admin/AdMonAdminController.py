@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify, render_template
 from functools import wraps
 from Backend.Models.QBmAdminModel import QBBiz
-from Backend.Admin.AdMonBizLogic import GetAdminHomeData, GetAdminDashboardData, GetAdminAnalyticsData
+from Backend.Admin.AdMonBizLogic import GetAdminHomeData, GetAdminDashboardData, GetAdminAnalytics
 from Backend.Connections.QBcDBConnector import db, bcrypt
 
 admin_controller_bp = Blueprint('admin_controller', __name__)
@@ -116,5 +116,5 @@ class AdminController:
     @admin_required
     @admin_controller_bp.route('/analytics/data', methods=['GET', 'POST'])
     def admin_analytics_data():
-        analytics_data = GetAdminAnalyticsData()
+        analytics_data = GetAdminAnalytics()
         return jsonify(analytics_data)

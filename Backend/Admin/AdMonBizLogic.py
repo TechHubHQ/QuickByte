@@ -232,10 +232,8 @@ def GetAdminAnalytics():
     repeat_order_rate = (
         db.session.query(
             func.count(OrderDetailsHeader.user_name).label('users'),
-            func.count(distinct(OrderDetailsHeader.order_id)).label('orders')
-            (
-                func.count(OrderDetailsHeader.user_name) / func.count(distinct(OrderDetailsHeader.order_id))
-            ).label('repeat_order_rate')
+            func.count(OrderDetailsHeader.order_id).label('orders'),
+            (func.count(OrderDetailsHeader.user_name) / func.count(distinct(OrderDetailsHeader.order_id))).label('repeat_order_rate')
         )
     )
 

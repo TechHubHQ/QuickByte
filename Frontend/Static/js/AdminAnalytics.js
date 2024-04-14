@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       const peakOrderTimeData = {
-        labels: data.PeakOrderTime.map(item => item.time),
+        labels: [data.PeakOrderTime.time],
         datasets: [
           {
             label: 'Peak Order Time',
-            data: data.PeakOrderTime.map(item => item.orders),
+            data: [data.PeakOrderTime.orders],
             backgroundColor: 'rgba(255, 159, 64, 0.5)',
             borderColor: 'rgba(255, 159, 64, 1)',
             borderWidth: 1,

@@ -237,4 +237,7 @@ def GetAdminAnalytics():
         )
     )
 
+    for order_rate in repeat_order_rate:
+        analytics_data['RepeatOrderRate'] = custom_mapping(order_rate)
+
     return analytics_data

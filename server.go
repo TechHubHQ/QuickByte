@@ -1,8 +1,6 @@
 package main
 
 import (
-	"time"
-
 	"github.com/TechHubHQ/QuickByte/Backend/api"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -22,12 +20,11 @@ func main() {
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
 	}))
-
 
 	// configure routes
 	api.ApiRouter(app)
 
+	// run the server
 	app.Run()
 }

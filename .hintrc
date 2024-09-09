@@ -4,6 +4,8 @@
   ],
   "hints": {
     "typescript-config/consistent-casing": "off",
-    "typescript-config/strict": "off"
+    "typescript-config/strict": "off",
+    "disown-opener": "off",
+    "typescript-config/is-valid": "off"
   }
 }

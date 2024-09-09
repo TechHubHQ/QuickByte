@@ -1,13 +1,13 @@
 # Go backend
 /backend/tmp/
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-*.test
-*.out
-go.work
+/backend/*.exe
+/backend/*.exe~
+/backend/*.dll
+/backend/*.so
+/backend/*.dylib
+/backend/*.test
+/backend/*.out
+/backend/go.work
 
 # React frontend
 /frontend/node_modules/
@@ -24,6 +24,9 @@ go.work
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
 
+# air tool (live reloading)
+.air/
+
 # IDEs and editors
 .idea/
 .vscode/
@@ -34,3 +37,7 @@ go.work
 # OS files
 .DS_Store
 Thumbs.db
+
+
+# air build
+/tmp

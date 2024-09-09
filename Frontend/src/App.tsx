@@ -1,5 +1,7 @@
 // App.tsx
+
 import React, { useEffect, useState } from 'react';
+import { TestResponse } from '../types/api';
 import axiosInstance from './services/ApiHandler';
 
 const App: React.FC = () => {
@@ -9,12 +11,13 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get('/test');
+        const response = await axiosInstance.get<TestResponse>('/test');
         setMessage(response.data.message);
       } catch (err) {
         setError('Error fetching data');
       }
     };
+
     fetchData();
   }, []);
 

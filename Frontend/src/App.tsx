@@ -1,7 +1,7 @@
 // App.tsx
 
 import React, { useEffect, useState } from 'react';
-import { TestResponse } from '../types/api';
+import { TestResponse } from '../types/apiTypeChecker';
 import axiosInstance from './services/ApiHandler';
 
 const App: React.FC = () => {
@@ -15,6 +15,7 @@ const App: React.FC = () => {
         setMessage(response.data.message);
       } catch (err) {
         setError('Error fetching data');
+        console.error("error :", err);
       }
     };
 

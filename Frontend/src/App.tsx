@@ -1,5 +1,3 @@
-// App.tsx
-
 import React, { useEffect, useState } from 'react';
 import { TestResponse } from '../types/apiTypeChecker';
 import axiosInstance from './services/ApiHandler';
@@ -23,10 +21,10 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>API Data:</h1>
-      {error && <p>{error}</p>}
-      {message && <p>{message}</p>}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4">API Data:</h1>
+      {error && <p className="text-red-500">{error}</p>}
+      {message && <p className="text-green-500">{message}</p>}
     </div>
   );
 };

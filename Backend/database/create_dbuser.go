@@ -1,5 +1,9 @@
 package database
 
+import (
+	_ "github.com/lib/pq"
+)
+
 func CreateDBUser(username string, password string) error {
 	db, err := ConnectDB()
 	if err != nil {
@@ -13,14 +17,14 @@ func CreateDBUser(username string, password string) error {
 		return err
 	}
 
-	// Grant privileges (optional)
+	// Grant privileges
 	_, err = db.Exec("GRANT CONNECT ON DATABASE quickdb TO " + username + ";")
 	if err != nil {
 		return err
 	}
 
-	// Grant privileges on specific tables (optional)
-	_, err = db.Exec("GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE qb_user TO " + username + ";")
+	// Grant privileges on specific tables
+	_, err = db.Exec("GRANT ALL PRIVILEGES ON quickdb TO " + username + ";")
 	if err != nil {
 		return err
 	}

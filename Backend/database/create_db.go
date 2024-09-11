@@ -10,11 +10,11 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func CreateDB() (*sql.DB, error) {
+func CreateDB() error {
 	err := godotenv.Load()
 	if err != nil {
 		log.Printf("Error loading .env file: %v\n", err)
-		return nil, err
+		return err
 	}
 
 	DB_HOST := os.Getenv("DB_HOST")
@@ -24,9 +24,9 @@ func CreateDB() (*sql.DB, error) {
 	DB_NAME := os.Getenv("DB_NAME")
 
 	// Check if database exists
-	exists, err := checkDBExists(DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)
+	exists, err := checkDBExists()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	if !exists {
@@ -41,7 +41,7 @@ func CreateDB() (*sql.DB, error) {
 
 		_, err = db.Exec(fmt.Sprintf("CREATE DATABASE %s", DB_NAME))
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal("error creating DB", err)
 		}
 	}
 
@@ -52,32 +52,32 @@ func CreateDB() (*sql.DB, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.Close()
 
 	// Execute schema
 	schema, err := os.ReadFile("schema.sql")
 	if err != nil {
 		log.Fatal("Error reading schema.sql", err)
-		return nil, err
+		return err
 	}
 	_, err = db.Exec(string(schema))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return db, nil
+	return nil
 }
 
-func checkDBExists(host, port, user, password, dbname string) (bool, error) {
-	conn := fmt.Sprintf("host=%s port=%s user=%s password=%s sslmode=disable",
-		host, port, user, password)
-	db, err := sql.Open("postgres", conn)
+func checkDBExists() (bool, error) {
+	db_admin, err := ConnectPG()
 	if err != nil {
+		log.Fatal(err)
 		return false, err
 	}
-	defer db.Close()
+	defer db_admin.Close()
 
 	var exists bool
-	err = db.QueryRow(fmt.Sprintf("SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = '%s')", dbname)).Scan(&exists)
+	err = db_admin.QueryRow("SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'qbdb')").Scan(&exists)
 	if err != nil {
 		return false, err
 	}

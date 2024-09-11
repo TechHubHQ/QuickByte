@@ -1,12 +1,3 @@
-CREATE ROLE qbdb WITH PASSWORD 'Bangaram@118';
-
-GRANT CONNECT ON DATABASE quickdb TO qbdb;
-GRANT USAGE ON SCHEMA public TO qbdb;
-GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE qb_user TO qbdb;
-
--- Connect to the QuickDB database
-\c QuickDB
-
 -- Create the qb_user table
 CREATE TABLE qb_user (
   id SERIAL PRIMARY KEY,

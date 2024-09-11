@@ -21,7 +21,7 @@ func ApiRouter(app *gin.Engine) {
 
 	app.POST("/generate-token", func(context *gin.Context) {
 		username := context.PostForm("username")
-		token, err := security.GenerateJWt(username)
+		token, err := security.GenerateJWT(username)
 		if err != nil {
 			context.JSON(500, gin.H{
 				"error": "Failed to generate token",

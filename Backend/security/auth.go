@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func GenerateJWt(Username string) (string, error) {
+func GenerateJWT(Username string) (string, error) {
 	err := godotenv.Load()
 	if err != nil {
 		log.Printf("Error loading .env file: %v\n", err)

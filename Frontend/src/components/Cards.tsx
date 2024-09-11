@@ -18,7 +18,6 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
   name,
   image,
   rating,
-  cuisine,
   className,
 }) => {
   const renderStars = (rating: number) => {
@@ -50,12 +49,12 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
     <div
       className={`bg-white rounded-lg shadow-md overflow-hidden ${className}`}
     >
-      <div className="h-52 overflow-hidden flex justify-center items-center">
+      {/* Adjust image positioning by modifying margin or padding */}
+      <div className="h-56 overflow-hidden flex justify-center items-center mb-4">
         <img src={image} alt={name} className="w-56 h-full object-cover" />
       </div>
       <div className="p-4">
         <h3 className="text-black font-semibold mb-1">{name}</h3>
-        <p className="text-gray-600 mb-2">{cuisine}</p>
         <div className="flex items-center">
           <div className="flex mr-2">{renderStars(rating)}</div>
           <span className="text-sm text-gray-600">{rating.toFixed(1)}</span>

@@ -11,6 +11,5 @@ export interface RestaurantCardProps {
   name: string;
   image: string;
   rating: number;
-  cuisine: string;
   className?: string;
 }

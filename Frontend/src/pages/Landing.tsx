@@ -112,7 +112,7 @@ const LandingPage: React.FC = () => {
             </div>
           </section>
 
-          {/* Popular Restaurants Section */}
+          {/* Popular Dishes Section */}
           <section className="py-20">
             <div className="container mx-auto px-4">
               <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
@@ -125,49 +125,42 @@ const LandingPage: React.FC = () => {
                       name="Chicken Biryani"
                       image={loadedImages.Biryani}
                       rating={4.5}
-                      cuisine=""
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
                       name="Chicken Cheese Pizza"
                       image={loadedImages.Pizza}
                       rating={4.7}
-                      cuisine=""
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
                       name="Chicken Burger"
                       image={loadedImages.Burger}
                       rating={4.6}
-                      cuisine=""
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
-                      name="Taco Fiesta"
-                      image="/api/placeholder/400/250"
+                      name="Shawarma"
+                      image={loadedImages.Shawarma}
                       rating={4.4}
-                      cuisine="Mexican"
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
-                      name="Curry House"
-                      image="/api/placeholder/400/250"
+                      name="Chocolate Cake"
+                      image={loadedImages.Cake}
                       rating={4.8}
-                      cuisine="Indian"
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
-                      name="Pho Delight"
-                      image="/api/placeholder/400/250"
+                      name="Samosa"
+                      image={loadedImages.Samosa}
                       rating={4.5}
-                      cuisine="Vietnamese"
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
                       name="Greek Taverna"
                       image="/api/placeholder/400/250"
                       rating={4.6}
-                      cuisine="Greek"
                       className="w-80 flex-shrink-0"
                     />
                   </div>

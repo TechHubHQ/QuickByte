@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/TechHubHQ/QuickByte/Backend/security"
+	"github.com/TechHubHQ/QuickByte/Backend/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -41,5 +42,18 @@ func ApiRouter(app *gin.Engine) {
 			return
 		}
 		context.JSON(200, gin.H{"username": username})
+	})
+
+	app.GET("/login", func(context *gin.Context) {
+		username := context.PostForm("username")
+		password := context.PostForm("password")
+
+		token, err := services.HandleLogin(username, password)
+
+		if err != nil {
+			context.JSON(401, gin.H{"error": "Invalid login"})
+			return
+		}
+		context.JSON(200, gin.H{"token": token})
 	})
 }

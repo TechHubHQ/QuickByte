@@ -1,9 +1,11 @@
 package security
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -42,28 +44,33 @@ func GenerateJWt(Username string) (string, error) {
 	return Tokenstring, nil
 }
 
-func ValidateJWT(tokenstring string) (string, error) {
-	secretKey := os.Getenv("SECRET_KEY")
-	if secretKey == "" {
-		log.Println("SECRET_KEY not found in environment variables")
-		return "", fmt.Errorf("SECRET_KEY not found")
+func ValidateJWT(tokenString string) (string, error) {
+	if !strings.HasPrefix(tokenString, "Bearer ") {
+		return "", errors.New("invalid token format")
 	}
 
-	token, err := jwt.Parse(tokenstring, func(token *jwt.Token) (interface{}, error) {
+	token := strings.TrimPrefix(tokenString, "Bearer ")
+
+	secretKey := os.Getenv("SECRET_KEY")
+	if secretKey == "" {
+		return "", errors.New("SECRET_KEY not found")
+	}
+
+	parsedToken, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(secretKey), nil
 	})
+
 	if err != nil {
-		log.Printf("Error parsing token: %v\n", err)
 		return "", err
 	}
 
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		return claims["sub"].(string), nil
-	} else {
-		log.Println("Invalid token")
-		return "", fmt.Errorf("invalid token")
+	claims, ok := parsedToken.Claims.(jwt.MapClaims)
+	if !ok || !parsedToken.Valid {
+		return "", errors.New("invalid token")
 	}
+
+	return claims["sub"].(string), nil
 }

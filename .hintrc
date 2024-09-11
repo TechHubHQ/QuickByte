@@ -6,6 +6,16 @@
     "typescript-config/consistent-casing": "off",
     "typescript-config/strict": "off",
     "disown-opener": "off",
-    "typescript-config/is-valid": "off"
+    "typescript-config/is-valid": "off",
+    "axe/aria": [
+      "default",
+      {
+        "aria-command-name": "off"
+      }
+    ],
+    "button-type": "off",
+    "axe/name-role-value": "off",
+    "manifest-app-name": "off",
+    "no-inline-styles": "off"
   }
 }

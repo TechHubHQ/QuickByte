@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import deliveryImg from "../assets/delivery-boy.png";
-import { RestaurantCard, FeatureCard } from "../components/Cards";
+import { DishCard, FeatureCard } from "../components/Cards";
 import {
   ArrowRight,
   Clock,
@@ -122,43 +122,43 @@ const LandingPage: React.FC = () => {
               <div className="relative overflow-hidden">
                 <div className="flex overflow-x-auto pb-8 hide-scrollbar">
                   <div className="flex space-x-6">
-                    <RestaurantCard
+                    <DishCard
                       name="Chicken Biryani"
                       image={loadedImages.Biryani}
                       rating={4.5}
                       className="w-80 flex-shrink-0"
                     />
-                    <RestaurantCard
+                    <DishCard
                       name="Chicken Cheese Pizza"
                       image={loadedImages.Pizza}
                       rating={4.7}
                       className="w-80 flex-shrink-0"
                     />
-                    <RestaurantCard
+                    <DishCard
                       name="Chicken Burger"
                       image={loadedImages.Burger}
                       rating={4.6}
                       className="w-80 flex-shrink-0"
                     />
-                    <RestaurantCard
+                    <DishCard
                       name="Shawarma"
                       image={loadedImages.Shawarma}
                       rating={4.4}
                       className="w-80 flex-shrink-0"
                     />
-                    <RestaurantCard
+                    <DishCard
                       name="Chocolate Cake"
                       image={loadedImages.Cake}
                       rating={4.8}
                       className="w-80 flex-shrink-0"
                     />
-                    <RestaurantCard
+                    <DishCard
                       name="Samosa"
                       image={loadedImages.Samosa}
                       rating={4.5}
                       className="w-80 flex-shrink-0"
                     />
-                    <RestaurantCard
+                    <DishCard
                       name="Dosa"
                       image={loadedImages.Dosa}
                       rating={4.6}

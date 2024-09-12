@@ -1,5 +1,5 @@
 import React from "react";
-import { FeatureCardProps, RestaurantCardProps } from "../../types/cardTypes";
+import { FeatureCardProps, DishCardProps } from "../../types/cardTypes";
 import { Star, StarHalf } from "lucide-react";
 
 const FeatureCard: React.FC<FeatureCardProps> = ({
@@ -14,7 +14,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   </div>
 );
 
-const RestaurantCard: React.FC<RestaurantCardProps> = ({
+const DishCard: React.FC<DishCardProps> = ({
   name,
   image,
   rating,
@@ -49,7 +49,6 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
     <div
       className={`bg-white rounded-lg shadow-md overflow-hidden ${className}`}
     >
-      {/* Adjust image positioning by modifying margin or padding */}
       <div className="h-56 overflow-hidden flex justify-center items-center mb-4">
         <img src={image} alt={name} className="w-56 h-full object-cover" />
       </div>
@@ -64,4 +63,4 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
   );
 };
 
-export { FeatureCard, RestaurantCard };
+export { FeatureCard, DishCard };

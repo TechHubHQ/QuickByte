@@ -7,7 +7,7 @@ export interface FeatureCardProps {
 }
 
 
-export interface RestaurantCardProps {
+export interface DishCardProps {
   name: string;
   image: string;
   rating: number;

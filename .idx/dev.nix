@@ -3,39 +3,52 @@
 { pkgs, ... }: {
   # Which nixpkgs channel to use.
   channel = "stable-23.11"; # or "unstable"
+
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.go
-    pkgs.nodejs_20
-    pkgs.nodePackages.nodemon
+    # pkgs.go
+    # pkgs.python311
+    # pkgs.python311Packages.pip
+    # pkgs.nodejs_20
+    # pkgs.nodePackages.nodemon
   ];
+
   # Sets environment variables in the workspace
   env = {};
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-      "golang.go"
+      # "vscodevim.vim"
     ];
-    workspace = {
-      onCreate = {
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = ["server.go"];
-      };
-    };
-    # Enable previews and customize configuration
+
+    # Enable previews
     previews = {
       enable = true;
       previews = {
-        web = {
-          command = [
-            "nodemon"
-            "--signal" "SIGHUP"
-            "-w" "."
-            "-e" "go,html"
-            "-x" "go run server.go -addr localhost:$PORT"
-          ];
-          manager = "web";
-        };
+        # web = {
+        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
+        #   # and show it in IDX's web preview panel
+        #   command = ["npm" "run" "dev"];
+        #   manager = "web";
+        #   env = {
+        #     # Environment variables to set for your server
+        #     PORT = "$PORT";
+        #   };
+        # };
+      };
+    };
+
+    # Workspace lifecycle hooks
+    workspace = {
+      # Runs when a workspace is first created
+      onCreate = {
+        # Example: install JS dependencies from NPM
+        # npm-install = "npm install";
+      };
+      # Runs when the workspace is (re)started
+      onStart = {
+        # Example: start a background task to watch and re-build backend code
+        # watch-backend = "npm run watch-backend";
       };
     };
   };

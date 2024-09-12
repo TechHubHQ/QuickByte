@@ -1,6 +1,9 @@
 package main
 
 import (
+	"log"
+
+	"github.com/TechHubHQ/QuickByte/Backend/database"
 	"github.com/TechHubHQ/QuickByte/Backend/api"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -25,6 +28,12 @@ func main() {
 	// configure routes
 	api.ApiRouter(app)
 
+	// create the database
+	err := database.CreateDB()
+	if err != nil {
+		log.Fatal("Error Creating DB: ", err)
+	}
+
 	// run the server
-	app.Run()
+	app.Run(":8080")
 }

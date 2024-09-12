@@ -19,3 +19,9 @@ ADD CONSTRAINT unique_email UNIQUE (email);
 -- Add a unique constraint to the username column
 ALTER TABLE qb_user
 ADD CONSTRAINT unique_username UNIQUE (username);
+
+-- Create an index on the email column
+CREATE INDEX idx_email ON qb_user (email);
+
+-- Create an index on the username column
+CREATE INDEX idx_username ON qb_user (username);

@@ -11,6 +11,7 @@ import {
   Shield,
   CreditCard,
   HeartHandshake,
+  ArrowRightCircle,
 } from "lucide-react";
 
 const images = import.meta.glob("../assets/img/*.png");
@@ -158,11 +159,21 @@ const LandingPage: React.FC = () => {
                       className="w-80 flex-shrink-0"
                     />
                     <RestaurantCard
-                      name="Greek Taverna"
-                      image="/api/placeholder/400/250"
+                      name="Dosa"
+                      image={loadedImages.Dosa}
                       rating={4.6}
                       className="w-80 flex-shrink-0"
                     />
+                    {/* Explore More Card */}
+                    <div
+                      onClick={() => (window.location.href = "/explore-more")}
+                      className="cursor-pointer w-80 flex-shrink-0 flex flex-col items-center justify-center bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 text-center"
+                    >
+                      <ArrowRightCircle className="w-12 h-12 text-teal-500 mb-4" />
+                      <h3 className="text-xl font-bold text-gray-800">
+                        Explore More
+                      </h3>
+                    </div>
                   </div>
                 </div>
               </div>

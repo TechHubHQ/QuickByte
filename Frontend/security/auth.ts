@@ -1,7 +1,7 @@
 import axiosInstance from '../services/ApiHandler';
 import { TokenResponse, Auth } from '../types/apiTypeChecker';
 
-const tokenEndpoint = '/validate-token'; // replace with your token validation endpoint
+const tokenEndpoint = '/validate-token';
 
 const auth: Auth = {
   async validateToken(token: string): Promise<TokenResponse | null> {

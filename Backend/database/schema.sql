@@ -7,7 +7,12 @@ CREATE TABLE qb_user (
   first_name VARCHAR(50),
   last_name VARCHAR(50),
   phone_number VARCHAR(20),
-  address TEXT,
+  street VARCHAR(50),
+  city VARCHAR(50),
+  state VARCHAR(50),
+  zip_code INTEGER,
+  country VARCHAR(50),
+  full_address TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -20,8 +25,6 @@ ADD CONSTRAINT unique_email UNIQUE (email);
 ALTER TABLE qb_user
 ADD CONSTRAINT unique_username UNIQUE (username);
 
--- Create an index on the email column
-CREATE INDEX idx_email ON qb_user (email);
 
 -- Create an index on the username column
 CREATE INDEX idx_username ON qb_user (username);

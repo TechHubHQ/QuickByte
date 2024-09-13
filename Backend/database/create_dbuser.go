@@ -5,7 +5,7 @@ import (
 )
 
 func CreateDBUser(username string, password string) error {
-	db, err := ConnectDB()
+	db, err := ConnectPG()
 	if err != nil {
 		return err
 	}
@@ -17,13 +17,11 @@ func CreateDBUser(username string, password string) error {
 		return err
 	}
 
-	// Grant privileges
 	_, err = db.Exec("GRANT CONNECT ON DATABASE quickdb TO " + username + ";")
 	if err != nil {
 		return err
 	}
 
-	// Grant privileges on specific tables
 	_, err = db.Exec("GRANT ALL PRIVILEGES ON quickdb TO " + username + ";")
 	if err != nil {
 		return err

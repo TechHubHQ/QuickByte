@@ -19,7 +19,7 @@ func ApiRouter(app *gin.Engine) {
 		})
 	})
 
-	app.POST("/generate-token", func(context *gin.Context) {
+	app.POST("/v1/generate-token", func(context *gin.Context) {
 		username := context.PostForm("username")
 		token, err := security.GenerateJWT(username)
 		if err != nil {
@@ -33,7 +33,7 @@ func ApiRouter(app *gin.Engine) {
 		})
 	})
 
-	app.POST("/validate-token", func(context *gin.Context) {
+	app.POST("/v1/validate-token", func(context *gin.Context) {
 		tokenstring := context.PostForm("token")
 		username, err := security.ValidateJWT(tokenstring)
 
@@ -44,7 +44,7 @@ func ApiRouter(app *gin.Engine) {
 		context.JSON(200, gin.H{"username": username})
 	})
 
-	app.GET("/login", func(context *gin.Context) {
+	app.GET("/v1/login", func(context *gin.Context) {
 		username := context.PostForm("username")
 		password := context.PostForm("password")
 
@@ -57,7 +57,7 @@ func ApiRouter(app *gin.Engine) {
 		context.JSON(200, gin.H{"token": token})
 	})
 
-	app.GET("/signup", func(context *gin.Context) {
+	app.GET("/v1/signup", func(context *gin.Context) {
 		username := context.PostForm("username")
 		password := context.PostForm("password")
 		email := context.PostForm("email")

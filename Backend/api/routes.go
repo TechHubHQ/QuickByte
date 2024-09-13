@@ -56,4 +56,22 @@ func ApiRouter(app *gin.Engine) {
 		}
 		context.JSON(200, gin.H{"token": token})
 	})
+
+	app.GET("/signup", func(context *gin.Context) {
+		username := context.PostForm("username")
+		password := context.PostForm("password")
+		email := context.PostForm("email")
+		street := context.PostForm("street")
+		city := context.PostForm("city")
+		state := context.PostForm("state")
+		zip_code := context.PostForm("zip")
+
+		token, err := services.HandleSignUp(username, password, email, street, city, state, zip_code)
+
+		if err != nil {
+			context.JSON(401, gin.H{"error": "Invalid login"})
+			return
+		}
+		context.JSON(200, gin.H{"token": token})
+	})
 }

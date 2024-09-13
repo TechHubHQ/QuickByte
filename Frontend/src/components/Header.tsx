@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { LogIn, UserPlus } from "lucide-react";
 
@@ -6,34 +7,37 @@ const Navbar: React.FC = () => {
   return (
     <div className="navbar bg-base-100 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_8px_-1px_rgba(0,0,0,0.4)] transition-shadow duration-300 ease-in-out rounded-b-[10px] h-24">
       <div className="navbar-start pl-6">
-        <a 
+        <Link
+          to="/"
           className="normal-case text-xl flex items-center"
           style={{ fontFamily: "'Pacifico', cursive", fontSize: "1.5rem" }}
         >
           <img src={logo} alt="QuickByte Logo" className="h-20 w-20 mr-1" />
           QuickByte
-        </a>
+        </Link>
       </div>
       <div className="navbar-end pr-4">
         {/* Desktop menu */}
         <ul className="menu menu-horizontal px-1 hidden lg:flex">
           <li className="mr-4">
-            <button
+            <Link
+              to="/login"
               className="btn btn-sm btn-error flex items-center"
               style={{ fontFamily: "'Roboto', sans-serif" }}
             >
               <LogIn className="w-5 h-5 mr-1" />
               Login
-            </button>
+            </Link>
           </li>
           <li>
-            <button
+            <Link
+              to="/signup"
               className="btn btn-sm btn-success flex items-center"
               style={{ fontFamily: "'Roboto', sans-serif" }}
             >
               <UserPlus className="w-5 h-5 mr-1" />
               Sign Up
-            </button>
+            </Link>
           </li>
         </ul>
         {/* Mobile menu */}
@@ -59,22 +63,24 @@ const Navbar: React.FC = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li className="mb-2">
-              <button
+              <Link
+                to="/login"
                 className="btn btn-sm btn-error flex items-center w-full"
                 style={{ fontFamily: "'Roboto', sans-serif" }}
               >
                 <LogIn className="w-5 h-5 mr-2" />
                 Login
-              </button>
+              </Link>
             </li>
             <li>
-              <button
+              <Link
+                to="/signup"
                 className="btn btn-sm btn-success flex items-center w-full"
                 style={{ fontFamily: "'Roboto', sans-serif" }}
               >
                 <UserPlus className="w-5 h-5 mr-2" />
                 Sign Up
-              </button>
+              </Link>
             </li>
           </ul>
         </div>

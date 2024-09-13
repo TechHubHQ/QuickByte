@@ -13,3 +13,7 @@ export interface DishCardProps {
   rating: number;
   className?: string;
 }
+
+export interface LoadingAnimationProps {
+  duration: number;
+}

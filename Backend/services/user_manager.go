@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/TechHubHQ/QuickByte/Backend/database"
 	"github.com/TechHubHQ/QuickByte/Backend/security"
@@ -43,7 +44,7 @@ func HandleLogin(username string, password string) (string, error) {
 	return token, nil
 }
 
-func HandleSignUp(username string, password string, email string, street string, city string, state string, zip string) (string, error) {
+func HandleSignUp(first_name string, last_name string, password string, phone_number string, email string, street string, city string, state string, zip string) (string, error) {
 	db, err := database.ConnectDB()
 	if err != nil {
 		log.Fatal(err)
@@ -51,16 +52,28 @@ func HandleSignUp(username string, password string, email string, street string,
 	}
 	defer db.Close()
 
+	username := strings.ToLower(first_name + last_name)
+
+	full_address := fmt.Sprintf("%s, %s, %s, %s", street, city, state, zip)
+
 	// Hash the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
 	if err != nil {
 		return "", err
 	}
 
-	// Insert the new user into the qb_user table
-	_, err = db.Exec(`INSERT INTO qb_user (username, email, password, first_name, last_name, phone_number, address) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-		username, email, string(hashedPassword), "", "", "", fmt.Sprintf("%s, %s, %s, %s", street, city, state, zip))
+	_, err = db.Exec(`
+		INSERT INTO qb_user (
+			username, email, password, first_name, last_name, 
+			phone_number, street, city, state, zip_code, country, full_address
+		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+		username, email, string(hashedPassword),
+		first_name, last_name,
+		phone_number,
+		street, city, state, zip,
+		"India",
+		full_address,
+	)
 	if err != nil {
 		return "", err
 	}

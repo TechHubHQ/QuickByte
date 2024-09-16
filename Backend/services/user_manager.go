@@ -5,13 +5,13 @@ import (
 	"log"
 	"strings"
 
-	database "github.com/TechHubHQ/QuickByte/Backend/database/prod"
+	database "github.com/TechHubHQ/QuickByte/Backend/database/dev"
 	"github.com/TechHubHQ/QuickByte/Backend/security"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func HandleLogin(username string, password string) (string, error) {
-	db, err := database.ConnectSupaBase()
+	db, err := database.ConnectDB()
 	if err != nil {
 		log.Fatal(err)
 		return "", err
@@ -45,7 +45,7 @@ func HandleLogin(username string, password string) (string, error) {
 }
 
 func HandleSignUp(first_name string, last_name string, password string, phone_number string, email string, street string, city string, state string, zip string) (string, error) {
-	db, err := database.ConnectSupaBase()
+	db, err := database.ConnectDB()
 	if err != nil {
 		log.Fatal(err)
 		return "", err

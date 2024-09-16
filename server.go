@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/TechHubHQ/QuickByte/Backend/api"
-	database "github.com/TechHubHQ/QuickByte/Backend/database/prod"
+	database "github.com/TechHubHQ/QuickByte/Backend/database/dev"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -29,7 +29,7 @@ func main() {
 	api.ApiRouter(app)
 
 	// create the database
-	err := database.CreateSupaBase()
+	err := database.CreateDB()
 	if err != nil {
 		log.Fatal("Error Creating DB: ", err)
 	}

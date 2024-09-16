@@ -102,13 +102,14 @@ const LoginPage: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 1.4 }}
                   >
-                    <a href="#" className="text-white hover:underline">
+                    <Link
+                      to="/forgot-password"
+                      className="text-white hover:underline"
+                    >
                       Forgot Password?
-                    </a>
-                    <Link to="/signup">
-                      <a href="#" className="text-white hover:underline">
-                        Sign Up
-                      </a>
+                    </Link>
+                    <Link to="/signup" className="text-white hover:underline">
+                      Sign Up
                     </Link>
                   </motion.div>
                 </motion.div>

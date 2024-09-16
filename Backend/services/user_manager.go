@@ -52,7 +52,7 @@ func HandleSignUp(first_name string, last_name string, password string, phone_nu
 	}
 	defer db.Close()
 
-	username := strings.ToLower(first_name + last_name)
+	username := strings.ToLower(first_name + " " + last_name)
 
 	full_address := fmt.Sprintf("%s, %s, %s, %s", street, city, state, zip)
 

@@ -1,4 +1,4 @@
-import axiosInstance from '../services/ApiHandler';
+import axiosInstance from '../services/apiHandler';
 import { TokenResponse, Auth } from '../types/apiTypeChecker';
 
 const tokenEndpoint = '/validate-token';

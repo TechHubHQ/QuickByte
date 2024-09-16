@@ -10,7 +10,7 @@ CREATE TABLE qb_user (
   street VARCHAR(50),
   city VARCHAR(50),
   state VARCHAR(50),
-  zip_code INTEGER,
+  zip_code VARCHAR(50),
   country VARCHAR(50),
   full_address TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

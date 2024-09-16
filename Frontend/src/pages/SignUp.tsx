@@ -8,15 +8,15 @@ import { SignUpFormData } from "../../types/formTypes";
 
 const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState<SignUpFormData>({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     phone: "",
     street: "",
     city: "",
     state: "",
-    zipCode: "",
+    zip_code: "",
   });
 
   const [passwordStrength, setPasswordStrength] = useState("");
@@ -116,9 +116,9 @@ const SignUpPage: React.FC = () => {
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
                         <input
                           type="text"
-                          name="firstName"
+                          name="first_name"
                           placeholder="First Name"
-                          value={formData.firstName}
+                          value={formData.first_name}
                           onChange={handleChange}
                           className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />
@@ -132,9 +132,9 @@ const SignUpPage: React.FC = () => {
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
                         <input
                           type="text"
-                          name="lastName"
+                          name="last_name"
                           placeholder="Last Name"
-                          value={formData.lastName}
+                          value={formData.last_name}
                           onChange={handleChange}
                           className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />
@@ -249,9 +249,9 @@ const SignUpPage: React.FC = () => {
                       >
                         <input
                           type="text"
-                          name="zipCode"
+                          name="zip_code"
                           placeholder="Zip Code"
-                          value={formData.zipCode}
+                          value={formData.zip_code}
                           onChange={handleChange}
                           className="w-full py-3 pl-4 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />

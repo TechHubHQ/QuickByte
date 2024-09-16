@@ -1,13 +1,13 @@
 export interface SignUpFormData {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
   phone: string;
   street: string;
   city: string;
   state: string;
-  zipCode: string;
+  zip_code: string;
 }
 
 export interface SignInFormData {

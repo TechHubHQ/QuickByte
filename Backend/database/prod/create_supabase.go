@@ -3,25 +3,33 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"log"
 	"os"
 	"path/filepath"
 	"regexp"
 	"runtime"
 	"strings"
+
+	_ "github.com/lib/pq"
 )
 
-func CreateDB() error {
-	// Connect to the database
-	db, err := ConnectDB()
+func CreateSupaBase() error {
+	db, err := ConnectSupaBase()
 	if err != nil {
 		log.Fatal(err)
 		return err
 	}
 	defer db.Close()
 
-	// Read the schema file
+	// Verify the connection
+	err = db.Ping()
+	if err != nil {
+		log.Printf("Error pinging the database: %v\n", err)
+		return err
+	}
+	log.Println("Connected to Supabase successfully")
+
+	// Read schema file
 	_, currentFilePath, _, _ := runtime.Caller(0)
 	schemaPath := filepath.Join(filepath.Dir(currentFilePath), "schema.sql")
 

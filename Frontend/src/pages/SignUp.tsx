@@ -1,15 +1,47 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import signupIllustration from "../assets/signupIllustration.svg";
-import { Mail, Lock, User, MapPin } from "lucide-react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom if you use React Router
+import { Mail, Lock, User, MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+import { signUp } from "../../services/apiRequestMaker";
+import { SignUpFormData } from "../../types/formTypes";
 
 const SignUpPage: React.FC = () => {
+  const [formData, setFormData] = useState<SignUpFormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phone: "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  });
+
   const [passwordStrength, setPasswordStrength] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const result = await signUp(formData);
+      console.log("Sign up successful:", result);
+    } catch (error) {
+      setError("Failed to sign up. Please try again.");
+    }
+  };
 
   const checkPasswordStrength = (password: string) => {
-    const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const mediumPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+    const strongPassword =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const mediumPassword =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (strongPassword.test(password)) {
       setPasswordStrength("Strong");
@@ -29,7 +61,6 @@ const SignUpPage: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Sign Up Section */}
           <section>
             <div className="container mx-auto px-4">
               <div className="flex flex-col md:flex-row items-center">
@@ -46,7 +77,6 @@ const SignUpPage: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Form Section */}
                 <motion.div
                   className="md:w-1/2"
                   initial={{ opacity: 0, x: 50 }}
@@ -74,6 +104,7 @@ const SignUpPage: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
+                    onSubmit={handleSubmit}
                   >
                     <div className="grid grid-cols-2 gap-4">
                       <motion.div
@@ -85,7 +116,10 @@ const SignUpPage: React.FC = () => {
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
                         <input
                           type="text"
+                          name="firstName"
                           placeholder="First Name"
+                          value={formData.firstName}
+                          onChange={handleChange}
                           className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />
                       </motion.div>
@@ -98,7 +132,10 @@ const SignUpPage: React.FC = () => {
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
                         <input
                           type="text"
+                          name="lastName"
                           placeholder="Last Name"
+                          value={formData.lastName}
+                          onChange={handleChange}
                           className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />
                       </motion.div>
@@ -112,7 +149,10 @@ const SignUpPage: React.FC = () => {
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
                       <input
                         type="email"
+                        name="email"
                         placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
                         className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                       />
                     </motion.div>
@@ -125,9 +165,14 @@ const SignUpPage: React.FC = () => {
                       <Lock className="absolute left-3 top-1/3 transform -translate-y-1/2 text-orange-500" />
                       <input
                         type="password"
+                        name="password"
                         placeholder="Password"
+                        value={formData.password}
+                        onChange={(e) => {
+                          handleChange(e);
+                          checkPasswordStrength(e.target.value);
+                        }}
                         className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
-                        onChange={(e) => checkPasswordStrength(e.target.value)}
                       />
                       <div className="text-sm mt-1 text-white">
                         Password Strength: {passwordStrength}
@@ -139,10 +184,29 @@ const SignUpPage: React.FC = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: 1.8 }}
                     >
+                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone Number"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
+                      />
+                    </motion.div>
+                    <motion.div
+                      className="relative"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 2 }}
+                    >
                       <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500" />
                       <input
                         type="text"
+                        name="street"
                         placeholder="Street Address"
+                        value={formData.street}
+                        onChange={handleChange}
                         className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                       />
                     </motion.div>
@@ -151,23 +215,14 @@ const SignUpPage: React.FC = () => {
                         className="relative"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: 2 }}
-                      >
-                        <input
-                          type="text"
-                          placeholder="City"
-                          className="w-full py-3 pl-4 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
-                        />
-                      </motion.div>
-                      <motion.div
-                        className="relative"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.4, delay: 2.2 }}
                       >
                         <input
                           type="text"
-                          placeholder="State"
+                          name="city"
+                          placeholder="City"
+                          value={formData.city}
+                          onChange={handleChange}
                           className="w-full py-3 pl-4 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />
                       </motion.div>
@@ -179,32 +234,61 @@ const SignUpPage: React.FC = () => {
                       >
                         <input
                           type="text"
+                          name="state"
+                          placeholder="State"
+                          value={formData.state}
+                          onChange={handleChange}
+                          className="w-full py-3 pl-4 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
+                        />
+                      </motion.div>
+                      <motion.div
+                        className="relative"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 2.6 }}
+                      >
+                        <input
+                          type="text"
+                          name="zipCode"
                           placeholder="Zip Code"
+                          value={formData.zipCode}
+                          onChange={handleChange}
                           className="w-full py-3 pl-4 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
                         />
                       </motion.div>
                     </div>
+                    {error && (
+                      <motion.div
+                        className="text-red-500 text-sm mt-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {error}
+                      </motion.div>
+                    )}
                     <motion.button
-                      className="bg-white text-orange-600 font-bold py-3 px-6 rounded-lg w-full hover:bg-orange-50 transition duration-300"
+                      type="submit"
+                      className="w-full py-3 mt-6 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-bold transition duration-300"
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
                     >
                       Sign Up
                     </motion.button>
                   </motion.form>
-                  <motion.div
-                    className="mt-4 text-center"
-                    initial={{ opacity: 0, y: 20 }}
+                  <motion.p
+                    className="text-sm mt-4"
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 2.6 }}
+                    transition={{ duration: 0.6, delay: 1 }}
                   >
-                    <p className="text-white text-sm">
-                      Already have an account?{" "}
-                      <Link to="/login" className="text-orange-200 hover:underline">
-                        Log In
-                      </Link>
-                    </p>
-                  </motion.div>
+                    Already have an account?{" "}
+                    <Link
+                      to="/login"
+                      className="text-white hover:underline"
+                    >
+                      Log in here
+                    </Link>
+                  </motion.p>
                 </motion.div>
               </div>
             </div>

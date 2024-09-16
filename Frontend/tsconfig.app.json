@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "services"]
+  "include": ["src", "services", "types", "security"]
 }

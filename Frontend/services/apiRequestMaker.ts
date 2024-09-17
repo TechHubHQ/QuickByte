@@ -17,7 +17,7 @@ export const signUp = async (data: SignUpFormData) => {
 
 export const signIn = async (data: SignInFormData) => {
   try {
-    const response = await axiosInstance.post("/v1/signin", data, {
+    const response = await axiosInstance.post("/v1/login", data, {
       headers: {
         "Content-Type": "application/json",
       },

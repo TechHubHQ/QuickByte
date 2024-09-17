@@ -1,10 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import loginIllustration from "../assets/loginIllustration.svg";
 import { Lock, User } from "lucide-react";
+import { signIn } from "../../services/apiRequestMaker";
 
 const LoginPage: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignIn = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setErrorMessage("");
+
+    try {
+      const signInData = { username, password };
+      const response = await signIn(signInData);
+
+      console.log("Sign-in successful:", response);
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Sign-in failed:", error);
+      setErrorMessage("Invalid username or password. Please try again.");
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow w-full px-4 mb-8 mt-8">
@@ -54,11 +77,23 @@ const LoginPage: React.FC = () => {
                   >
                     Log in to access your account and enjoy our services.
                   </motion.p>
+
+                  {errorMessage && (
+                    <motion.p
+                      className="text-red-500 mb-4"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      {errorMessage}
+                    </motion.p>
+                  )}
+
                   <motion.form
                     className="space-y-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
+                    onSubmit={handleSignIn}
                   >
                     <motion.div
                       className="relative"
@@ -71,8 +106,11 @@ const LoginPage: React.FC = () => {
                         type="text"
                         placeholder="Username"
                         className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                       />
                     </motion.div>
+
                     <motion.div
                       className="relative"
                       initial={{ opacity: 0, x: -20 }}
@@ -84,12 +122,16 @@ const LoginPage: React.FC = () => {
                         type="password"
                         placeholder="Password"
                         className="w-full py-3 pl-12 pr-4 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white/90"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </motion.div>
+
                     <motion.button
                       className="bg-white text-orange-600 font-bold py-3 px-6 rounded-lg w-full hover:bg-orange-50 transition duration-300"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      type="submit"
                     >
                       Log In
                     </motion.button>

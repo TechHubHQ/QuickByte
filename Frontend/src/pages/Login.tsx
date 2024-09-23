@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
 
                   {errorMessage && (
                     <motion.p
-                      className="text-red-500 mb-4"
+                      className="text-500 mb-4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                     >

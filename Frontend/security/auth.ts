@@ -1,9 +1,9 @@
-import axiosInstance from '../services/apiHandler';
+import axiosInstance from '../services/ApiHandler';
 import { TokenResponse, Auth } from '../types/apiTypeChecker';
 
 const tokenEndpoint = '/validate-token';
 
-const auth: Auth = {
+export const auth: Auth = {
   async validateToken(token: string): Promise<TokenResponse | null> {
     try {
       const response = await axiosInstance.post(`${tokenEndpoint}`, { token: `Bearer ${token}` });
@@ -15,7 +15,7 @@ const auth: Auth = {
   },
 
   async makeRequest<T>(endpoint: string, data: any): Promise<T | null> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
       throw new Error('No token found');
     }
@@ -35,4 +35,6 @@ const auth: Auth = {
   },
 };
 
-export default auth;
+export const storeAuthToken = (token: string) => {
+  sessionStorage.setItem("authToken", token);
+};

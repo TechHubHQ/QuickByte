@@ -10,3 +10,7 @@ export interface Auth {
   validateToken(token: string): Promise<TokenResponse | null>;
   makeRequest<T>(endpoint: string, data: any): Promise<T | null>;
 }
+
+export interface AuthResponse {
+  token: string
+}

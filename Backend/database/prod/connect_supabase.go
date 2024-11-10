@@ -1,12 +1,12 @@
 package database
 
 import (
-	"os"
-	"log"
-	"fmt"
 	"database/sql"
+	"fmt"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"log"
+	"os"
 )
 
 func ConnectSupaBase() (*sql.DB, error) {
@@ -16,15 +16,15 @@ func ConnectSupaBase() (*sql.DB, error) {
 		return nil, err
 	}
 
-	DB_HOST 			:= os.Getenv("SBPG_HOST")
-	DB_PORT				:= os.Getenv("SBPG_PORT")
-	DB_USER				:= os.Getenv("SBPG_USER")
-	DB_PASSWORD		:= os.Getenv("SBPG_PASSWORD")
-	DB_NAME				:= os.Getenv("SBPG_NAME")
+	DB_HOST := os.Getenv("SBPG_HOST")
+	DB_PORT := os.Getenv("SBPG_PORT")
+	DB_USER := os.Getenv("SBPG_USER")
+	DB_PASSWORD := os.Getenv("SBPG_PASSWORD")
+	DB_NAME := os.Getenv("SBPG_NAME")
 
-	conn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
-												DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)
-												
+	conn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)
+
 	db, err := sql.Open("postgres", conn)
 
 	if err != nil {

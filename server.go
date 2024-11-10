@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
 func main() {
 	// set up app
 	app := gin.Default()

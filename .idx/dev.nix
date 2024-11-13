@@ -9,6 +9,7 @@
     pkgs.go
     pkgs.fontconfig.bin
     pkgs.nano
+    pkgs.openssh
     pkgs.oh-my-posh
     pkgs.python311
     # pkgs.python311Packages.pip

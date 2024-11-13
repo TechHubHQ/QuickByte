@@ -1,6 +1,5 @@
 import React from "react";
-import { Mail } from "lucide-react";
-import { FacebookIcon, TwitterIcon, InstagramIcon, GithubIcon } from "./icons"
+import { Mail, FacebookIcon, TwitterIcon, InstagramIcon, GithubIcon } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (

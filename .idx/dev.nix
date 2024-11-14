@@ -7,6 +7,7 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.go
+    pkgs.gotools
     pkgs.fontconfig.bin
     pkgs.nano
     pkgs.openssh

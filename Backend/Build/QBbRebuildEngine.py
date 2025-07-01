@@ -27,6 +27,12 @@
 # Imports/Packages
 # =============================================================
 
+from Config.PyLogger import RollingFileHandler
+from Backend.Models.QBmLoadMenu import MenuDetails
+from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
+from Backend.Models.QBmLoadLocationID import CityLocation
+from Backend.Connections.QBcDBConnector import db
+from app import app
 import os
 import sys
 import time
@@ -36,16 +42,11 @@ from datetime import datetime
 from subprocess import Popen
 import logging
 # Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
 
 # Import necessary modules
-from app import app
-from Backend.Connections.QBcDBConnector import db
-from Backend.Models.QBmLoadLocationID import CityLocation
-from Backend.Models.QBmLoadRestaurantsByID import RestaurantsByLoc
-from Backend.Models.QBmLoadMenu import MenuDetails
-from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -88,7 +89,7 @@ def EmptyTable(model):
 
     It logs a message indicating that the table has been emptied.
     """
-    
+
     model.query.delete()
     db.session.commit()
     logging.info(f"Table {model.__tablename__} emptied.")
@@ -112,7 +113,7 @@ def RunScript(script_path, script_name):
 
     If an invalid script_name is provided, it raises a ValueError.
     """
-    
+
     logging.info(f"Running {script_name}...")
     if script_name == 'QBiStdAloneLocFetcher.py':
         EmptyTable(CityLocation)
@@ -120,29 +121,35 @@ def RunScript(script_path, script_name):
         process = Popen([sys.executable, script_path])
         process.wait()
         end_time = time.time()
-        logging.info(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
+        logging.info(
+            f"{script_name} completed in {end_time - start_time:.2f} seconds.")
     elif script_name == 'QBiRestaurantsFetcher.py':
         EmptyTable(RestaurantsByLoc)
         start_time = time.time()
         process = Popen([sys.executable, script_path])
         process.wait()
         end_time = time.time()
-        logging.info(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
+        logging.info(
+            f"{script_name} completed in {end_time - start_time:.2f} seconds.")
     elif script_name == 'QBiMenuFetcher.py':
         EmptyTable(MenuDetails)
         start_time = time.time()
         process = Popen([sys.executable, script_path])
         process.wait()
         end_time = time.time()
-        logging.info(f"{script_name} completed in {end_time - start_time:.2f} seconds.")
+        logging.info(
+            f"{script_name} completed in {end_time - start_time:.2f} seconds.")
     else:
         raise ValueError("Invalid script name")
 
 
 # Define the time to run the scripts (7 am IST on Sundays)
-schedule.every().sunday.at("07:00").do(lambda: RunScript(loc_fetch_script, "Script 1"))
-schedule.every().sunday.at("07:10").do(lambda: RunScript(res_fetch_script, "Script 2"))
-schedule.every().sunday.at("07:20").do(lambda: RunScript(menu_fetch_script, "Script 3"))
+schedule.every().sunday.at("07:00").do(
+    lambda: RunScript(loc_fetch_script, "Script 1"))
+schedule.every().sunday.at("07:10").do(
+    lambda: RunScript(res_fetch_script, "Script 2"))
+schedule.every().sunday.at("07:20").do(
+    lambda: RunScript(menu_fetch_script, "Script 3"))
 
 # Check if the current day is Sunday and the current time is before 7 a.m.
 if datetime.now().weekday() == 6 and datetime.now().hour == 7:
@@ -161,9 +168,12 @@ while True:
     # for Manual rebuild
     CORE_DEV = os.getenv("CORE_DEV")
     if len(sys.argv) > 1 and sys.argv[1] == "--rebuild" and sys.argv[2] in CORE_DEV:
-        logging.info("-----------------------------------------------------------")
-        logging.info(f"Manual Rebuild process invoked by CORE DEV {sys.argv[2]}")
-        logging.info("---------------------------------------------------------\n")
+        logging.info(
+            "-----------------------------------------------------------")
+        logging.info(
+            f"Manual Rebuild process invoked by CORE DEV {sys.argv[2]}")
+        logging.info(
+            "---------------------------------------------------------\n")
         RunScript(loc_fetch_script, "QBiStdAloneLocFetcher.py")
         RunScript(res_fetch_script, "QBiRestaurantsFetcher.py")
         RunScript(menu_fetch_script, "QBiMenuFetcher.py")

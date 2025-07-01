@@ -1,3 +1,7 @@
+from Config.PyLogger import RollingFileHandler
+from Backend.Models.QBmLoadMenu import MenuDetails, CreateMenu
+from Backend.Connections.QBcDBConnector import db
+from app import app
 import os
 import sys
 import json
@@ -6,12 +10,9 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 # Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from app import app
-from Backend.Connections.QBcDBConnector import db
-from Backend.Models.QBmLoadMenu import MenuDetails, CreateMenu
-from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -61,9 +62,12 @@ def CreateFoodMenu():
         for category in categories:
             item_category = category["name"]
             items = category["items"]
-            logging.info("--------------------------------------------------------------------")
-            logging.info(f"Items under new cuisine: {cuisine_name}, {item_category}")
-            logging.info("------------------------------------------------------------------\n")
+            logging.info(
+                "--------------------------------------------------------------------")
+            logging.info(
+                f"Items under new cuisine: {cuisine_name}, {item_category}")
+            logging.info(
+                "------------------------------------------------------------------\n")
             for item in items:
                 item_name = item["name"]
                 item_type = item["type"]
@@ -72,7 +76,8 @@ def CreateFoodMenu():
                 item_reviews = item["rating"]
 
                 # Check if item with same name already exists in the database
-                existing_item = MenuDetails.query.filter_by(item_name=item_name).first()
+                existing_item = MenuDetails.query.filter_by(
+                    item_name=item_name).first()
                 if existing_item is None:
                     CreateMenu(
                         cuisine_name=cuisine_name,
@@ -85,7 +90,8 @@ def CreateFoodMenu():
                         item_flag=item_flag
                     )
                 else:
-                    logging.info(f"Item with name '{item_name}' already exists in database. Skipping insertion.")
+                    logging.info(
+                        f"Item with name '{item_name}' already exists in database. Skipping insertion.")
 
 
 CreateFoodMenu()

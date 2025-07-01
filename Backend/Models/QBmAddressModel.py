@@ -44,7 +44,7 @@ class Address(db.Model):
         preferred_delv_start_time (str): The preferred start time for delivery (default: 00:00).
         preferred_delv_end_time (str): The preferred end time for delivery (default: 00:00).
     """
-    
+
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, db.ForeignKey('qb_user.email'))
     line1 = db.Column(db.String)
@@ -57,7 +57,7 @@ class Address(db.Model):
 
 
 # ==========================================================================================
-# CreateAddress() --> Handles insertion of new address record 
+# CreateAddress() --> Handles insertion of new address record
 # ==========================================================================================
 def CreateAddress(user_email, addr_line1, land_mark, district, state, zip_code):
     """
@@ -78,7 +78,7 @@ def CreateAddress(user_email, addr_line1, land_mark, district, state, zip_code):
     Note: This function assumes that the database session is active and the QBUser model is properly
     configured with the necessary relationship to the Address model.
     """
-    
+
     address = Address(
         email=user_email,
         line1=addr_line1,

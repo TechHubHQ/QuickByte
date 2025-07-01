@@ -55,17 +55,20 @@ def SendWelcomeEmail(email_id, user_name):
 
     Note: This function assumes that the Flask application context is active before calling it.
     """
-    
+
     try:
-        msg = Message('Welcome to QuickByte!', sender='quickbyte172@gmail.com', recipients=[email_id])
+        msg = Message('Welcome to QuickByte!',
+                      sender='quickbyte172@gmail.com', recipients=[email_id])
 
         # Render the HTML template
-        html_body = render_template('WelcomeEmailTemplate.html', username=user_name)
+        html_body = render_template(
+            'WelcomeEmailTemplate.html', username=user_name)
         msg.html = html_body
 
         # Construct the dynamic path to the guide file
         guide_filename = 'QuickByteGuide.pdf'  # Change this to the actual filename
-        guide_path = Path(__file__).resolve().parent.parent.parent / 'Docs' / guide_filename
+        guide_path = Path(__file__).resolve(
+        ).parent.parent.parent / 'Docs' / guide_filename
 
         # Attach the guide file
         with app.open_resource(str(guide_path)) as guide:

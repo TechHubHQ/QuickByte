@@ -41,7 +41,8 @@ def GetAdminDashboardData():
     # Fetch order trends data
     order_trends = (
         db.session.query(
-            func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time).label('month'),
+            func.strftime(
+                '%Y-%m', OrderDetailsHeader.order_rcv_time).label('month'),
             func.count(OrderDetailsHeader.order_id).label('orders')
         )
         .group_by(func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time))
@@ -72,15 +73,20 @@ def GetAdminDashboardData():
     # Fetch customer satisfaction data
     customer_satisfaction = (
         db.session.query(
-            func.sum(case((MenuDetails.item_reviews >= 4, 1), else_=0)).label('excellent'),
-            func.sum(case((MenuDetails.item_reviews >= 3, 1), else_=0)).label('good'),
-            func.sum(case((MenuDetails.item_reviews >= 2, 1), else_=0)).label('fair'),
-            func.sum(case((MenuDetails.item_reviews < 2, 1), else_=0)).label('poor')
+            func.sum(case((MenuDetails.item_reviews >= 4, 1), else_=0)
+                     ).label('excellent'),
+            func.sum(case((MenuDetails.item_reviews >= 3, 1), else_=0)
+                     ).label('good'),
+            func.sum(case((MenuDetails.item_reviews >= 2, 1), else_=0)
+                     ).label('fair'),
+            func.sum(case((MenuDetails.item_reviews < 2, 1), else_=0)
+                     ).label('poor')
         )
         .first()
     )
 
-    dashboard_data['customerSatisfaction'] = custom_mapping(customer_satisfaction)
+    dashboard_data['customerSatisfaction'] = custom_mapping(
+        customer_satisfaction)
 
     # Fetch Order Status data
     order_status = (
@@ -120,15 +126,18 @@ def GetAdminDashboardData():
         db.session.query(
             func.sum(case((
                 func.abs(extract(
-                    'minute', OrderDetailsHeader.order_delivered_time - OrderDetailsHeader.order_rcv_time
+                    'minute', OrderDetailsHeader.order_delivered_time -
+                    OrderDetailsHeader.order_rcv_time
                 )) <= 10, 1
             ), else_=0)).label('on_time'),
             func.sum(case((
                 func.abs(extract(
-                    'minute', OrderDetailsHeader.order_delivered_time - OrderDetailsHeader.order_rcv_time
+                    'minute', OrderDetailsHeader.order_delivered_time -
+                    OrderDetailsHeader.order_rcv_time
                 )) >= 10, 1
             ), else_=0)).label('late'),
-            func.sum(case((OrderDetailsHeader.order_status == 'Order Cancelled', 1), else_=0)).label('cancelled')
+            func.sum(case((OrderDetailsHeader.order_status ==
+                     'Order Cancelled', 1), else_=0)).label('cancelled')
         )
         .first()
     )
@@ -164,7 +173,8 @@ def GetAdminAnalytics():
 
     revenue_details = (
         db.session.query(
-            func.strftime('%Y-%m', PaymentDetails.last_paid_on).label('revenue'),
+            func.strftime(
+                '%Y-%m', PaymentDetails.last_paid_on).label('revenue'),
             func.count(PaymentDetails.last_paid_amount).label('amount')
         )
         .group_by(func.strftime('%Y-%m', PaymentDetails.last_paid_on))
@@ -206,7 +216,8 @@ def GetAdminAnalytics():
 
     peak_order_time = (
         db.session.query(
-            func.strftime('%H:00', OrderDetailsHeader.order_rcv_time).label('time'),
+            func.strftime(
+                '%H:00', OrderDetailsHeader.order_rcv_time).label('time'),
             func.count(OrderDetailsHeader.order_id).label('orders')
         )
         .group_by(func.strftime('%H:00', OrderDetailsHeader.order_rcv_time))
@@ -218,7 +229,8 @@ def GetAdminAnalytics():
 
     order_frequency = (
         db.session.query(
-            func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time).label('month'),
+            func.strftime(
+                '%Y-%m', OrderDetailsHeader.order_rcv_time).label('month'),
             func.count(OrderDetailsHeader.order_id).label('orders')
         )
         .group_by(func.strftime('%Y-%m', OrderDetailsHeader.order_rcv_time))
@@ -233,7 +245,8 @@ def GetAdminAnalytics():
         db.session.query(
             func.count(OrderDetailsHeader.user_name).label('users'),
             func.count(OrderDetailsHeader.order_id).label('orders'),
-            (func.count(OrderDetailsHeader.user_name) / func.count(distinct(OrderDetailsHeader.order_id))).label('repeat_order_rate')
+            (func.count(OrderDetailsHeader.user_name) /
+             func.count(distinct(OrderDetailsHeader.order_id))).label('repeat_order_rate')
         )
     )
 

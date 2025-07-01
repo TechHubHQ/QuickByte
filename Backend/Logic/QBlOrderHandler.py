@@ -83,7 +83,6 @@ class HandleOrderGeneration:
         delivery_to,
         delivery_addr,
     ):
-        
         """
         Creates an order header record in the database with the provided information.
 
@@ -112,7 +111,7 @@ class HandleOrderGeneration:
 
         If an exception occurs during order header creation, it logs the error message.
         """
-         
+
         try:
             order_header = CreateOrderHeader(
                 user_name=username,
@@ -155,7 +154,7 @@ class HandleOrderGeneration:
 
         If an exception occurs during order item creation, it logs the error message.
         """
-        
+
         try:
             order_item = CreateOrderItem(
                 order_id=order_id,

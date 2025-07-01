@@ -22,9 +22,11 @@ class RollingFileHandler(logging.FileHandler):
         current_date = datetime.now().date()
         if current_date != self.current_date:
             self.current_date = current_date
-            file_path = os.path.join(self.log_dir, f'{current_date:%Y-%m-%d}_{self.log_file_name}')
+            file_path = os.path.join(
+                self.log_dir, f'{current_date:%Y-%m-%d}_{self.log_file_name}')
         else:
-            file_path = os.path.join(self.log_dir, f'{self.current_date:%Y-%m-%d}_{self.log_file_name}')
+            file_path = os.path.join(
+                self.log_dir, f'{self.current_date:%Y-%m-%d}_{self.log_file_name}')
         return file_path
 
     def emit(self, record):

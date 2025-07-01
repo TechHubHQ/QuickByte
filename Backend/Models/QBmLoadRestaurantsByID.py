@@ -40,7 +40,7 @@ class RestaurantsByLoc(db.Model):
         image_url (str): The URL of the image representing the restaurant.
         res_flag (bool): A flag indicating the status of the restaurant.
     """
-    
+
     __tablename__ = 'restaurants_by_loc'
     id = db.Column(db.Integer, primary_key=True)
     location_id = db.Column(db.Integer, nullable=False)
@@ -82,7 +82,7 @@ def CreateRestaurant(location_id, restaurant_name, num_reviews, time_zone, ratin
     Returns:
         None
     """
-    
+
     new_restaurant = RestaurantsByLoc(
         location_id=location_id,
         restaurant_name=restaurant_name,

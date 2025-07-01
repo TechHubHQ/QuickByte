@@ -25,7 +25,7 @@ from Backend.Connections.QBcDBConnector import db, bcrypt
 
 
 # ===============================================================
-# UserController --> Controls User Transactions 
+# UserController --> Controls User Transactions
 # ===============================================================
 
 class UserController:
@@ -56,14 +56,15 @@ class UserController:
             file_extension = original_file.split(".")[-1]
             username = username.replace(" ", "_")
             new_file = f"{username}.{file_extension}"
-            image_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_file))
+            image_file.save(os.path.join(
+                current_app.config['UPLOAD_FOLDER'], new_file))
             print(f"Image saved to {current_app.config['UPLOAD_FOLDER']}")
         else:
             print("No image selected")
 
     # ============================================================================================================
     # UpdateUser() --> Updates the password for the specified user with a hashed version of the provided password.
-    # ============================================================================================================        
+    # ============================================================================================================
     @staticmethod
     def UpdateUser(username, password):
         """
@@ -77,8 +78,10 @@ class UserController:
         for the user with the specified username in the QBUser model. It then commits the changes to the database.
         """
 
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        QBUser.query.filter_by(username=username).update({"password": hashed_password})
+        hashed_password = bcrypt.generate_password_hash(
+            password).decode('utf-8')
+        QBUser.query.filter_by(username=username).update(
+            {"password": hashed_password})
         db.session.commit()
 
     # ===================================================================================
@@ -104,7 +107,8 @@ class UserController:
             db.session.add(user)
             db.session.commit()
         else:
-            NotificationControl.query.filter_by(username=username).update({"notify_flag": flag})
+            NotificationControl.query.filter_by(
+                username=username).update({"notify_flag": flag})
             db.session.commit()
 
     # ======================================================================================================

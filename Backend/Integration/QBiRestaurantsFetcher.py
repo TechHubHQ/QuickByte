@@ -21,6 +21,11 @@
 # Imports/packages
 # ==================================================
 
+from Config.PyLogger import RollingFileHandler
+from Backend.Connections.QBcDBConnector import db
+from Backend.Models.QBmLoadLocationID import CityLocation
+from Backend.Models.QBmLoadRestaurantsByID import CreateRestaurant, RestaurantsByLoc
+from app import app
 import os
 import sys
 import requests
@@ -29,14 +34,10 @@ from datetime import datetime, timedelta
 import logging
 
 # Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from app import app
 
-from Backend.Models.QBmLoadRestaurantsByID import CreateRestaurant, RestaurantsByLoc
-from Backend.Models.QBmLoadLocationID import CityLocation
-from Backend.Connections.QBcDBConnector import db
-from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -47,7 +48,8 @@ current_date = datetime.now().strftime('%Y-%m-%d')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-file_handler = RollingFileHandler(INTEGRATION_LOG_DIR, 'RestaurantsFetcher.log')
+file_handler = RollingFileHandler(
+    INTEGRATION_LOG_DIR, 'RestaurantsFetcher.log')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
@@ -62,7 +64,8 @@ headers = {
     "X-RapidAPI-Host": os.environ.get('REST_API_HOST')
 }
 
-city_ids = CityLocation.query.with_entities(CityLocation.loc_id).distinct().all()
+city_ids = CityLocation.query.with_entities(
+    CityLocation.loc_id).distinct().all()
 loc_ids = [city_id[0] for city_id in city_ids]
 logging.info(f"City IDs: {loc_ids}")
 
@@ -74,9 +77,11 @@ for loc_id in loc_ids:
 
     for res in tmpResArr:
         # Check if the restaurant already exists in the database
-        existing_restaurant = RestaurantsByLoc.query.filter_by(location_id=loc_id).first()
+        existing_restaurant = RestaurantsByLoc.query.filter_by(
+            location_id=loc_id).first()
         if existing_restaurant:
-            logging.info(f"Restaurant already exists in the database: loc_id --> {res['location_id']}")
+            logging.info(
+                f"Restaurant already exists in the database: loc_id --> {res['location_id']}")
             continue  # Skip this restaurant if it already exists in the database
 
         res_flag = None  # Initialize res_flag to None
@@ -86,12 +91,15 @@ for loc_id in loc_ids:
             logging.info(res_flag)
             if None in (
                     res.get('location_id'), res.get('name')):
-                logging.info(f"Skipping this restaurant {res.get('location_id')} or {res.get('name')} field is None")
+                logging.info(
+                    f"Skipping this restaurant {res.get('location_id')} or {res.get('name')} field is None")
                 continue  # Skip this restaurant if any required field is None
 
-            logging.info("------------------------------------------------------------")
+            logging.info(
+                "------------------------------------------------------------")
             logging.info("New Restaurant -- registration: ")
-            logging.info("----------------------------------------------------------\n")
+            logging.info(
+                "----------------------------------------------------------\n")
             logging.info(res.get('location_id'))
             logging.info(res.get('name'))
             logging.info(res.get('num_reviews'))
@@ -116,7 +124,8 @@ for loc_id in loc_ids:
             # Get the small photo URL
             photo = res.get('photo')
             if photo:
-                image_url = photo.get('images', {}).get('original', {}).get('url')
+                image_url = photo.get('images', {}).get(
+                    'original', {}).get('url')
                 logging.info(image_url)
             else:
                 image_url = 'None'

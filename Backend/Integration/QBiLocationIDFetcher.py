@@ -1,3 +1,8 @@
+from Config.PyLogger import RollingFileHandler
+from Backend.Connections.QBcDBConnector import db
+from Backend.Models.QBmAddressModel import Address
+from Backend.Models.QBmLoadLocationID import CityLocation, CreateLocationID
+from app import app
 import os
 import requests
 import sys
@@ -6,13 +11,9 @@ import logging
 from datetime import datetime
 
 # Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from app import app
-from Backend.Models.QBmLoadLocationID import CityLocation, CreateLocationID
-from Backend.Models.QBmAddressModel import Address
-from Backend.Connections.QBcDBConnector import db
-from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -53,15 +54,19 @@ for city in cities:
         loc_id = loc.get('result_object', {}).get('location_id')
         if not loc_flag:
             name = loc.get('result_object', {}).get('name')
-            logging.info(f"Processing location: {name}, ID: {loc_id}, City: {city}")
+            logging.info(
+                f"Processing location: {name}, ID: {loc_id}, City: {city}")
             existing_loc = CityLocation.query.filter_by(loc_id=loc_id).first()
 
             if not existing_loc and not loc_flag:
                 loc_flag = True
                 CreateLocationID(city=city, loc_id=loc_id, loc_flag=loc_flag)
-                logging.info("-----------------------------------------------------------")
-                logging.info(f"New Location committed to DB --> ID: {loc_id} City: {city}")
-                logging.info("---------------------------------------------------------\n")
+                logging.info(
+                    "-----------------------------------------------------------")
+                logging.info(
+                    f"New Location committed to DB --> ID: {loc_id} City: {city}")
+                logging.info(
+                    "---------------------------------------------------------\n")
 
         else:
             logging.info(f"Location already exists")

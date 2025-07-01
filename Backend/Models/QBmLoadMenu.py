@@ -36,7 +36,7 @@ class MenuDetails(db.Model):
         item_reviews (int): The number of reviews for the menu item.
         item_flag (bool): A flag indicating the status of the menu item.
     """
-    
+
     __tablename__ = 'menu_details'
     id = db.Column(db.Integer, primary_key=True)
     cuisine_name = db.Column(db.String(50), nullable=False)
@@ -70,7 +70,7 @@ def CreateMenu(cuisine_name, item_category, item_name, item_type, item_price, it
     Returns:
         None
     """
-    
+
     new_menu = MenuDetails(cuisine_name=cuisine_name,
                            item_category=item_category,
                            item_name=item_name,

@@ -1,5 +1,5 @@
 # ================================================================================================
-# This script provides functionality to handle different payment methods and 
+# This script provides functionality to handle different payment methods and
 # record payment details in a database.
 
 # The script imports the necessary functions and models from other modules:
@@ -7,7 +7,7 @@
 #   and save payment details in the database.
 # - datetime is used to record the timestamp of the payment.
 
-# The main functionality is encapsulated in the HandlePayment function, which takes the payment type 
+# The main functionality is encapsulated in the HandlePayment function, which takes the payment type
 # and associated payment details as input.
 # ================================================================================================
 
@@ -45,7 +45,7 @@ def HandlePayment(payment_type, **kwargs):
         dict: A dictionary containing a success message if the payment details were recorded successfully,
               or an error message if the payment type is unsupported.
     """
-    
+
     if payment_type == "CARD":
         # Populate details for card payment
         user_name = kwargs.get('username')

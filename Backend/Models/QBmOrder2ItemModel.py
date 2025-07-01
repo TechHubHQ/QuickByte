@@ -43,7 +43,7 @@ class OrderDetailsHeader(db.Model):
         delivery_to (str): The recipient of the order.
         delivery_addr (str): The delivery address of the order.
     """
-    
+
     __tablename__ = 'order_header'
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(50))
@@ -81,7 +81,7 @@ class OrderItemDetails(db.Model):
         item_price (float): The price of the order item.
         item_quantity (int): The quantity of the order item.
     """
-    
+
     __tablename__ = 'order_item'
     id = db.Column(db.Integer, primary_key=True)
     item_no = db.Column(db.Integer)
@@ -140,7 +140,7 @@ def CreateOrderHeader(
     Returns:
         OrderDetailsHeader: The created order header entry.
     """
-    
+
     order_header = OrderDetailsHeader(
         user_name=user_name,
         order_id=order_id,
@@ -189,7 +189,7 @@ def CreateOrderItem(
     Returns:
         OrderItemDetails: The created order item entry.
     """
-    
+
     order_item = OrderItemDetails(
         order_id=order_id,
         item_no=item_no,
@@ -202,7 +202,7 @@ def CreateOrderItem(
     return order_item
 
 
-# ============================================================================= 
+# =============================================================================
 # UpdateOrderStatus() --> Update the status of an order in the database.
 # =============================================================================
 def UpdateOrderStatus(order_id, order_status):
@@ -216,7 +216,7 @@ def UpdateOrderStatus(order_id, order_status):
     Returns:
         str: The updated order status.
     """
-    
+
     order = OrderDetailsHeader.query.filter_by(order_id=order_id).first()
     order.order_status = order_status
     db.session.commit()
@@ -237,7 +237,7 @@ def UpdateOrderStatusTimeStamps(order_id, order_status):
     Returns:
         OrderDetailsHeader: The updated order entry.
     """
-    
+
     order = OrderDetailsHeader.query.filter_by(order_id=order_id).first()
     order.order_status = order_status
     if order_status == 'Order Cancelled':
@@ -271,7 +271,7 @@ def CheckOrder(order_id):
     Returns:
         bool: True if the order exists, False otherwise.
     """
-    
+
     order = OrderDetailsHeader.query.filter_by(order_id=order_id).first()
     if not order:
         return True

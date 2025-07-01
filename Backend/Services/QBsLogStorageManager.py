@@ -11,6 +11,7 @@
 # =======================================================================
 # Imports/Packages
 # =======================================================================
+from Config.PyLogger import RollingFileHandler
 import os
 import sys
 import time
@@ -19,9 +20,9 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 # Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from Config.PyLogger import RollingFileHandler
 
 LOG_DIR = os.path.join(root_dir, 'Logs')
 
@@ -51,7 +52,8 @@ def RemoveOldLogs():
             for filename in files:
                 if filename.endswith(".log"):
                     filepath = os.path.join(root, filename)
-                    mod_time = datetime.fromtimestamp(os.path.getmtime(filepath))
+                    mod_time = datetime.fromtimestamp(
+                        os.path.getmtime(filepath))
                     if mod_time < five_days_ago:
                         os.remove(filepath)
                         logging.info(f"Removed old log file: {filepath}")

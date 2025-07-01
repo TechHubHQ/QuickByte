@@ -66,7 +66,8 @@ class AdminController:
                 return jsonify({'error': 'No token provided'}), 401
 
             try:
-                payload = jwt.decode(token, 'your_secret_key', algorithms=['HS256'])
+                payload = jwt.decode(
+                    token, 'your_secret_key', algorithms=['HS256'])
                 admin_id = payload['admin_id']
             except jwt.exceptions.InvalidTokenError:
                 return jsonify({'error': 'Invalid token'}), 401

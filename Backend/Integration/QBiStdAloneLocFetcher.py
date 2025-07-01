@@ -26,19 +26,20 @@
 # Imports/Packages
 # ====================================================
 
+from Config.PyLogger import RollingFileHandler
+from Backend.Connections.QBcDBConnector import db
+from datetime import datetime
+from dotenv import load_dotenv
+from Backend.Models.QBmLoadLocationID import CreateLocationID
+from app import app
 import os
 import sys
 import requests
 import logging
 
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from app import app
-from Backend.Models.QBmLoadLocationID import CreateLocationID
-from dotenv import load_dotenv
-from datetime import datetime
-from Backend.Connections.QBcDBConnector import db
-from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -49,7 +50,8 @@ current_date = datetime.now().strftime('%Y-%m-%d')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-file_handler = RollingFileHandler(INTEGRATION_LOG_DIR, 'StdAloneLocFetcher.log')
+file_handler = RollingFileHandler(
+    INTEGRATION_LOG_DIR, 'StdAloneLocFetcher.log')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
@@ -140,14 +142,16 @@ def FetchLocationIDS():
             json_data = response.json()
 
             # Extract the first location ID for the city
-            first_location_id = json_data.get('data', [])[0].get('result_object', {}).get('location_id', None)
+            first_location_id = json_data.get('data', [])[0].get(
+                'result_object', {}).get('location_id', None)
 
             if first_location_id:
                 location_ids[city] = first_location_id
                 logging.info(f"Location ID for {city}: {first_location_id}")
                 CreateLocationID(city, first_location_id, True)
         except Exception as e:
-            logging.error(f"An error occurred while fetching data for {city}: {e}")
+            logging.error(
+                f"An error occurred while fetching data for {city}: {e}")
 
     return location_ids
 

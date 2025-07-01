@@ -35,6 +35,8 @@ current_date = datetime.now().strftime("%Y-%m-%d")
 # ====================================================================
 # Config --> Configuration for QB App.
 # ====================================================================
+
+
 class Config:
     """
     This class provides access to various configuration settings for the application.
@@ -46,7 +48,7 @@ class Config:
     This class is intended to be used during the application setup to configure the application
     with the desired settings based on the defined environment variables.
     """
-    
+
     DB = os.environ.get('DB')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOAD_FOLDER_RELATIVE = os.environ.get('UPLOAD_FOLDER_RELATIVE')

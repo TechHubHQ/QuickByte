@@ -1,14 +1,14 @@
 # ===============================================================================================================
-# This script is an Order Status Engine that runs continuously and updates the status of orders 
+# This script is an Order Status Engine that runs continuously and updates the status of orders
 # in a database based on a predefined order status mapping. Here's a breakdown of the main functionality:
 
 # 1. Imports necessary modules and sets up logging.
 # 2. Configures the application context for the Flask app.
 # 3. Defines an ORDER_STATUS_MAPPING dictionary that maps the current order status to the next status.
 # 4. The OrderStatusEngine function:
-#   a. Queries the database for orders that need a status update based on the order status and order 
+#   a. Queries the database for orders that need a status update based on the order status and order
 #      cancellation/delivery status.
-#   b. For each order found, it updates the order status to the next status in the mapping using the 
+#   b. For each order found, it updates the order status to the next status in the mapping using the
 #      UpdateOrderStatus and UpdateOrderStatusTimeStamps functions.
 #   c. Logs the status update for each order.
 #   d. If no orders are found, it logs a message indicating that no orders require a status update.
@@ -17,7 +17,7 @@
 # 5. Catches and logs any exceptions that occur during execution and waits for 1 minute before retrying.
 # 6. The main function calls OrderStatusEngine when the script is run directly.
 
-# This script is designed to be run continuously, either as a standalone script or as part of a larger application, 
+# This script is designed to be run continuously, either as a standalone script or as part of a larger application,
 # to maintain the order status in the database based on the predefined order status flow.
 # =====================================================================================================================
 
@@ -26,6 +26,9 @@
 # Imports/Packages
 # ===========================================================
 
+from Config.PyLogger import RollingFileHandler
+from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, UpdateOrderStatus, UpdateOrderStatusTimeStamps
+from app import app
 import os
 import time
 import sys
@@ -33,11 +36,9 @@ import logging
 from dotenv import load_dotenv
 from datetime import datetime
 # Add the root directory to the Python path
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+root_dir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(root_dir)
-from app import app
-from Backend.Models.QBmOrder2ItemModel import OrderDetailsHeader, UpdateOrderStatus, UpdateOrderStatusTimeStamps
-from Config.PyLogger import RollingFileHandler
 
 # Set up logging
 script_dir = os.path.dirname(__file__)
@@ -95,12 +96,13 @@ def OrderStatusEngine():
     This function is designed to run continuously, as a standalone script,
     to maintain the order status in the database based on the predefined order status flow.
     """
-    
+
     while True:
         try:
             # Query orders that need status update
             orders = OrderDetailsHeader.query.filter(
-                OrderDetailsHeader.order_status.in_(ORDER_STATUS_MAPPING.keys()),
+                OrderDetailsHeader.order_status.in_(
+                    ORDER_STATUS_MAPPING.keys()),
                 OrderDetailsHeader.order_cancel_time.is_(None),
                 OrderDetailsHeader.order_delivered_time.is_(None)
             ).all()
@@ -112,21 +114,25 @@ def OrderStatusEngine():
                     next_status = ORDER_STATUS_MAPPING.get(current_status)
                     if next_status:
                         UpdateOrderStatus(order.order_id, next_status)
-                        UpdateOrderStatusTimeStamps(order.order_id, next_status)
+                        UpdateOrderStatusTimeStamps(
+                            order.order_id, next_status)
                         logging.info(
                             f"Order {order.order_id} updated from '{current_status}' to '{next_status}'")
             else:
                 logging.info("No orders found requiring status update")
                 # Print alive ping
-                logging.info(f"OrderStatusEngine is alive -- Process ID: {os.getpid()}")
+                logging.info(
+                    f"OrderStatusEngine is alive -- Process ID: {os.getpid()}")
 
             # Sleep for 2 minutes
             time.sleep(120)
 
         except Exception as e:
             logging.error(f"Error occurred: {e}")
-            time.sleep(60)  # Wait for a minute before retrying in case of error
-            logging.info(f"OrderStatusEngine Waiting to restart after error -- Process ID: {os.getpid()}")
+            # Wait for a minute before retrying in case of error
+            time.sleep(60)
+            logging.info(
+                f"OrderStatusEngine Waiting to restart after error -- Process ID: {os.getpid()}")
 
 
 if __name__ == '__main__':

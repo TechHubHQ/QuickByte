@@ -31,7 +31,7 @@ class CityLocation(db.Model):
         loc_id (int): The location ID associated with the city.
         loc_flag (bool): A flag indicating the status of the location.
     """
-    
+
     __tablename__ = "city_location"
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String, nullable=False)
